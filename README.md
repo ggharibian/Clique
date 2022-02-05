@@ -14,7 +14,7 @@ especially in terms of planning where and when to meet.
 
 > TODO: INSERT SCREENSHOTS HERE
 
-![HomePage](../auxmedia/testhome.png)
+![HomePage](./auxmedia/testhome.png)
 
 &nbsp;&nbsp;
 
