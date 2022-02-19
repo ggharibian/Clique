@@ -1,38 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
 .login {
   height: 100vh;
   width: 100vw;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://i.pinimg.com/originals/6c/7d/4e/6c7d4e66489a58251253a741adf9c8b9.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.content {
+    outline: 5px solid #5bc0de;
+    border-radius: 5px;
+    box-shadow: 0px 0px 0px 1px #5bc0de;
+
+}
+
+.titleCard {
+  height: 40vh;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.login__container {
+.headerCard {
+  height: 20vh;
+  width: 20vw;
+  margin-bottom: 10vh;
+}
+
+.bodyCard {
   display: flex;
   flex-direction: column;
-  text-align: center;
-  background-color: #dcdcdc;
-  padding: 30px;
+  align-items: center;
+  justify-content: center;
 }
 
-.login__textBox {
-  padding: 10px;
-  font-size: 18px;
+.titleText {
+  font-size: 70px;
   margin-bottom: 10px;
+  font-family: 'Quicksand';
+  font-weight: bold;
+  color: #6495ed;
 }
 
-.login__btn {
-  padding: 10px;
+.subtitle {
   font-size: 18px;
+  margin-bottom: 30px;
+  font-family: 'Quicksand';
+  font-style: italic;
+}
+
+.supportText {
+  font-size: 15px;
   margin-bottom: 10px;
-  border: none;
-  color: white;
-  background-color: black;
-}
-
-.login__google {
-  background-color: #4285f4;
-}
-
-.login div {
-  margin-top: 7px;
+  margin-top: 25px;
+  font-family: 'Quicksand';
+  font-style: italic;
 }

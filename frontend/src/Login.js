@@ -4,6 +4,12 @@ import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Login.css";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
+import GoogleButton from 'react-google-button'
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,37 +26,31 @@ function Login() {
 
   return (
     <div className="login">
-      <div className="login__container">
-        <input
-          type="text"
-          className="login__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <input
-          type="password"
-          className="login__textBox"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button
-          className="login__btn"
-          onClick={() => logInWithEmailAndPassword(email, password)}
-        >
-          Login
-        </button>
-        <button className="login__btn login__google" onClick={signInWithGoogle}>
-          Login with Google
-        </button>
-        <div>
-          <Link to="/reset">Forgot Password</Link>
-        </div>
-        <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
-        </div>
+      <center>
+      <div className="content">
+        <Card border="info" className="titleCard">
+          <Card.Header className="headerCard">
+          <div className="titleText"> Clique. </div>
+          <div className="subtitle"> Fancy slogan in the works... </div>
+          </Card.Header>
+
+          <Card.Body className="bodyCard">
+            <GoogleButton
+              type="light"
+              label='Sign in With Google'
+              size='100'
+              onClick={signInWithGoogle}
+            />
+
+            <div className="supportText">
+              Don't have an account? <a href="https://accounts.google.com/SignUp?hl=en" target="_blank">
+                                    Register
+              </a> now.
+            </div>
+          </Card.Body>
+        </Card>
       </div>
+      </center>
     </div>
   );
 }

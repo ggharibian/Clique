@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -30,16 +34,28 @@ function Dashboard() {
     fetchUserName();
   }, [user, loading]);
 
+
+
   return (
     <div className="dashboard">
-      <div className="dashboard__container">
-        Logged in as
-        <div>{name}</div>
-        <div>{user?.email}</div>
-        <button className="dashboard__btn" onClick={logout}>
-          Logout
-        </button>
+      <center>
+      <div className="content">
+        <Card border="info" className="d_titleCard">
+          <Card.Header className="d_headerCard">
+          <div className="d_titleText"> Welcome, {name}. </div>
+          <div className="d_subtitle"> {user?.email} </div>
+          </Card.Header>
+
+          <Card.Body className="d_  bodyCard">
+              <Button variant="primary" size="lg" onClick={logout}>
+                Click to Logout
+              </Button>{' '}
+          </Card.Body>
+        </Card>
       </div>
+      </center>
+
+
     </div>
   );
 }
