@@ -9,7 +9,7 @@ import Routing from "./Routing";
 import Friends from "./Friends";
 
 // sticky navigation bar
-/* FIX : if on a new page, nav bar shows up only once user has scrolled */
+/* TODO: Check if sticky feature works. */
 window.onscroll = function() {stickyNav()};
 const navbar = document.getElementById("nav");
 const sticky = navbar.offsetTop;

@@ -11,6 +11,9 @@
     justify-content: space-around;
     align-items: center;
     min-height: 9vh;
+    position: fixed;
+    width: 100%;
+    top: 0px;
     color: #6495ed;
     font-family: 'Nunito Sans', sans-serif;
 }
