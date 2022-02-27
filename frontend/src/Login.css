@@ -13,10 +13,9 @@
 }
 
 .content {
-    outline: 5px solid #5bc0de;
+    outline: 5px solid #6495ed;
     border-radius: 5px;
-    box-shadow: 0px 0px 0px 1px #5bc0de;
-
+    box-shadow: 0px 0px 0px 1px #6495ed;
 }
 
 .titleCard {
