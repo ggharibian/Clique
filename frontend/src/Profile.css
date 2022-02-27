@@ -1,12 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
 
+.title{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 28px;
+    color: black;
+    font-weight: 900;
+    font-family: 'Nunito Sans';
+}
+
 .text {
+    margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
     font-size: 22px;
     color: black;
-    font-style: italic;
     font-family: 'Nunito Sans';
+    font-weight: 400;
+}
+
+.text p{
+    font-size: 15px;
 }
 
 .profile {
