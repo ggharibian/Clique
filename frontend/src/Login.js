@@ -28,7 +28,7 @@ function Login() {
     <div className="login">
       <center>
       <div className="content">
-        <Card border="info" className="titleCard">
+        <Card border="primary" className="titleCard">
           <Card.Header className="headerCard">
           <div className="titleText"> Clique. </div>
           <div className="subtitle"> Fancy slogan in the works... </div>
@@ -43,8 +43,9 @@ function Login() {
             />
 
             <div className="supportText">
-              Don't have an account? <a href="https://accounts.google.com/SignUp?hl=en" target="_blank">
-                                    Register
+              Don't have an account? 
+              <a href="https://accounts.google.com/SignUp?hl=en" target="_blank">
+                  Register
               </a> now.
             </div>
           </Card.Body>
