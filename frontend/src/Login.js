@@ -28,7 +28,7 @@ function Login() {
     <div className="login">
       <center>
       <div className="content">
-        <Card border="primary" className="titleCard">
+        <Card className="titleCard">
           <Card.Header className="headerCard">
           <div className="titleText"> Clique. </div>
           <div className="subtitle"> Fancy slogan in the works... </div>
