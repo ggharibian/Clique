@@ -83,9 +83,9 @@
   /* CSS FOR ALERT */
   .alert {
     position: fixed;
-    top: 6%;
-    justify-content: center;
-    display: flex;
+    top: 7%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .alert-text {
