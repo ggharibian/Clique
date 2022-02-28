@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
+
+.title{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 28px;
+    color: black;
+    font-weight: 900;
+    font-family: 'Nunito Sans';
+}
+
+.container {
+    margin-top: 10vh;
+    height: 100%;
+    margin-bottom: 10vh;
+    width: 60vmax;
+    padding: 4%;
+  }
+
+  .profile {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(215, 240, 238);
+  }
+
+  .subtitle {
+    font-size: 18px;
+    font-family: 'Quicksand';
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .info-subtitle {
+    font-size: 18px;
+    font-family: 'Quicksand';
+    margin-bottom: 4%;
+  }
+
+  /* CSS FOR RADIO BUTTONS */
+  .radiobtn-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .radiobtn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .radio-bubble {
+     margin-left: 2vmax;
+  }
+
+  /* CSS FOR FAVORITES SECTION */
+  .favorite-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .favorite-label {
+    width: 10vmax;
+    text-align: left;
+  }
+
+  /* CSS FOR PERSONAL INFO SECTION */
+  .personal-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .personal-label {
+    width: 15vmax;
+    text-align: left;
+  }
+
+  /* CSS FOR ALERT */
+  .alert {
+    position: fixed;
+    top: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .alert-text {
+    font-size: 16px;
+  }

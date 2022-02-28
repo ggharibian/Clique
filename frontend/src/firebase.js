@@ -39,6 +39,7 @@ const signInWithGoogle = async () => {
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
+    
     if (docs.docs.length === 0) {
       await addDoc(collection(db, "users"), {
         uid: user.uid,
@@ -46,6 +47,7 @@ const signInWithGoogle = async () => {
         authProvider: "google",
         email: user.email,
       });
+      window.location = '/registration';
     }
   } catch (err) {
     console.error(err);
