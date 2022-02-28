@@ -7,6 +7,7 @@ import Groups from "./Groups";
 import Calendar from "./Calendar";
 import Routing from "./Routing";
 import Friends from "./Friends";
+import Registration from "./Registration";
 
 // sticky navigation bar
 /* FIX : if on a new page, nav bar shows up only once user has scrolled */
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="/calendar" element={<Calendar />} />
           <Route exact path="/routing" element={<Routing />} />
           <Route exact path="/friends" element={<Friends />} />
+          <Route exact path="/registration" element={<Registration />} />
         </Routes>
       </Router>
     </div>
