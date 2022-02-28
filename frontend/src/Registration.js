@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { render, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Registration.css";
@@ -7,8 +7,21 @@ import { query, collection, getDocs, setDoc, doc, where } from "firebase/firesto
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
+
+function AlertError({show, setShow}) {
+    if (show) {
+      return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          <Alert.Heading className="alert-text">Please fill out all the fields before submitting!</Alert.Heading>
+        </Alert>
+      );
+    } else {
+        return null;
+    }
+}
+  
 
 function Registration () {
     const [user, loading, error] = useAuthState(auth);
@@ -23,6 +36,8 @@ function Registration () {
     const [song, setSong] = useState("");
     const [movie, setMovie] = useState("");
     const [book, setBook] = useState("");
+    const [isValid, setIsValid] = useState(true);
+    const [show, setShow] = useState(true);
   
     // obtain information already in database - name and email
     const fetchInfo = async () => {
@@ -41,43 +56,49 @@ function Registration () {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Clicked submit");
 
-        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-        const docwanted = await getDocs(q);
+        if(!name || !license || !permit || !car || !food || !place || !song || !movie || !book) {
+            setIsValid(false);
+            setShow(true);
+            //set state show to be true again for alert
+        } else {
+            setIsValid(true);
+            const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const docwanted = await getDocs(q);
 
-        await setDoc(doc(db, "users", docwanted.docs[0].id), {
-            uid: user.uid,
-            authProvider: "google",
-            email: email,
-            name: name,
-            license: license,
-            permit: permit,
-            car: car,
-            food: food,
-            place: place,
-            song: song,
-            movie: movie,
-            book: book
-        })
-          .then(() => {
-            
-            window.location = '/dashboard';
-          })
-          .catch((error) => {
-            alert(error.message);
-          });
-    
-        setName("");
-        setEmail("");
-        setLicense("");
-        setPermit("");
-        setCar("");
-        setFood("");
-        setPlace("");
-        setSong("");
-        setMovie("");
-        setBook("");
+            await setDoc(doc(db, "users", docwanted.docs[0].id), {
+                uid: user.uid,
+                authProvider: "google",
+                email: email,
+                name: name,
+                license: license,
+                permit: permit,
+                car: car,
+                food: food,
+                place: place,
+                song: song,
+                movie: movie,
+                book: book
+            })
+            .then(() => {
+                
+                window.location = '/dashboard';
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+        }
+
+        // setName("");
+        // setEmail("");
+        // setLicense("");
+        // setPermit("");
+        // setCar("");
+        // setFood("");
+        // setPlace("");
+        // setSong("");
+        // setMovie("");
+        // setBook("");
       };
 
     useEffect(() => {    
@@ -88,6 +109,7 @@ function Registration () {
     <center>
         <div className="profile">
             <div className="container">
+            {isValid ? null : <AlertError show={show} setShow={setShow}/>}
                 <h1 className="title">You are just one Clique away!</h1>
                 <h2 className="info-subtitle">Please fill out some more information about yourself:</h2>
                 <hr></hr>
@@ -112,7 +134,7 @@ function Registration () {
                     <h4 className="subtitle"> Driving Capabilities </h4>
                     <Form.Group className="mb-3 radiobtn-input" controlId="forlicense">
                         <Form.Label>Do you have a license: </Form.Label>
-                        <div class="radiobtn-container">
+                        <div className="radiobtn-container">
                             <Form.Check className="radio-bubble" inline label="yes" name="license" type="radio" id={`inline-radio-1`} value="yes" onChange={(e) => setLicense(e.target.value)}/>
                             <Form.Check className="radio-bubble" inline label="no" name="license" type="radio" id={`inline-radio-2`} value="no" onChange={(e) => setLicense(e.target.value)}/>
                         </div>
@@ -120,7 +142,7 @@ function Registration () {
 
                     <Form.Group className="mb-3 radiobtn-input" controlId="forPermit">
                         <Form.Label>Do you have a permit: </Form.Label>
-                        <div class="radiobtn-container">
+                        <div className="radiobtn-container">
                             <Form.Check className="radio-bubble" inline label="yes" name="Permit" type="radio" id={`inline-radio-1`} value="yes" onChange={(e) => setPermit(e.target.value)}/>
                             <Form.Check className="radio-bubble" inline label="no" name="Permit" type="radio" id={`inline-radio-2`} value="no" onChange={(e) => setPermit(e.target.value)}/>
                         </div>
@@ -128,7 +150,7 @@ function Registration () {
 
                     <Form.Group className="mb-3 radiobtn-input" controlId="forCar">
                         <Form.Label>Do you own / have access to a car: </Form.Label>
-                        <div class="radiobtn-container">
+                        <div className="radiobtn-container">
                             <Form.Check className="radio-bubble" inline label="yes" name="Car" type="radio" id={`inline-radio-1`} value="yes" onChange={(e) => setCar(e.target.value)}/>
                             <Form.Check className="radio-bubble" inline label="no" name="Car" type="radio" id={`inline-radio-2`} value="no" onChange={(e) => setCar(e.target.value)}/>
                         </div>
@@ -161,9 +183,6 @@ function Registration () {
         </div>
     </center>
     );
-
-    //on submit want to redirect to dashboard
-    //want on submit to enter data in database
 }
 
 export default Registration;
