@@ -10,6 +10,8 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
 
+
+// Component for alert
 function AlertError({show, setShow}) {
     if (show) {
       return (
@@ -22,10 +24,11 @@ function AlertError({show, setShow}) {
     }
 }
   
-
+// Component for registration
 function Registration () {
-    const [user, loading, error] = useAuthState(auth);
 
+    // Initialize states
+    const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [license, setLicense] = useState("");
@@ -36,6 +39,7 @@ function Registration () {
     const [song, setSong] = useState("");
     const [movie, setMovie] = useState("");
     const [book, setBook] = useState("");
+    const [address, setAddress] = useState("");
     const [isValid, setIsValid] = useState(true);
     const [show, setShow] = useState(true);
   
@@ -54,14 +58,15 @@ function Registration () {
       }
     };
 
+    // On submit
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // If any fields are un filled
         if(!name || !license || !permit || !car || !food || !place || !song || !movie || !book) {
             setIsValid(false);
             setShow(true);
-            //set state show to be true again for alert
-        } else {
+        } else { // Set values in data base
             setIsValid(true);
             const q = query(collection(db, "users"), where("uid", "==", user?.uid));
             const docwanted = await getDocs(q);
@@ -78,33 +83,24 @@ function Registration () {
                 place: place,
                 song: song,
                 movie: movie,
-                book: book
+                book: book,
+                address: address
             })
             .then(() => {
-                
                 window.location = '/dashboard';
             })
             .catch((error) => {
                 alert(error.message);
             });
         }
-
-        // setName("");
-        // setEmail("");
-        // setLicense("");
-        // setPermit("");
-        // setCar("");
-        // setFood("");
-        // setPlace("");
-        // setSong("");
-        // setMovie("");
-        // setBook("");
       };
 
+    // Obtain information
     useEffect(() => {    
         fetchInfo();
       }, [user]);
 
+    
     return (
     <center>
         <div className="profile">
@@ -127,8 +123,8 @@ function Registration () {
                     </Form.Group>
 
                     <Form.Group className="mb-3 personal-item" controlId="forAddress">
-                        <Form.Label className="personal-label">Preferred Name: </Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)}/>
+                        <Form.Label className="personal-label">Address: </Form.Label>
+                        <Form.Control type="text" placeholder="Enter your address" value={address} onChange={(e) => setAddress(e.target.value)}/>
                     </Form.Group>
 
                     <h4 className="subtitle"> Driving Capabilities </h4>
