@@ -1,5 +1,4 @@
-import React, { render, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Registration.css";
 import { auth, db } from "./firebase";
@@ -28,7 +27,7 @@ function AlertError({show, setShow}) {
 function Registration () {
 
     // Initialize states
-    const [user, loading, error] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [license, setLicense] = useState("");
