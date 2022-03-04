@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
 
 .title{
+    padding-top: 9vh;
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;

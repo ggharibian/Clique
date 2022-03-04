@@ -24,7 +24,8 @@ function Profile() {
         setName(data.name);
       } catch (err) {
         console.error(err);
-        alert("An error occured while fetching user data");
+        // FIX: This alert message shows up regardless of successful fetch.
+        // alert(err.message);
       }
     };
 
