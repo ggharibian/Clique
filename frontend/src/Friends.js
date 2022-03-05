@@ -4,15 +4,28 @@ import "./Friends.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 
+
+function SearchFriend() {
+    const modal = document.getElementById("addfriendpopup");
+    const button = document.getElementById("addfriendbtn");
+    const span = document.getElementsByClassName("close")[0];
+    button.onclick = function() {
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+}
+
 function Friends() {
     return (
         <center>
         <div className="friends">
-        
+
             <div className="text">
                 Sample of the table that will be produced
             </div>
-
+            
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -55,6 +68,15 @@ function Friends() {
                     </tr>
                 </tbody>
             </Table>
+            <button class="button" id="addfriendbtn"> Add Friend </button>
+            <div id="addfriendpopup" class="addfriend">
+                <div class="addfriend-content">
+                    <span class="close">&times;</span>
+                    <input type="text" placeholder="Enter your friend's email address"></input>
+                    <p>(Placeholder for 'send friend request' button)</p>
+                </div>
+            </div>
+            {window.onload = function(){SearchFriend()}}
         </div>
         </center>
     );
