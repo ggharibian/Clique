@@ -10,13 +10,14 @@
     padding: 2rem;
   }
 
-  /* Add Friend button */
+  /* "Add Friend" button */
 .button {
     border-radius: 10px;
     width: 90px;
     text-align: center;
     background-color:#fefefe;
 }
+
 
 .text {
     margin-bottom: 10px;
@@ -57,6 +58,15 @@
     width: 50%;
     font-size: 17px;
     border-radius: 10px;
+}
+
+/* TODO: style to make it look better */
+/* "send friend request" button */
+.addfriend-sendbutton {
+    border-radius: 10px;
+    width: 90px;
+    text-align: center;
+    background-color:#fefefe;
 }
 
 .close {
