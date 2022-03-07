@@ -26,7 +26,7 @@ function Groups() {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 mb-3">
-                        <Card classname="card" style={{ width: '20rem' }}>
+                        <Card classname="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
                             <div class="text">
                                 <h3>Group Name 1</h3>
@@ -38,7 +38,7 @@ function Groups() {
                         </Card>
                     </div>
                     <div class="col-lg-4 mb-3">
-                        <div class="card" style={{ width: '20rem' }}>
+                        <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
                             <div class="text">
                             <h3>Group Name 2</h3>
@@ -50,7 +50,7 @@ function Groups() {
                         </div>
                     </div>
                     <div class="col-lg-4 mb-3">
-                        <div class="card" style={{ width: '20rem' }}>
+                        <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
                             <div class="text">
                             <h3>Group Name 3</h3>
@@ -65,7 +65,7 @@ function Groups() {
 
                 <div class="row">
                     <div class="col-lg-4 mb-3">
-                        <Card classname="card" style={{ width: '20rem' }}>
+                        <Card classname="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
                             <div class="text">
                                 <h3>Group Name 4</h3>
@@ -77,7 +77,7 @@ function Groups() {
                         </Card>
                     </div>
                     <div class="col-lg-4 mb-3">
-                        <div class="card" style={{ width: '20rem' }}>
+                        <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
                             <div class="text">
                             <h3>Group Name 5</h3>
@@ -89,7 +89,7 @@ function Groups() {
                         </div>
                     </div>
                     <div class="col-lg-4 mb-3">
-                        <div class="card" style={{ width: '20rem' }}>
+                        <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
                             <div class="text">
                             <h3>Group Name 6</h3>

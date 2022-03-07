@@ -34,6 +34,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 30vh;
     /* background color : extend whole page */
     background-color: rgb(240, 227, 252);
   }
