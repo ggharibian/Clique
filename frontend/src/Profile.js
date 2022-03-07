@@ -13,6 +13,9 @@ import Card from 'react-bootstrap/Card';
 function Profile() {
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
     const navigate = useNavigate();
   
     const fetchUserName = async () => {
@@ -22,6 +25,9 @@ function Profile() {
         const data = doc.docs[0].data();
   
         setName(data.name);
+        setEmail(data.email);
+        setAddress(data.address);
+        setPhone(data.phone);
       } catch (err) {
         console.error(err);
         // FIX: This alert message shows up regardless of successful fetch.
@@ -46,10 +52,10 @@ function Profile() {
 
                 {/* ADD IN OTHER USER INFO HERE BELOW : PLACEHOLDER TEXT */}
                 <text>
-                    *** placeholder text *** <br />
-                    My email is: <br />
-                    My phone is: <br />
-                    My address is: <br />
+                    <h6>--- Some information about me ---</h6> <br />
+                    <span className="user-info-subtitle">My email is:</span> {email}<br />
+                    <span className="user-info-subtitle">My phone is:</span> {phone} <br />
+                    <span className="user-info-subtitle">My address is:</span> {address}<br />
                 </text>
             </div>
 
