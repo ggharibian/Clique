@@ -21,7 +21,7 @@ function Login() {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/dashboard");
+    if (user) navigate("/profile");
   }, [user, loading]);
 
   return (

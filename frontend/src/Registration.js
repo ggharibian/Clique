@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
 
-
 // Component for alert
 function AlertError({show, setShow}) {
     if (show) {
@@ -53,7 +52,7 @@ function Registration () {
         setEmail(data.email);
       } catch (err) {
         console.error(err);
-        alert("An error occured while fetching user data");
+        //alert("An error occured while fetching user data");
       }
     };
 
@@ -86,7 +85,7 @@ function Registration () {
                 address: address
             })
             .then(() => {
-                window.location = '/dashboard';
+                window.location = '/profile';
             })
             .catch((error) => {
                 alert(error.message);
