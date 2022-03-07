@@ -3,7 +3,7 @@ import "./Profile.css";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import "./Dashboard.css";
+// import "./Dashboard.css";
 import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 
@@ -38,14 +38,13 @@ function Profile() {
       }, [user, loading]);
 
     return (
-        <center>
-        <div className="profile">
+        <div className="myProfile">
             <div className="title">{name}'s profile</div>
             <br />
 
             <div className="user-info">
 
-                {/* sADD IN OTHER USER INFO HERE BELOW : PLACEHOLDER TEXT */}
+                {/* ADD IN OTHER USER INFO HERE BELOW : PLACEHOLDER TEXT */}
                 <text>
                     *** placeholder text *** <br />
                     My email is: <br />
@@ -56,12 +55,12 @@ function Profile() {
 
             <br />
 
-            <div class="container">
+            <div class="profileContainer">
                 <div class="row">
                     <div class="col-lg-6 mb-4">
-                        <Card classname="card" style={{ width: '25rem' }}>
+                        <Card classname="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="profileText">
                                 <h3>friends</h3>
                                 <p>see my list of friends and their information</p>
                                 <a href="../friends" class="btn btn-outline-primary btn-sm">
@@ -71,9 +70,9 @@ function Profile() {
                         </Card>
                     </div>
                     <div class="col-lg-6 mb-4">
-                        <div class="card" style={{ width: '25rem' }}>
+                        <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="profileText">
                                 <h3>groups</h3>
                                 <p>see my friend groups</p>
                                 <a href="../groups" class="btn btn-outline-primary btn-sm">
@@ -86,9 +85,9 @@ function Profile() {
 
                 <div class="row">
                     <div class="col-lg-6 mb-4">
-                        <div class="card" style={{ width: '25rem' }}>
+                        <div class="card">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="profileText" display="flex">
                                 <h3>calendar</h3>
                                 <p>see upcoming planned and potential events</p>
                                 <a href="../calendar" class="btn btn-outline-primary btn-sm">
@@ -98,9 +97,9 @@ function Profile() {
                         </div>
                     </div>
                     <div class="col-lg-6 mb-4">
-                        <div class="card" style={{ width: '25rem' }}>
+                        <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="profileText">
                                 <h3>map</h3>
                                 <p>see routes for upcoming events</p>
                                 <a href="../routing" class="btn btn-outline-primary btn-sm">
@@ -112,7 +111,6 @@ function Profile() {
                 </div>
              </div>
         </div>
-        </center>
     );
 }
 
