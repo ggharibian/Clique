@@ -29,6 +29,7 @@ function Registration () {
     const [user] = useAuthState(auth);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [license, setLicense] = useState("");
     const [permit, setPermit] = useState("");
     const [car, setCar] = useState("");
@@ -73,6 +74,7 @@ function Registration () {
                 uid: user.uid,
                 authProvider: "google",
                 email: email,
+                phone: phone,
                 name: name,
                 license: license,
                 permit: permit,
@@ -93,6 +95,7 @@ function Registration () {
         }
       };
 
+      
     // Obtain information
     useEffect(() => {    
         fetchInfo();
@@ -118,6 +121,11 @@ function Registration () {
                     <Form.Group className="mb-3 personal-item" controlId="forbasicName">
                         <Form.Label className="personal-label">Preferred Name: </Form.Label>
                         <Form.Control type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)}/>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3 personal-item" controlId="forbasicName">
+                        <Form.Label className="personal-label">Phone number: </Form.Label>
+                        <input id="validationDefault01" class="form-control" type="text" placeholder="Enter phone number" value={phone} onChange={(e) => setPhone(e.target.value)}></input>
                     </Form.Group>
 
                     <Form.Group className="mb-3 personal-item" controlId="forAddress">
