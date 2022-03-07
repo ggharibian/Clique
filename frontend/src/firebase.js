@@ -13,7 +13,6 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDjrDmZt1EOMiZB14bjCwhKqjaQOJV-nl0",
