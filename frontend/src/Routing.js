@@ -1,6 +1,9 @@
 import React from "react";
 import "./Routing.css";
 import Card from 'react-bootstrap/Card';
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import Map from "./components/Map";
+
 // import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 // import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
@@ -16,11 +19,12 @@ import Card from 'react-bootstrap/Card';
 
 // const WrappedMap = withScriptjs(withGoogleMap(Map));
 
-class Map extends React.Component{
-    render(){
-        return <h1>Map</h1>;
-    }
-}
+// class Map extends React.Component{
+//     render(){
+//         return <h1>Map</h1>;
+//     }
+// }
+
 // const Map: React.FC<{}> = () => {
 //     const ref = React.useRef<HTMLDivElement>(null);
 //     const [map, setMap] = React.useState<google.maps.Map>();
@@ -34,12 +38,18 @@ class Map extends React.Component{
 // };
 
 function Routing() {
+
+    const center = { lat: -25.363, lng: 131.044 }
+    const zoom = 4
+    
     return (
         <div className="routing">
             <div className="map">
             <Card style={{width: "50%", height: "85%", position: 'absolute', top: '10%', left: '3%'}}>
                 <Card.Body>
-                    <Map />
+                    <Wrapper apiKey={"AIzaSyBKwEuYU5RNf4DEi4DXyzoPibJwKwyqkkc"}>
+                        <Map center={center} zoom={zoom}/>
+                    </Wrapper>
                 </Card.Body>
             </Card>
             </div>
