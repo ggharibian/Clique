@@ -12,7 +12,6 @@ function Groups() {
             <br />
 
             <div className="user-info">
-
                 {/* ADD IN OTHER USER INFO HERE BELOW : PLACEHOLDER TEXT */}
                 <text>
                     *** placeholder text *** <br />
@@ -20,15 +19,13 @@ function Groups() {
                     will have a card for every group
                 </text>
             </div>
-
             <br />
-
-            <div class="container">
+            <div class="groupContainer">
                 <div class="row">
                     <div class="col-lg-4 mb-3">
                         <Card classname="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="groupText">
                                 <h3>Group Name 1</h3>
                                 <p>there are # people in this friend group and # upcoming events with them</p>
                                 <a href="../groupname-1" class="btn btn-outline-primary btn-sm">
@@ -40,7 +37,7 @@ function Groups() {
                     <div class="col-lg-4 mb-3">
                         <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="groupText">
                             <h3>Group Name 2</h3>
                                 <p>there are # people in this friend group and # upcoming events with them</p>
                                 <a href="../groupname-2" class="btn btn-outline-primary btn-sm">
@@ -52,7 +49,7 @@ function Groups() {
                     <div class="col-lg-4 mb-3">
                         <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="groupText">
                             <h3>Group Name 3</h3>
                                 <p>there are # people in this friend group and # upcoming events with them</p>
                                 <a href="../groupname-3" class="btn btn-outline-primary btn-sm">
@@ -67,7 +64,7 @@ function Groups() {
                     <div class="col-lg-4 mb-3">
                         <Card classname="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="groupText">
                                 <h3>Group Name 4</h3>
                                 <p>there are # people in this friend group and # upcoming events with them</p>
                                 <a href="../groupname-4" class="btn btn-outline-primary btn-sm">
@@ -79,7 +76,7 @@ function Groups() {
                     <div class="col-lg-4 mb-3">
                         <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="groupText">
                             <h3>Group Name 5</h3>
                                 <p>there are # people in this friend group and # upcoming events with them</p>
                                 <a href="../groupname-5" class="btn btn-outline-primary btn-sm">
@@ -91,7 +88,7 @@ function Groups() {
                     <div class="col-lg-4 mb-3">
                         <div class="card" display="flex">
                             <img class="card-img-top" src="" alt=""/>
-                            <div class="text">
+                            <div class="groupText">
                             <h3>Group Name 6</h3>
                                 <p>there are # people in this friend group and # upcoming events with them</p>
                                 <a href="../groupname-6" class="btn btn-outline-primary btn-sm">
@@ -101,7 +98,7 @@ function Groups() {
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
         </div>
         </center>
     );
