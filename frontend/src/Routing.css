@@ -10,7 +10,7 @@
 }
 
 .routing {
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -18,3 +18,9 @@
     justify-content: center;
     background-color: rgb(207, 254, 179);
   }
+
+@media screen and (min-height:600px) and (min-width:1000px){
+    .routing {
+        height: 100vh;
+    }
+}
