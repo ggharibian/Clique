@@ -54,6 +54,7 @@ const signInWithGoogle = async () => {
 
 const logout = () => {
   signOut(auth);
+  window.location = '/';
 };
 
 export {

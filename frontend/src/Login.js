@@ -43,7 +43,7 @@ function Login() {
             />
 
             <div className="supportText">
-              Don't have an account? 
+              Don't have an account? &nbsp;
               <a href="https://accounts.google.com/SignUp?hl=en" target="_blank">
                   Register
               </a> now.
