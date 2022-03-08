@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   height: 20vh;
-  padding: 1rem; 
+  padding: 1rem;
 }
 
 .cal_bottomtext {
@@ -39,8 +39,20 @@
   color: #6495ed;
 }
 
+.google_calendar {
+  height: 60vh;
+  width: 60vw;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+  padding: 1rem;
+}
+
+.google_background {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png");
+}
+
 .calendar {
-    height: 92vh;
+    height: 112vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -65,11 +77,15 @@
 }
 
 .cal_widgetCard {
-  height: 60vh;
+  height: 82vh;
   width: 60vw;
   margin-top: 1vh;
   margin-bottom: 2vh;
   padding: 1rem;
+}
+
+.cal_form {
+  padding: 10px;
 }
 
 .cal_funCard {
@@ -79,7 +95,7 @@
 }
 
 .cal_meetingCard {
-  height: 45vh;
+  height: 52vh;
   width: 30vw;
   margin-top: 1vh;
   margin-bottom: 2vh;
@@ -87,13 +103,13 @@
 }
 
 .cal_scheduleCard {
-  height: 35vh;
+  height: 50vh;
   width: 30vw;
   padding: 1rem;
 }
 
 .scroll {
-  max-height: 45vh;
+  max-height: 52vh;
   overflow-y: auto;
 }
 

@@ -17,6 +17,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyDjrDmZt1EOMiZB14bjCwhKqjaQOJV-nl0",
   authDomain: "clique-928d2.firebaseapp.com",
@@ -32,6 +33,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope('https://www.googleapis.com/auth/calendar.readonly');
 
 const signInWithGoogle = async () => {
   try {
@@ -51,42 +53,33 @@ const signInWithGoogle = async () => {
     console.error(err);
     alert(err.message);
   }
+  console.log(auth.currentUser.email)
 };
 
-const logInWithEmailAndPassword = async (email, password) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
+function listEvents(auth) {
+  //auth.
+  //const calendar = google.calendar({version: 'v3', auth});
+  // calendar.events.list({
+  //   calendarId: 'primary',
+  //   timeMin: (new Date()).toISOString(),
+  //   maxResults: 10,
+  //   singleEvents: true,
+  //   orderBy: 'startTime',
+  // }, (err, res) => {
+  //   if (err) return console.log('The API returned an error: ' + err);
+  //   const events = res.data.items;
+  //   if (events.length) {
+  //     console.log('Upcoming 10 events:');
+  //     events.map((event, i) => {
+  //       const start = event.start.dateTime || event.start.date;
+  //       console.log(`${start} - ${event.summary}`);
+  //     });
+  //   } else {
+  //     console.log('No upcoming events found.');
+  //   }
+  // });
+}
 
-const registerWithEmailAndPassword = async (name, email, password) => {
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      name,
-      authProvider: "local",
-      email,
-    });
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
-
-const sendPasswordReset = async (email) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    alert("Password reset link sent!");
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
 
 const logout = () => {
   signOut(auth);
@@ -96,8 +89,6 @@ export {
   auth,
   db,
   signInWithGoogle,
-  logInWithEmailAndPassword,
-  registerWithEmailAndPassword,
-  sendPasswordReset,
+  listEvents,
   logout,
 };
