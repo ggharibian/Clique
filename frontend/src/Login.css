@@ -20,7 +20,7 @@
 
 .titleCard {
   height: 40vh;
-  width: 20vw;
+  width: 290px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,7 @@
 
 .headerCard {
   height: 20vh;
-  width: 20vw;
+  width: 290px;
   margin-bottom: 10vh;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .titleText {
-  font-size: 70px;
+  font-size: 4vmax;
   margin-bottom: 10px;
   font-family: 'Quicksand';
   font-weight: bold;
@@ -49,7 +49,7 @@
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 30px;
   font-family: 'Quicksand';
   font-style: italic;
