@@ -112,7 +112,7 @@ function Registration () {
                 <hr></hr>
 
                 <Form className="info-form" onSubmit={handleSubmit}>
-                    <h4 className="subtitle"> Personal Information </h4>
+                    <h4 className="subtitle-reg"> Personal Information </h4>
                     <Form.Group className="mb-3 personal-item" controlId="formBasicEmail">
                         <Form.Label className="personal-label">Email: </Form.Label>
                         <Form.Control type="email" value={email} onChange={(e) => setName(e.target.value)} plaintext readOnly />
@@ -133,7 +133,7 @@ function Registration () {
                         <Form.Control type="text" placeholder="Enter your address" value={address} onChange={(e) => setAddress(e.target.value)}/>
                     </Form.Group>
 
-                    <h4 className="subtitle"> Driving Capabilities </h4>
+                    <h4 className="subtitle-reg"> Driving Capabilities </h4>
                     <Form.Group className="mb-3 radiobtn-input" controlId="forlicense">
                         <Form.Label>Do you have a license: </Form.Label>
                         <div className="radiobtn-container">
@@ -158,7 +158,7 @@ function Registration () {
                         </div>
                     </Form.Group>
 
-                    <h4 className="subtitle">What is your favorite:</h4>
+                    <h4 className="subtitle-reg">What is your favorite:</h4>
                     <Form.Group className="mb-3 favorite-item" controlId="for">
                         <Form.Label className="favorite-label">Food: </Form.Label>
                         <Form.Control type="text" placeholder="Enter anything" value={food} onChange={(e) => setFood(e.target.value)}/>

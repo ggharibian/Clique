@@ -27,10 +27,25 @@
   justify-content: center;
 }
 
+@media only screen and (max-width: 1300px) {
+  .titleCard {
+    width: 290px;
+  }
+}
+
 .headerCard {
   height: 20vh;
-  width: 20vw;
+  width: 100%;
   margin-bottom: 10vh;
+}
+
+@media only screen and (max-height: 700px) {
+  .titleCard {
+    height: 300px;
+  }
+  .headerCard {
+    height: 180px
+  }
 }
 
 .bodyCard {
@@ -41,7 +56,7 @@
 }
 
 .titleText {
-  font-size: 70px;
+  font-size: 4vmax;
   margin-bottom: 10px;
   font-family: 'Quicksand';
   font-weight: bold;
@@ -49,7 +64,7 @@
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 30px;
   font-family: 'Quicksand';
   font-style: italic;
