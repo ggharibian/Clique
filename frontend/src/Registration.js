@@ -76,6 +76,7 @@ function Registration () {
                 email: email,
                 phone: phone,
                 name: name,
+                friends: [],
                 license: license,
                 permit: permit,
                 car: car,
