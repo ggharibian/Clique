@@ -34,6 +34,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(237, 240, 215);
+    overflow: scroll;
 }
 
 .profileContainer {
