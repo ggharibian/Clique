@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
 
-
 // Component for alert
 function AlertError({show, setShow}) {
     if (show) {
@@ -30,6 +29,7 @@ function Registration () {
     const [user] = useAuthState(auth);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [license, setLicense] = useState("");
     const [permit, setPermit] = useState("");
     const [car, setCar] = useState("");
@@ -53,7 +53,7 @@ function Registration () {
         setEmail(data.email);
       } catch (err) {
         console.error(err);
-        alert("An error occured while fetching user data");
+        //alert("An error occured while fetching user data");
       }
     };
 
@@ -62,7 +62,7 @@ function Registration () {
         e.preventDefault();
 
         // If any fields are un filled
-        if(!name || !license || !permit || !car || !food || !place || !song || !movie || !book) {
+        if(!name || !license || !permit || !car || !food || !place || !song || !movie || !book || !phone) {
             setIsValid(false);
             setShow(true);
         } else { // Set values in data base
@@ -74,6 +74,7 @@ function Registration () {
                 uid: user.uid,
                 authProvider: "google",
                 email: email,
+                phone: phone,
                 name: name,
                 license: license,
                 permit: permit,
@@ -86,7 +87,7 @@ function Registration () {
                 address: address
             })
             .then(() => {
-                window.location = '/dashboard';
+                window.location = '/profile';
             })
             .catch((error) => {
                 alert(error.message);
@@ -94,6 +95,7 @@ function Registration () {
         }
       };
 
+      
     // Obtain information
     useEffect(() => {    
         fetchInfo();
@@ -110,7 +112,7 @@ function Registration () {
                 <hr></hr>
 
                 <Form className="info-form" onSubmit={handleSubmit}>
-                    <h4 className="subtitle"> Personal Information </h4>
+                    <h4 className="subtitle-reg"> Personal Information </h4>
                     <Form.Group className="mb-3 personal-item" controlId="formBasicEmail">
                         <Form.Label className="personal-label">Email: </Form.Label>
                         <Form.Control type="email" value={email} onChange={(e) => setName(e.target.value)} plaintext readOnly />
@@ -121,12 +123,17 @@ function Registration () {
                         <Form.Control type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)}/>
                     </Form.Group>
 
+                    <Form.Group className="mb-3 personal-item" controlId="forbasicName">
+                        <Form.Label className="personal-label">Phone number: </Form.Label>
+                        <input id="validationDefault01" class="form-control" type="text" placeholder="Enter phone number" value={phone} onChange={(e) => setPhone(e.target.value)}></input>
+                    </Form.Group>
+
                     <Form.Group className="mb-3 personal-item" controlId="forAddress">
                         <Form.Label className="personal-label">Address: </Form.Label>
                         <Form.Control type="text" placeholder="Enter your address" value={address} onChange={(e) => setAddress(e.target.value)}/>
                     </Form.Group>
 
-                    <h4 className="subtitle"> Driving Capabilities </h4>
+                    <h4 className="subtitle-reg"> Driving Capabilities </h4>
                     <Form.Group className="mb-3 radiobtn-input" controlId="forlicense">
                         <Form.Label>Do you have a license: </Form.Label>
                         <div className="radiobtn-container">
@@ -151,7 +158,7 @@ function Registration () {
                         </div>
                     </Form.Group>
 
-                    <h4 className="subtitle">What is your favorite:</h4>
+                    <h4 className="subtitle-reg">What is your favorite:</h4>
                     <Form.Group className="mb-3 favorite-item" controlId="for">
                         <Form.Label className="favorite-label">Food: </Form.Label>
                         <Form.Control type="text" placeholder="Enter anything" value={food} onChange={(e) => setFood(e.target.value)}/>

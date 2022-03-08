@@ -21,7 +21,7 @@ function Login() {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/dashboard");
+    if (user) navigate("/profile");
   }, [user, loading]);
 
   return (
@@ -43,7 +43,7 @@ function Login() {
             />
 
             <div className="supportText">
-              Don't have an account? 
+              Don't have an account? &nbsp;
               <a href="https://accounts.google.com/SignUp?hl=en" target="_blank">
                   Register
               </a> now.

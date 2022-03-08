@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
 
-.title{
+.groupTitle{
     padding-top: 9vh;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     margin-bottom: 10px;
     text-align: center;
     font-size: 28px;
@@ -11,7 +11,7 @@
     font-family: 'Nunito Sans';
 }
 
-.text {
+.groupText {
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
@@ -21,27 +21,30 @@
     font-weight: 400;
 }
 
-.text p{
+.groupText p{
     font-size: 15px;
-    padding: 3px;
-    background-color: none;
 }
 
 .groups {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     display: flex;
+    padding-top: 9vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background color : extend whole page */
-    background-color: rgb(240, 227, 252);
-  }
-
-.groups p{
-    padding: 2em;
+    background-color: rgb(232, 214, 240);
 }
 
-.card {
-    background-color: none;
+.groupContainer {
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 2em;
+    background-color: rgb(232, 214, 240);
+}
+
+@media screen and (min-height:600px) and (min-width:1000px){
+    .groups {
+        height: 100vh;
+    }
 }
