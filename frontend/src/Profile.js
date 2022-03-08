@@ -9,6 +9,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 function Profile() {
     const [user, loading, error] = useAuthState(auth);
@@ -46,11 +47,12 @@ function Profile() {
     return (
         <div className="myProfile">
             <div className="title">{name}'s profile</div>
-            <br />
-
             <div className="user-info">
-
-                {/* ADD IN OTHER USER INFO HERE BELOW : PLACEHOLDER TEXT */}
+                <div class="button-container">
+                    <Button variant="primary" size="md" onClick={logout}>
+                        Click to Logout
+                    </Button>
+                </div>
                 <text>
                     <h6>--- Some information about me ---</h6> <br />
                     <span className="user-info-subtitle">My email is:</span> {email}<br />
