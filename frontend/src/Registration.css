@@ -91,3 +91,11 @@
   .alert-text {
     font-size: 16px;
   }
+
+  .myProfile {
+    height: 100%;
+  }
+
+  .profileContainer {
+    background-color: none;
+  }
