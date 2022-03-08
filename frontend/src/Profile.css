@@ -58,3 +58,9 @@ h6 {
     margin: 5% 5% 8% 5%;
     font-family: 'Nunito Sans';
 }
+
+@media screen and (min-height:600px) and (min-width:1000px){
+    .myProfile {
+        height: 100vh;
+    }
+}
