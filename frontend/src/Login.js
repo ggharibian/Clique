@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Login.css";
-
+import checkPage from "./CheckPage.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -22,7 +22,8 @@ function Login() {
       return;
     }
     if (user) navigate("/profile");
-  }, [user, loading]);
+    checkPage()
+  }, [user, loading, checkPage]);
 
   return (
     <div className="login">

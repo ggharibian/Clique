@@ -58,7 +58,6 @@
  
 .burger{
    margin-left: 80%;
-   display: none;
    cursor: pointer;
 }
  
@@ -96,7 +95,7 @@
    .nav-links li{
        opacity: 0;
    }
-   .burger{
+    .burger div{
        display: block;
        z-index: 1;
    }

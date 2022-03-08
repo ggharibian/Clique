@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Profile.css";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,10 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Navbar from "./components/navbar"
+import "./Profile.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import checkPage from "./CheckPage";
 
 function Profile() {
     const [user, loading, error] = useAuthState(auth);
@@ -42,11 +43,12 @@ function Profile() {
         if (loading) return;
         if (!user) return navigate("/");
         */
+        checkPage();
         fetchUserName();
-      }, [user, loading]);
+      }, [user, loading, checkPage]);
 
     return (
-        <div>
+        <div className="wantburger">
             <Navbar />
             <div className="myProfile">
             
