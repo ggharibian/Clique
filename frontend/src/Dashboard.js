@@ -8,6 +8,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import checkPage from "./CheckPage";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -30,9 +31,9 @@ function Dashboard() {
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/");
-
+    checkPage()
     fetchUserName();
-  }, [user, loading]);
+  }, [user, loading, checkPage]);
 
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Calendar.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,7 +12,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import ListGroup from 'react-bootstrap/ListGroup';
 import TimeRange from 'react-time-range';
 import Navbar from "./components/navbar"
-
+import checkPage from "./CheckPage";
 
 function getScheduledMeetings() {
   return (
@@ -145,6 +145,10 @@ function miscStatistics() {
 }
 
 function Calendar() {
+
+  useEffect(() => {    
+    checkPage();
+  }, [checkPage]);
 
     return (
       <div>

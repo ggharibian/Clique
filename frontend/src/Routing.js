@@ -3,6 +3,7 @@ import "./Routing.css";
 import Card from 'react-bootstrap/Card';
 import MyMap from "./components/Map";
 import Navbar from "./components/navbar"
+import checkPage from "./CheckPage";
 
 class Routing extends React.Component {
 
@@ -23,6 +24,10 @@ class Routing extends React.Component {
                 map: map,
                 title: 'WOWOWOW'
             })
+    }
+
+    componentDidMount() {
+        checkPage();
     }
 
     render(){
