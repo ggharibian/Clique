@@ -3,10 +3,12 @@ import "./Groups.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
+import Navbar from "./components/navbar"
 
 function Groups() {
     return (
         <center>
+        <Navbar />
         <div className="groups">
             <div className="title">My Friend Groups</div>
             <br />
