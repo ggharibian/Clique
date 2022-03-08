@@ -62,7 +62,7 @@ function Registration () {
         e.preventDefault();
 
         // If any fields are un filled
-        if(!name || !license || !permit || !car || !food || !place || !song || !movie || !book) {
+        if(!name || !license || !permit || !car || !food || !place || !song || !movie || !book || !phone) {
             setIsValid(false);
             setShow(true);
         } else { // Set values in data base
