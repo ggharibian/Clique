@@ -26,7 +26,7 @@
 }
 
 .groups {
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     display: flex;
     padding-top: 9vh;
@@ -41,4 +41,10 @@
     padding-right: 2em;
     padding-bottom: 2em;
     background-color: rgb(232, 214, 240);
+}
+
+@media screen and (min-height:600px){
+    .groups {
+        height: 100vh;
+    }
 }
