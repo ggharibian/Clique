@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 import Carousel from 'react-bootstrap/Carousel';
 import ListGroup from 'react-bootstrap/ListGroup';
 import TimeRange from 'react-time-range';
-
+import Navbar from "./components/navbar"
 
 
 function getScheduledMeetings() {
@@ -147,8 +147,9 @@ function miscStatistics() {
 function Calendar() {
 
     return (
+      <div>
+        <Navbar />
         <div className="calendar">
-
           <Row>
             <Col>
               <Card border="info" className="cal_widgetCard">
@@ -172,6 +173,8 @@ function Calendar() {
           </Row>
 
         </div>
+      </div>
+        
     );
 }
 
