@@ -177,7 +177,7 @@ function miscStatistics(avg, total, events, members, colorMemMapping, memberName
 
     var badges = []; 
     var membersCopy = [...members]; 
-    membersCopy.splice(0, 1);
+    //membersCopy.splice(0, 1);
 
     membersCopy.map(id => badges.push(createBadge(id, colorMemMapping, memberNameMapping)));
 
@@ -196,7 +196,7 @@ function miscStatistics(avg, total, events, members, colorMemMapping, memberName
           <div className="cal_bottomtext"> Calendar & Legend: </div>
         </Col>
         <Col sm={4}>
-            <ListGroup> 
+            <ListGroup className="cal_listLegend"> 
                 {badges}
             </ListGroup> 
         </Col>

@@ -49,10 +49,12 @@
 
 .google_background {
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png");
+    width: 100%;
+    overflow-y: auto; 
 }
 
 .calendar {
-    height: 100%;
+    height: 112vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -60,7 +62,6 @@
     background-color: rgba(255, 234, 245, 0.911);
     padding: 3rem;
     margin-top: 0vh;
-    overflow: auto;
   }
 
 .cal_titleCard {
@@ -88,7 +89,7 @@
 .cal_widgetCard {
   height: 82vh;
   width: 60vw;
-  margin-top: 1vh;
+  margin-top: 0vh;
   margin-bottom: 2vh;
   padding: 1rem;
 }
@@ -115,10 +116,16 @@
   height: 50vh;
   width: 30vw;
   padding: 1rem;
+  margin-bottom: 2vh; 
 }
 
 .scroll {
   max-height: 52vh;
+  overflow-y: auto;
+}
+
+.cal_listLegend {
+  max-height: 14vh;
   overflow-y: auto;
 }
 
@@ -136,6 +143,6 @@
 
 @media screen and (min-height:840px) {
   .calendar {
-      height: 100vh;
+      height: 112vh;
   }
 }

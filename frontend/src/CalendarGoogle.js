@@ -11,8 +11,8 @@ let styles = {
   calendar: {
     borderWidth: "0px", //make outer edge of calendar thicker
     width: "58vw", //  58vw
-    height: "0vh", // 57vh
-    marginTop: "-70px",
+    height: "76vh", // 57vh
+    marginTop: "0px",
     objectFit: "fit",
     padding: "-10px",
     opacity: "1.0",
@@ -47,7 +47,7 @@ function calendarGoogle (calendarIDs, members, colorCalMapping){
   calendarIDs.map(element => calendars.push({calendarId: element, color: colorCalMapping[element]}));
 
   //console.log(calendarIDs)
-  calendars.splice(0, 1);
+  //calendars.splice(0, 1);
   console.log(calendars);
   //console.log(calendars2);  
 
