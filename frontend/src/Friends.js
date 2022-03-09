@@ -10,28 +10,38 @@ import { getAuth } from "firebase/auth";
 import { query, collection, getDocs, where, doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 import Navbar from "./components/navbar"
 
-let friendlist = [];
+// Loading UI while data is retrieved
+function havePatience(show, loadId, divID) {
+    const loader = document.getElementById(loadId);
+    const messageDiv = document.getElementById(divID);
+    if (show) {
+        loader.style.display = "block";
+        messageDiv.className = "pleasewait";
+        messageDiv.textContent = "Searching...";
+    }
+    else{
+        loader.style.display = "none";
+    }
+}
 
-function EachFriend(id, n, em, phone, addr) {
-    var obj = {
-        id: id,
-        name: n,
-        email: em,
-        phone: phone,
-        address: addr
-    };
-    return obj;
+// Output message to user depending on result
+function resultMessage(divID, success, message){
+    const messageDiv = document.getElementById(divID);
+    if (success) {
+        messageDiv.className = "confirmText";
+    }
+    else {
+        messageDiv.className = "failText";
+    }
+    messageDiv.textContent = message;
+
+    setTimeout(() => {messageDiv.textContent = "";}, 5000);
 }
 
 function searchFriendPopup() {
     const modal = document.getElementById("addfriendpopup");
-    // const button = document.getElementById("addfriendbtn");
     const span = document.getElementsByClassName("close")[0];
-    // button.onclick = function() {
-    //     modal.style.display = "block";
-    // }
     modal.style.display = "block";
-
     span.onclick = function() {
         modal.style.display = "none";
     }
@@ -39,10 +49,8 @@ function searchFriendPopup() {
 function searchFriend() {
     const input = document.getElementById("searchFriendInput");
     if (input){
-        const button = document.getElementById("searchfriendbtn");
-        button.onclick = function() {searchFriendEmail()};
-    
         const searchFriendEmail = async() => {
+            havePatience(true, "load", "addFriendResult");
             const auth = getAuth();
             const user = auth.currentUser;
             const filter = input.value.toLowerCase();
@@ -54,18 +62,18 @@ function searchFriend() {
                 const userData = getUserDoc.docs[0].data();
                 try {
                     const friendToAdd = querySnapshot.docs[0].data();
-                    // TODO: (Not urgent) Add better UI for popup boxes instead of alerts and windows confirm
                     if (user.uid == friendToAdd.uid) {
-                        alert("Cannot add yourself as a friend!\nHave you got no friends? :(");
+                        resultMessage("addFriendResult", false, "Cannot add yourself as a friend!\nHave you got no friends? :(");
                     }
                     else if (userData.friends.includes(friendToAdd.uid)) {
-                        alert(friendToAdd.name + " is already in your friends list.")
+                        resultMessage("addFriendResult", false, friendToAdd.name + " is already in your friends list.");
                     }
                     else {
+                        // TODO: Add another interface instead of windows.confirm
                         if (window.confirm("Add " + friendToAdd.name + " as a friend?")) {
                             const userDocId = getUserDoc.docs[0].id;
                             addFriendToList(friendToAdd.uid, userDocId);
-                            alert("Successfully added " + friendToAdd.name + " as a friend!");
+                            resultMessage("addFriendResult", true, "Successfully added " + friendToAdd.name + " as a friend!");
                             
                             const queryFriend = query(collection(db, "users"), where("uid", "==", friendToAdd.uid));
                             const friendDoc = await getDocs(queryFriend);
@@ -75,15 +83,16 @@ function searchFriend() {
                     }
                 }
                 catch (err) {
-                    alert(err.message + "\nUser with email " + input.value + " may not exist");
+                    resultMessage("addFriendResult", false, "Failed to search for user with email " + input.value + ".");
                 }
                 
             } catch (err) {
                 console.error(err);
-                alert(err.message);
             }
             input.value = "";
+            havePatience(false, "load");
         };
+        searchFriendEmail();
     } 
 }
 const addFriendToList = async(uid, userDocId) => {
@@ -94,7 +103,6 @@ const addFriendToList = async(uid, userDocId) => {
         });
     } catch (err) {
         console.error(err);
-        alert("Adding friend unsuccessful.\n" + err.message);
     }
 }
 
@@ -133,14 +141,10 @@ function Friends() {
             const queryFriend = query(collection(db, "users"), where("uid", "==", friends[i]));
             const friendDoc = await getDocs(queryFriend);
             const friendData = friendDoc.docs[0].data();
-            const currFriend =  new EachFriend(friends[i] ,friendData.name, friendData.email, friendData.phone,friendData.address);
-            if (!friendlist.includes(currFriend)) {
-                friendlist.push(currFriend);
-                var table = document.getElementById("friendTable");
-                var x = table.rows.length-1;
-                if (friends.length > x) {
-                    addToTable(currFriend);
-                }
+            var table = document.getElementById("friendTable");
+            var x = table.rows.length-1;
+            if (friends.length > x) {
+                addToTable(friendData);
             }
         }
         
@@ -148,6 +152,7 @@ function Friends() {
         console.error(err);
       }
     };
+
     useEffect(() => {
         if (loading) return;
         fetchFriendData();
@@ -161,7 +166,7 @@ function Friends() {
             {/* TODO: TEMPORARY SOLUTION to calling the table data
             setting a setTimeout produces incorrect data to the table*/}
             {/* <div className="refreshButton">
-                <button onClick={window.onload = function(){fetchFriendData()}}>Refresh Friend List</button>
+                <button onClick={window.onload = function(){fetchFriendData()}}>Show Friend List</button>
             </div> */}
             <div className="title">
                 Friends
@@ -184,11 +189,13 @@ function Friends() {
                     <span class="close">&times;</span>
                     <input type="text" id="searchFriendInput" placeholder="Enter your friend's email address"></input>
                     {/* TODO: Should be "send friend request button" instead of adding friend right away */}
-                    <button class="addfriend-sendbutton" id="searchfriendbtn" onClick={window.onload = function(){searchFriend()}}>add to friends</button>
+                    <button class="btn btn-outline-primary btn-sm" id="searchfriendbtn" onClick={window.onload = function(){searchFriend()}}>add to friends</button>
+                    <div id="addFriendResult"></div>
+                    <div class="loader" id="load"></div>
                 </div>
             </div>
             <div className="refreshButton">
-                <button onClick={window.onload = function(){fetchFriendData()}}>Refresh Friend List</button>
+                <button onClick={window.onload = function(){fetchFriendData()}}>Show Friend List</button>
             </div>
         </div>
         </center>
