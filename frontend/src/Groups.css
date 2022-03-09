@@ -46,6 +46,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(232, 214, 240);
+    overflow: scroll;
 }
 
 .groupContainer {

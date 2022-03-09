@@ -8,16 +8,23 @@
     justify-content: center;
     background-color: rgba(255, 248, 224, 0.892);
     padding: 2rem;
+    overflow: scroll;
   }
 
   /* "Add Friend" button */
 .button {
-    border-radius: 10px;
-    width: 90px;
+    border-radius: 8px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
-    background-color:#fefefe;
+    font-size: 15px;
+    width: 100px;
+    color: white;
+    font-family: 'Nunito Sans';
+    font-style: italic;
+    background-color: #6495ed;
 }
-
 
 .text {
     margin-bottom: 10px;
@@ -26,6 +33,19 @@
     color: black;
     font-style: italic;
     font-family: 'Nunito Sans';
+}
+
+.refreshButton button{
+    border-radius: 8px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    font-family: 'Nunito Sans';
+    font-style: italic;
+    background-color: #6495ed;
 }
 
 .addfriend {

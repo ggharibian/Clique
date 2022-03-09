@@ -8,6 +8,7 @@ import { db, auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { query, collection, getDocs, where, doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import Navbar from "./components/navbar"
 
 let friendlist = [];
 
@@ -153,12 +154,16 @@ function Friends() {
     }, [user, loading])
 
     return (
+        <div>
+        <Navbar />
         <center>
         <div className="friends">
             {/* TODO: TEMPORARY SOLUTION to calling the table data
             setting a setTimeout produces incorrect data to the table*/}
-            <button onClick={window.onload = function(){fetchFriendData()}}>Refresh friend List</button>
-            <div className="text">
+            <div className="refreshButton">
+                <button onClick={window.onload = function(){fetchFriendData()}}>Refresh Friend List</button>
+            </div>
+            <div className="title">
                 Friends
             </div>
             <Table striped bordered hover id="friendTable">
@@ -184,6 +189,7 @@ function Friends() {
             </div>
         </div>
         </center>
+        </div>
     );
 }
 
