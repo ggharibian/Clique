@@ -88,9 +88,9 @@ function Profile() {
                                 <img class="card-img-top" src="" alt=""/>
                                 <div class="profileText">
                                     <h3>groups</h3>
-                                    <p>see my friend groups</p>
-                                    <a href="../groups" class="btn btn-outline-primary btn-sm">
-                                        see friend groups
+                                    <p>see my cliques</p>
+                                    <a href="../mycliques" class="btn btn-outline-primary btn-sm">
+                                        see cliques
                                     </a>
                                 </div>
                             </div>

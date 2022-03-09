@@ -54,7 +54,13 @@
     background-color: rgb(232, 214, 240);
 }
 
-@media screen and (min-height:600px) and (min-width:1000px){
+@media screen and (min-height:600px) and (min-width:400px){
+    .groups {
+        height: 100vh;
+    }
+}
+
+@media screen and (min-width:400px){
     .groups {
         height: 100vh;
     }

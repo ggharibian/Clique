@@ -61,7 +61,7 @@ function callCreateGroup() {
             const groupQuery = await query(collection(db, "groups"), where("gid", "==", groupId.value));
             const groupSnapshot = await getDocs(groupQuery);
             if (groupSnapshot.docs.length > 0) {
-                alert("Group ID already exists. Please use another ID.");
+                alert("Clique ID already exists. Please use another ID.");
             }
             else {
                 try {
@@ -81,7 +81,7 @@ function callCreateGroup() {
                         people: arrayUnion(user.uid)
                     });
 
-                    alert("You've created the group \"" + groupName.value + "\" with group ID: " + groupId.value);
+                    alert("You've created the Clique \"" + groupName.value + "\" with Clique ID: " + groupId.value);
                     const thisGroupQuery = await query(collection(db, "groups"), where("gid", "==", groupId.value));
                     const thisGroupDoc = await getDocs(thisGroupQuery);
                     addGroupCard(thisGroupDoc.docs[0].data());
@@ -97,7 +97,7 @@ function callCreateGroup() {
             showLoader(false, "load");
         }
         else {
-            alert("Please put a valid group name/id");
+            alert("Please put a valid Clique name/id");
         }
     };
     createGroup();
@@ -127,7 +127,7 @@ function callJoinGroup() {
                     // check if user is already in the group
                     const userGroups = getUserDoc.docs[0].data().groups;
                     if (userGroups.includes(groupId.value)) {
-                        alert("You are already in this group.");
+                        alert("You are already in this Clique.");
                     }
                     // if not in group, proceed to add
                     else {
@@ -145,7 +145,7 @@ function callJoinGroup() {
                                 groups: arrayUnion(groupId.value)
                             });
 
-                            alert("You've joined the group \"" + groupSnapshot.docs[0].data().name + "\"!");
+                            alert("You've joined the Clique \"" + groupSnapshot.docs[0].data().name + "\"!");
                             addGroupCard(groupSnapshot.docs[0].data());
                         } catch (err) {
                             console.error(err);
@@ -200,7 +200,7 @@ function callLeaveGroup() {
                         groups: arrayRemove(groupId.value)
                     });
 
-                    alert("You've left the group \"" + groupSnapshot.docs[0].data().name + "\"");
+                    alert("You've left the Clique \"" + groupSnapshot.docs[0].data().name + "\"");
                 } catch (err) {
                     console.error(err);
                     alert(err.message);
@@ -288,35 +288,35 @@ function Groups() {
         <center>
         <Navbar />
         <div className="groups" id="groups">
-            <div className="groupTitle">My Friend Groups</div>
+            <div className="groupTitle">My Cliques</div>
             <br />
             <div className="user-info">
                 <text>
-                    You are part of {groups.length} friend groups <br />
+                    You are part of {groups.length} Cliques <br />
                 </text>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="createGroupPopupBtn" onClick={window.onload = function(){createGroupPopup()}}> Create a group </button>
+            <button class="btn btn-outline-primary btn-sm" id="createGroupPopupBtn" onClick={window.onload = function(){createGroupPopup()}}> Create a Clique </button>
             <div id="creategroup-popup" class="creategroup">
                 <div class="creategroup-content">
                     <span class="close">&times;</span>
-                    <div>Group Name: {'\n'}
+                    <div>Clique Name: {'\n'}
                         <input type="text" id="groupname"></input>
                     </div>
-                    <div>Group ID: {'\n'}
+                    <div>Clique ID: {'\n'}
                         <input type="text" id="groupid"></input>
                     </div>
                     <br/>
-                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callCreateGroup()}}>Confirm Group</button>
+                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callCreateGroup()}}>Confirm Clique</button>
                     <div class="loader" id="load"></div>
                 </div>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="joinGroupBtn" onClick={window.onload = function(){joinGroupPopup()}}> Join a group </button>
+            <button class="btn btn-outline-primary btn-sm" id="joinGroupBtn" onClick={window.onload = function(){joinGroupPopup()}}> Join a Clique </button>
             <div id="joingroup-popup" class="joingroup">
                 <div class="joingroup-content">
                     <span class="close1">&times;</span>
-                    <div>Group ID: {'\n'}
+                    <div>Clique ID: {'\n'}
                         <input type="text" id="joingroupid"></input>
                     </div>
                     <br/>
@@ -325,15 +325,15 @@ function Groups() {
                 </div>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="leavegroupbtn" onClick={window.onload = function(){leaveGroupPopup()}}>Leave a group</button>
+            <button class="btn btn-outline-primary btn-sm" id="leavegroupbtn" onClick={window.onload = function(){leaveGroupPopup()}}>Leave a Clique</button>
             <div id="leavegroup-popup" class="leavegroup">
                 <div id="leavegroup-content" class="leavegroup-content">
                     <span class="close2">&times;</span>
-                    <div>Group ID: {'\n'}
+                    <div>Clique ID: {'\n'}
                         <input type="text" id="leavegroupid" placeholder="ID of group to leave"></input>
                     </div>
                     <br/>
-                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callLeaveGroup()}}>Leave group</button>
+                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callLeaveGroup()}}>Leave Clique</button>
                     <div class="loader" id="load2"></div>
                 </div>
             </div>
