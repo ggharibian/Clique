@@ -8,6 +8,8 @@ import { getAuth } from "firebase/auth";
 import { query, collection, getDocs, where/*, doc, updateDoc, arrayUnion, getDoc*/ } from "firebase/firestore";
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
+import ListGroup from "react-bootstrap/ListGroup"
+import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 // function getUsers(props){
 //     useEffect(() => {
@@ -24,10 +26,28 @@ class Routing extends React.Component {
             map: <MyMap id="myMap" options={{center: {lat: 0, lng: 0}, zoom: 1}}
             onMapLoad = {map => {
                 this.getAllMarkers(map)
+                // this.state.directionsDisplay.setMap(map)
             }}/>,
             events: [],
-            currentEventIndex: -1
+            currentEventIndex: -1,
+            // directions: new window.google.maps.DirectionsService(),
+            // directionsDisplay: new window.google.maps.DirectionsRenderer()
         }
+    }
+
+    calculateRoute(from, to) {
+        // var request = {
+        //     origin: from,
+        //     destination: to,
+        //     travelMode: window.google.maps.TravelMode.DRIVING,
+        //     unitSystem: window.google.maps.UnitSystem.IMPERIAL
+        // }
+
+        // this.state.directions.route(request, (result, status) => {
+        //     if (status == window.google.maps.DirectionStatus.Ok){
+        //         console.log(result)
+        //     }
+        // })
     }
 
     async updateDatabaseItems(){
@@ -38,10 +58,16 @@ class Routing extends React.Component {
         })
     }
 
+    displayEventOnMap() {
+        
+    }
+
     updateEventIndex(index){
         this.setState({
             currentEventIndex: index
         })
+
+        this.displayEventOnMap()
     }
 
     componentDidMount() {
@@ -58,11 +84,22 @@ class Routing extends React.Component {
         for (var i = 0; i < gids.length; i++){
             const gQuery = query(collection(db, "groups"), where("gid", "==", gids[i]))
             const getGroupDoc = await getDocs(gQuery)
-            var eids = getGroupDoc.docs[0].data().Events
-            for (var e = 0; e < eids.length; e++){
-                const eQuery = query(collection(db, "events"), where("eid", "==", eids[e]))
-                const getEventDoc = await getDocs(eQuery)
-                events.push(getEventDoc.docs[0].data())
+            if (getGroupDoc.docs.length){
+                var pids = getGroupDoc.docs[0].data().people
+                var people = []
+
+                for (var e = 0; e < pids.length; e++){
+                    const pQuery = query(collection(db, "users"), where("uid", "==", pids[e]))
+                    const getPeopleDoc = await getDocs(pQuery)
+                    people.push(getPeopleDoc.docs[0].data())
+                }
+
+                var eids = getGroupDoc.docs[0].data().Events
+                for (e = 0; e < eids.length; e++){
+                    const eQuery = query(collection(db, "events"), where("eid", "==", eids[e]))
+                    const getEventDoc = await getDocs(eQuery)
+                    events.push([people, getEventDoc.docs[0].data()])
+                }
             }
         }
 
@@ -70,7 +107,7 @@ class Routing extends React.Component {
             events: events
         })
 
-        console.log(this.state.events[0])
+        console.log(this.state.events)
     }
 
     onScriptLoad(){
@@ -78,6 +115,7 @@ class Routing extends React.Component {
     }
 
     getAllMarkers(map){
+        
     }
 
     render(){
@@ -93,35 +131,49 @@ class Routing extends React.Component {
                 </div>
                 <div className="Friends">
                     <Card style={{width: "40%", height: "41.75%", position: 'absolute', top: '10%', left: '55%'}}>
-                        <Card.Body>
+                        <Card.Body style={{overflow: "scroll"}}>
                             <Accordion defaultActiveKey="3">
+                                {/* <Modal> */}
                                 { this.state.events.map((item, index) => {
-                                    console.log(item)
                                     return <Accordion.Item>
                                         <Accordion.Header className={"Item " + String(index)}>
-                                            {item.EventName}
+                                            {item[1].EventName}
                                         </Accordion.Header>
                                         <Accordion.Body>
-                                            <l>
-                                                <li>
-                                                    Description: {item.EventDescription}
-                                                </li>
-                                                <li>
-                                                    Destination Address: {item.LocAddress}
-                                                </li>
-                                                <li>
-                                                    Start Time: {item.StartTime}
-                                                </li>
-                                                <li>
-                                                    End Time: {item.EndTime}
-                                                </li>
-                                            </l>
-                                            <Button variant="primary" size="lg" onClick={() => { this.updateEventIndex(index) }}>
+                                            <ListGroup>
+                                                <ListGroupItem>
+                                                    Description: {item[1].EventDescription}
+                                                </ListGroupItem>
+                                                <ListGroupItem>
+                                                    Destination Address: {item[1].LocAddress}
+                                                </ListGroupItem>
+                                                <ListGroupItem>
+                                                    Start Time: {item[1].StartTime}
+                                                </ListGroupItem>
+                                                <ListGroupItem>
+                                                    End Time: {item[1].EndTime}
+                                                </ListGroupItem>
+
+                                            </ListGroup>
+                                            
+                                                {/* <l>
+                                                    <li>
+                                                        People Attending:
+                                                        <ul>
+                                                            {item[0].map((item) => {
+                                                                return <li>{item.name}</li>
+                                                            })}
+                                                        </ul>
+                                                    </li>
+                                                </l> */}
+                                            <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={() => { this.updateEventIndex(index) }}>
                                                 View Routes
                                             </Button>
+
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 }) }
+                                {/* </Modal> */}
 
                                 {/* <Accordion.Item eventKey="3" className="upcoming">
                                 <Accordion.Header className="upcoming">Mar 8 - Spring Break Road Trip</Accordion.Header>
