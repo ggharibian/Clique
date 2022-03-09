@@ -69,23 +69,38 @@
 /* Loading icon */
 .loader {
     display: none;
-    border: 10px solid #f3f3f3;
-    border-top: 10px solid #6495ed;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #6495ed;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 20px;
+    height: 20px;
     animation: spin 2s linear infinite;
     background: transparent;
     position: absolute;
-    z-index: 100;
+    z-index: 100px;
     right: 50%;
-    bottom: 50%;
   }
   
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+/* "Please wait" text */
+.pleasewait {
+    padding-top: 10px;
+    color: #6495ed;
+}
+
+.confirmText {
+    padding-top: 10px;
+    color: #35bd47;
+}
+
+.failText {
+    padding-top: 10px;
+    color: #bd3535;
+}
 
 /* CREATE GROUP MODAL */
 .creategroup {
@@ -106,7 +121,7 @@
     margin: 15% auto;
     padding: 20px;
     border-radius: 10px;
-    height: 30%;
+    height: 35%;
     width: 50%;
     text-align: center;
 }
@@ -154,7 +169,7 @@
     margin: 15% auto;
     padding: 20px;
     border-radius: 10px;
-    height: 25%;
+    height: 28%;
     width: 50%;
     text-align: center;
 }
@@ -204,7 +219,7 @@
     margin: 15% auto;
     padding: 20px;
     border-radius: 10px;
-    height: 25%;
+    height: 28%;
     width: 50%;
     text-align: center;
 }
