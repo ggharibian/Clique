@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
+import PlacesAutoComplete, {geocodeByAddress, getLatLng} from "react-places-autocomplete";
 
 // Component for alert
 function AlertError({show, setShow}) {
@@ -40,8 +41,19 @@ function Registration () {
     const [movie, setMovie] = useState("");
     const [book, setBook] = useState("");
     const [address, setAddress] = useState("");
+    const [coordinates, setCoordinates] = useState({
+        lat: null,
+        long: null
+    });
     const [isValid, setIsValid] = useState(true);
     const [show, setShow] = useState(true);
+
+    const handleSelect = async (value) => {
+        const results = await geocodeByAddress(value)
+        const latlng = await getLatLng(results[0])
+        setAddress(value)
+        setCoordinates(latlng)
+    }
   
     // obtain information already in database - name and email
     const fetchInfo = async () => {
@@ -134,7 +146,27 @@ function Registration () {
 
                     <Form.Group className="mb-3 personal-item" controlId="forAddress">
                         <Form.Label className="personal-label">Address: </Form.Label>
-                        <Form.Control type="text" placeholder="Enter your address" value={address} onChange={(e) => setAddress(e.target.value)}/>
+                        <PlacesAutoComplete className="personal-label" value={address} onChange={setAddress} onSelect={handleSelect}>
+                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                <div>
+                                    {/* onChange={(e) => setAddress(e.target.value)} */}
+                                    <Form.Control style={{width: "40.50vmax"}}{...getInputProps()} type="text" placeholder="Enter your address (use arrow keys and enter for autocomplete)" value={address} />
+                                    <div>
+                                        {loading ? <div>loading...</div> : null}
+
+                                        {suggestions.map((suggestion) => {
+                                            const style = {
+                                                backgroundColor: suggestion.active ? "#E7E5E5" : "#fff"
+                                            }
+
+                                            return <div {...getSuggestionItemProps( suggestion,{ style })}>{suggestion.description}</div>
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        </PlacesAutoComplete>
+                        {/* <Form.Control type="text" placeholder="Enter your address" value={address} onChange={(e) => setAddress(e.target.value)} /> */}
+
                     </Form.Group>
 
                     <h4 className="subtitle-reg"> Driving Capabilities </h4>
