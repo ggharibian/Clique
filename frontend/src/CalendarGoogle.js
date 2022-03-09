@@ -43,12 +43,12 @@ function calendarGoogle (calendarIDs, members, colorCalMapping){
   ];
 
   var calendars = [] 
-  console.log(colorCalMapping); 
+  //console.log(colorCalMapping); 
   calendarIDs.map(element => calendars.push({calendarId: element, color: colorCalMapping[element]}));
 
   //console.log(calendarIDs)
   //calendars.splice(0, 1);
-  console.log(calendars);
+  //console.log(calendars);
   //console.log(calendars2);  
 
   if (calendars.length == 0)

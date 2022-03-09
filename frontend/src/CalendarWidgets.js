@@ -17,53 +17,71 @@ import Badge from "react-bootstrap/Badge";
 import Spinner from 'react-bootstrap/Spinner';
 
 
-function getScheduledMeetings() {
+function getScheduledMeetings(eventDescs) {
+
+  console.log(eventDescs); 
+
+  if (!eventDescs)
+  {
+      return(
+          <div className="spinner"> 
+            <Spinner animation="border" height="200px" width="200px" />
+          </div> 
+        );
+  }
+
+  var nextEvents = []; 
+  var pastEvents = []; 
+  var accordion; 
+  var today = new Date(); 
+  for(var i = 0; i < eventDescs.length; i++)
+  {
+    const event = eventDescs[i];
+    accordion = createEventAccordion(eventDescs[i], i); 
+    const eventDate = new Date(eventDescs[i].StartTime); 
+
+    console.log(event.StartTime)
+    console.log(eventDate); 
+    console.log(today); 
+
+    if (eventDate > today) { nextEvents.push(accordion); }
+    else { pastEvents.push(accordion); }
+
+    console.log(i); 
+  }
+
     return (
       <div>
         <div className="cal_regtext"> Upcoming Events: </div>
-        <Accordion defaultActiveKey="3">
-  
-          <Accordion.Item eventKey="3" className="upcoming">
-            <Accordion.Header className="upcoming">Mar 8 - Spring Break Road Trip</Accordion.Header>
-            <Accordion.Body>
-              Details: will be inserted/finalized shortly!
-            </Accordion.Body>
-          </Accordion.Item>
-  
-          <Accordion.Item eventKey="4">
-            <Accordion.Header>Mar 16 - One Direction Concert</Accordion.Header>
-            <Accordion.Body>
-              Details: oh I wish this was a real thing...
-            </Accordion.Body>
-          </Accordion.Item>
+        <Accordion>
+          {nextEvents}
         </Accordion>
   
         <div className="cal_regtext"> Previous Events: </div>
         <Accordion>
-          <Accordion.Item eventKey="2" className="past">
-            <Accordion.Header>Feb 24 - Westwood Dinner</Accordion.Header>
-            <Accordion.Body>
-              The night it all went wrong. The last time we saw him...
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="1" className="past">
-            <Accordion.Header>Feb 2 - Cancun Vacation</Accordion.Header>
-            <Accordion.Body>
-              Best trip ever. White sand, beach-front hotel. Ukeleles...
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="0" className="past">
-            <Accordion.Header className="past">Jan 12 - Big Sur Trip</Accordion.Header>
-            <Accordion.Body className="past">
-              This is just filler for now. But Big Sur is amazing omfg.
-            </Accordion.Body>
-          </Accordion.Item>
-  
+          {pastEvents}
         </Accordion>
       </div>
     );
   }
   
+function createEventAccordion(event, i) {
+
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const date = new Date(event.StartTime); 
+  const header = months[date.getMonth()] + " " + date.getDay() + ", " + date.getFullYear() + " - " + event.EventName; 
+  return(
+    <Accordion.Item eventKey={i} className="past">
+      <Accordion.Header>{header}</Accordion.Header>
+      <Accordion.Body>
+        <div> {event.EventDescription} </div> 
+        <br/>
+        Address: {event.LocAddress}
+      </Accordion.Body>
+  </Accordion.Item>
+  ); 
+}
+
 function EventScheduler() {
     return(
       <div className="cal_form">
@@ -132,8 +150,8 @@ function ChooseMeetingTImes() {
 
 function createBadge(id, colorMemMapping, memberNameMapping)
 {
-    console.log(memberNameMapping); 
-    console.log(colorMemMapping[id]); 
+    //console.log(memberNameMapping); 
+    //console.log(colorMemMapping[id]); 
 
     const styles = {
         customBadge: {
@@ -148,9 +166,9 @@ function createBadge(id, colorMemMapping, memberNameMapping)
 
 function miscStatistics(avg, total, events, members, colorMemMapping, memberNameMapping) {
 
-    console.log(colorMemMapping);
-    console.log(members);
-    console.log(memberNameMapping); 
+    //console.log(colorMemMapping);
+    //console.log(members);
+    //console.log(memberNameMapping); 
 
     //<Badge bg="secondary">New</Badge>
 

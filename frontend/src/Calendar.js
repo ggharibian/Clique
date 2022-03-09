@@ -72,6 +72,20 @@ function GetIDs() {
     setCalendarIDs(() => { return []; })
   };
 
+
+  const [eventDescs, setEventDescs] = useState([]);
+  const addEventDesc = (id) => {
+    setEventDescs((prev) => { 
+      return [id, ...prev]; 
+    })
+  };
+
+  const removeEventDescs = () => {
+    setEventDescs(() => { return []; })
+  };
+  
+
+
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -86,26 +100,28 @@ function GetIDs() {
       try {
         const q = query(collection(db, "groups"), where("gid", "==", currGroup));
         const docRead = await getDocs(q);
-        console.log(currGroup);
-        docRead.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
-        });
+        //console.log(currGroup);
+        //docRead.forEach((doc) => {
+        //  console.log(doc.id, " => ", doc.data());
+        //});
         const data = docRead.docs[0].data();
         
-        console.log("Boutta set data"); 
+        //console.log("Boutta set data"); 
 
         setAvg(data.AvgHangoutTimePerWeek);
         setTotal(data.TotalHoursSpentHangingOut); 
         setEvents(data.Events);
         setMembers(data.people);
 
-        console.log("Set member data"); 
+        //console.log("Set member data"); 
 
         const member_ids = data.people; 
+        const event_ids = data.Events; 
         removeCalendarIDs(); // We don't keep adding... lmao 
         removeMemberNames(); 
+        removeEventDescs(); 
 
-        console.log("Boutta try next...");
+        //console.log("Boutta try next...");
 
         try {
           const q = query(collection(db, "users"), where("uid", "in", member_ids));
@@ -113,17 +129,33 @@ function GetIDs() {
           for(var i = 0; i < doc.size; i++)
           {
             const data = doc.docs[i].data();
-            console.log(data); 
+            //console.log(data); 
             addCalendarID(data.calendarID);
             addMemberName(data.name); 
           }
 
-          console.log(calendarIDs); 
+          //console.log(calendarIDs); 
 
         } catch (err) {
           console.error(err);
           alert("CALENDAR: An error occured while fetching calendar data");
         }
+
+        try {
+          const q = query(collection(db, "events"), where("eid", "in", event_ids));
+          const doc = await getDocs(q);
+          for(var i = 0; i < doc.size; i++)
+          {
+            const data = doc.docs[i].data();
+            //console.log(data); 
+            addEventDesc(data);
+          }
+        } catch (err) {
+          console.error(err);
+          alert("EVENTS: An error occured while fetching event data");
+        }
+
+        
 
       } catch (err) {
         console.error(err);
@@ -142,14 +174,14 @@ function GetIDs() {
     fetchUserName();
   }, [user, loading, checkPage]);
 
-  return [group, name, user, avg, total, events, members, memberNames, calendarIDs]; 
+  return [group, name, user, avg, total, events, members, memberNames, calendarIDs, eventDescs]; 
 }
 
 // Test function that outputs given information: 
 
 function HTMLdiv(group, name, user, members, events, avg, total, calendarIDs) {
 
-  console.log(calendarIDs); 
+  //console.log(calendarIDs); 
 
   return(
     <div>
@@ -188,7 +220,7 @@ function createDivStatistics() {
 
 function Calendar() {
 
-  var [group, name, user, avg, total, events, members, memberNames, calendarIDs] = GetIDs(); 
+  var [group, name, user, avg, total, events, members, memberNames, calendarIDs, eventDescs] = GetIDs(); 
   var colorsList = ["#0198E1", "#3F9E4D", "#4B0082", "#55141C", "#8B0000", "#8B6508", "#8FD8D8", "#A2627A", "#C2C2C2", "#CD7F32"];
   var colorCalMapping = {}; 
   var colorMemMapping = {}; 
@@ -201,7 +233,9 @@ function Calendar() {
     memberNameMapping[members[i]] = memberNames[i]; 
   }
 
-  console.log(memberNameMapping); 
+  //console.log(memberNameMapping); 
+  //console.log(events); 
+  //console.log(eventDescs); 
    
     return (
       <div>
@@ -224,7 +258,7 @@ function Calendar() {
               </Card>
 
               <Card border="info" className="cal_meetingCard scroll">
-                  {getScheduledMeetings()}
+                  {getScheduledMeetings(eventDescs)}
               </Card>
             </Col>
           </Row>
