@@ -19,7 +19,7 @@ function Navbar() {
    return (
        <nav class="navbar-container">
            <div class="logo">
-               <h4>CLIQUE</h4>
+               <h4><a href="../profile">CLIQUE</a></h4>
            </div>
            <li class="navlink"><a href="../profile">Profile</a></li>
            <li class="navlink"><a href="../groups">Groups</a></li>
