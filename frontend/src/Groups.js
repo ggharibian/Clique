@@ -11,6 +11,33 @@ import { query, collection, getDocs, where, doc, updateDoc, arrayUnion, arrayRem
 
 import Navbar from "./components/navbar"
 
+// Tell user to wait
+function havePatience(show, loadId, divID) {
+    const loader = document.getElementById(loadId);
+    const messageDiv = document.getElementById(divID);
+    if (show) {
+        loader.style.display = "block";
+        messageDiv.className = "pleasewait";
+        messageDiv.textContent = "Please wait. This may take a while...";
+    }
+    else{
+        loader.style.display = "none";
+    }
+}
+
+// Output message to user depending on result
+function resultMessage(divID, success, message){
+    const messageDiv = document.getElementById(divID);
+    if (success) {
+        messageDiv.className = "confirmText";
+    }
+    else {
+        messageDiv.className = "failText";
+    }
+    messageDiv.textContent = message;
+
+    setTimeout(() => {messageDiv.textContent = "";}, 5000);
+}
 
 // Modal/popup when first "Create a group" button is clicked
 function createGroupPopup() {
@@ -48,23 +75,24 @@ function callCreateGroup() {
         const groupName = document.getElementById("groupname");
         const groupId = document.getElementById("groupid");
 
-        // note: await in query is ineffective..
         if (groupId.value != "" && groupName.value != "") {
-            showLoader(true, "load");
+            havePatience(true, "load", "createGroupResult");
             const auth = getAuth();
             const user = auth.currentUser;
-            const currentUserQuery = await query(collection(db, "users"), where("uid", "==", user?.uid));
+            const currentUserQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
             const getUserDoc = await getDocs(currentUserQuery);
             const userDocId = getUserDoc.docs[0].id;
 
             // check if gid is already in use
-            const groupQuery = await query(collection(db, "groups"), where("gid", "==", groupId.value));
+            const groupQuery = query(collection(db, "groups"), where("gid", "==", groupId.value));
             const groupSnapshot = await getDocs(groupQuery);
             if (groupSnapshot.docs.length > 0) {
-                alert("Clique ID already exists. Please use another ID.");
+                resultMessage("createGroupResult", false, "Clique ID already exists. Please use another ID.");
             }
             else {
                 try {
+                    const messageDiv = document.getElementById("createGroupResult");
+                    messageDiv.textContent = "Please wait. This may take a while...";
                     // add group id to user's group list
                     const userDoc = doc(db, "users", userDocId);
                     await updateDoc(userDoc, {
@@ -81,23 +109,23 @@ function callCreateGroup() {
                         people: arrayUnion(user.uid)
                     });
 
-                    alert("You've created the Clique \"" + groupName.value + "\" with Clique ID: " + groupId.value);
-                    const thisGroupQuery = await query(collection(db, "groups"), where("gid", "==", groupId.value));
+                    const thisGroupQuery = query(collection(db, "groups"), where("gid", "==", groupId.value));
                     const thisGroupDoc = await getDocs(thisGroupQuery);
                     addGroupCard(thisGroupDoc.docs[0].data());
+                    resultMessage("createGroupResult", true, 
+                    "You've created the Clique \"" + groupName.value + "\" with Clique ID: " + groupId.value + "\"!");
                     
                     groupName.value = "";
                     groupId.value = "";
 
                 } catch (err) {
                     console.error(err);
-                    alert(err.message);
                 }
             }
-            showLoader(false, "load");
+            havePatience(false, "load");
         }
         else {
-            alert("Please put a valid Clique name/id");
+            resultMessage("createGroupResult", false, "Please put a valid Clique name/id.");
         }
     };
     createGroup();
@@ -107,27 +135,28 @@ function callCreateGroup() {
 function callJoinGroup() {
     const joinGroup = async() => {
         const groupId = document.getElementById("joingroupid");
-        // note: await in query is ineffective..
+        
         if (groupId) {
-            showLoader(true, "load1");
+            havePatience(true, "load1","joinGroupResult");
+                    
             const auth = getAuth();
             const user = auth.currentUser;
-            const currentUserQuery = await query(collection(db, "users"), where("uid", "==", user?.uid));
+            const currentUserQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
             const getUserDoc = await getDocs(currentUserQuery);
             const userDocId = getUserDoc.docs[0].id;
 
             // check if gid is a valid id
-            const groupQuery = await query(collection(db, "groups"), where("gid", "==", groupId.value));
+            const groupQuery = query(collection(db, "groups"), where("gid", "==", groupId.value));
             const groupSnapshot = await getDocs(groupQuery);
             if (groupSnapshot.docs.length === 0) {
-                alert("Group ID does not exist.");
+                resultMessage("joinGroupResult", false, "Group ID does not exist.");
             }
             else {
                 try {
                     // check if user is already in the group
                     const userGroups = getUserDoc.docs[0].data().groups;
                     if (userGroups.includes(groupId.value)) {
-                        alert("You are already in this Clique.");
+                        resultMessage("joinGroupResult", false, "You are already in this Clique.");
                     }
                     // if not in group, proceed to add
                     else {
@@ -145,20 +174,20 @@ function callJoinGroup() {
                                 groups: arrayUnion(groupId.value)
                             });
 
-                            alert("You've joined the Clique \"" + groupSnapshot.docs[0].data().name + "\"!");
+                            resultMessage("joinGroupResult", true, 
+                            "You've joined the Clique \"" + groupSnapshot.docs[0].data().name 
+                            + "\"!");
                             addGroupCard(groupSnapshot.docs[0].data());
                         } catch (err) {
                             console.error(err);
-                            alert(err.message);
                         }
                     }
                     groupId.value = "";
                 } catch (err) {
                     console.error(err);
-                    alert(err.message);
                 }
             }
-            showLoader(false, "load1");
+            havePatience(false, "load1");
         }
     };
     joinGroup();
@@ -166,12 +195,11 @@ function callJoinGroup() {
 
 // Leave a group
 // TODO: have a leave group button for each group card (instead of having to put gid)
-// TODO: have a loading symbol to indicate in the process of leaving
 function callLeaveGroup() {
     const leaveGroup = async() => {
         const groupId = document.getElementById("leavegroupid");
         if (groupId.value != "") {
-            showLoader(true, "load2");
+            havePatience(true, "load2", "leaveGroupResult");
             const auth = getAuth();
             const user = auth.currentUser;
             const currentUserQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -179,11 +207,11 @@ function callLeaveGroup() {
             const userDocId = getUserDoc.docs[0].id;
             const userData = getUserDoc.docs[0].data();
 
-            // check if gid is in user's group\
+            // check if gid is in user's group
             const groupQuery = query(collection(db, "groups"), where("gid", "==", groupId.value));
             const groupSnapshot = await getDocs(groupQuery);
             if (!userData.groups.includes(groupId.value)) {
-                alert("Group ID does not exist.");
+                resultMessage("leaveGroupResult", false, "Group ID does not exist.");
             }
             else {
                 try {
@@ -200,39 +228,17 @@ function callLeaveGroup() {
                         groups: arrayRemove(groupId.value)
                     });
 
-                    alert("You've left the Clique \"" + groupSnapshot.docs[0].data().name + "\"");
+                    resultMessage("leaveGroupResult", true, 
+                    "You've left the Clique \"" + groupSnapshot.docs[0].data().name + "\"!");
                 } catch (err) {
                     console.error(err);
-                    alert(err.message);
                 }
                 groupId.value = "";
             }
-            showLoader(false, "load2");
+            havePatience(false, "load2");
         }
     };
     leaveGroup();
-}
-
-// These were put when a request button was clicked, but after response is returned
-// the popups became unresponsive.
-// function addLoader() {
-//     var content = document.getElementById("groups");
-//     content.innerHTML = `
-//     <div class="loader" id="load"></div>
-//     `;
-// }
-// function removeLoader() {
-//     var loader = document.getElementById("load");
-//     loader.remove();
-// }
-function showLoader(show, id) {
-    const loader = document.getElementById(id);
-    if (show) {
-        loader.style.display = "block";
-    }
-    else{
-        loader.style.display = "none";
-    }
 }
 
 // Create card for each group user is in
@@ -281,7 +287,6 @@ function Groups() {
         fetchGroupData();
     }, [user, loading])
 
-    // TODO: add loading icon while this runs so user knows it's loading
     setTimeout(() => {fetchGroupData();}, 500);
 
     return (
@@ -308,6 +313,8 @@ function Groups() {
                     </div>
                     <br/>
                     <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callCreateGroup()}}>Confirm Clique</button>
+                    <br/>
+                    <div id="createGroupResult"></div>
                     <div class="loader" id="load"></div>
                 </div>
             </div>
@@ -320,7 +327,9 @@ function Groups() {
                         <input type="text" id="joingroupid"></input>
                     </div>
                     <br/>
-                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callJoinGroup()}}>Join</button>
+                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callJoinGroup()}}>Join Clique</button>
+                    <br/>
+                    <div id="joinGroupResult"></div>
                     <div class="loader" id="load1"></div>
                 </div>
             </div>
@@ -330,10 +339,12 @@ function Groups() {
                 <div id="leavegroup-content" class="leavegroup-content">
                     <span class="close2">&times;</span>
                     <div>Clique ID: {'\n'}
-                        <input type="text" id="leavegroupid" placeholder="ID of group to leave"></input>
+                        <input type="text" id="leavegroupid" placeholder="GID of clique to leave"></input>
                     </div>
                     <br/>
                     <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callLeaveGroup()}}>Leave Clique</button>
+                    <br/>
+                    <div id="leaveGroupResult"></div>
                     <div class="loader" id="load2"></div>
                 </div>
             </div>
