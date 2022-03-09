@@ -17,7 +17,9 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(207, 254, 179);
+    overflow: scroll;
   }
+  
 @media screen and (min-height:600px) and (min-width:1000px){
     .routing {
         height: 100vh;

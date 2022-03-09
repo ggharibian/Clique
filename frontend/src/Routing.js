@@ -118,9 +118,15 @@ class Routing extends React.Component {
         
     }
 
+    componentDidMount() {
+        checkPage();
+    }
+
     render(){
         console.log(this.state.currentEventIndex)
         return (
+            <div>
+            <Navbar />
             <div className="routing">
                 <div className="map">
                 <Card style={{width: "50%", height: "85%", position: 'absolute', top: '10%', left: '3%'}}>
@@ -201,6 +207,7 @@ class Routing extends React.Component {
                         </Card.Body>
                     </Card>
                 </div>
+            </div>
             </div>
         );
     }

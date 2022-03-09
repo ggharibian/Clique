@@ -1,12 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Groups.css";
+import checkPage from "./CheckPage";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
+import Navbar from "./components/navbar"
 
 function Groups() {
+    useEffect(() => {    
+        checkPage();
+      }, [checkPage]);
+
     return (
         <center>
+        <Navbar />
         <div className="groups">
             <div className="title">My Friend Groups</div>
             <br />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Registration.css";
+import checkPage from "./CheckPage.js"
 import { auth, db } from "./firebase";
 import { query, collection, getDocs, setDoc, doc, where } from "firebase/firestore";
 
@@ -76,6 +77,7 @@ function Registration () {
                 email: email,
                 phone: phone,
                 name: name,
+                friends: [],
                 license: license,
                 permit: permit,
                 car: car,
@@ -97,9 +99,10 @@ function Registration () {
 
       
     // Obtain information
-    useEffect(() => {    
+    useEffect(() => {  
         fetchInfo();
-      }, [user]);
+        checkPage();
+      }, [user, checkPage]);
 
     
     return (
