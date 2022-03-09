@@ -78,7 +78,6 @@ class Routing extends React.Component {
     }
 
     async updateStateWithAsync(user){
-        console.log("YES")
         const currentUserQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
         const getUserDoc = await getDocs(currentUserQuery);
         const userinfo = getUserDoc.docs[0].data()
@@ -129,15 +128,16 @@ class Routing extends React.Component {
             <Navbar />
             <div className="routing">
                 <div className="map">
-                <Card style={{width: "50%", height: "85%", position: 'absolute', top: '10%', left: '3%'}}>
-                    <Card.Body>
+                <Card style={{width: "50%", height: "85%", position: 'absolute', top: '100px', left: '3%'}}>
+                    <Card.Body style={{width: "100%", padding: 10}}>
                         {this.state.map}
                     </Card.Body>
                 </Card>
                 </div>
                 <div className="Friends">
-                    <Card style={{width: "40%", height: "41.75%", position: 'absolute', top: '10%', left: '55%'}}>
+                    <Card style={{width: "40%", height: "41.75%", position: 'absolute', top: '100px', left: '55%'}}>
                         <Card.Body style={{overflow: "scroll"}}>
+                            <div className="title-text-card">Events</div>
                             <Accordion defaultActiveKey="3">
                                 {/* <Modal> */}
                                 { this.state.events.map((item, index) => {
@@ -173,7 +173,7 @@ class Routing extends React.Component {
                                                     </li>
                                                 </l> */}
                                             <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={() => { this.updateEventIndex(index) }}>
-                                                View Routes
+                                                View Your Pickup Route.
                                             </Button>
 
                                         </Accordion.Body>
