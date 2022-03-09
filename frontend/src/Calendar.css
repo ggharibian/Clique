@@ -52,14 +52,15 @@
 }
 
 .calendar {
-    height: 112vh;
+    height: 100%;
     width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: rgba(255, 234, 245, 0.911);
     padding: 3rem;
-    margin-top: 0vh
+    margin-top: 0vh;
+    overflow: auto;
   }
 
 .cal_titleCard {
@@ -123,7 +124,7 @@
 
 .past {
   font-style: italic;
-  font-color: "#808080";
+  color: "#808080";
   color: "#808080";
   background-color: "#808080";
   background: "#808080";
@@ -131,4 +132,10 @@
 
 .upcoming {
   font-weight: bold;
+}
+
+@media screen and (min-height:840px) {
+  .calendar {
+      height: 100vh;
+  }
 }
