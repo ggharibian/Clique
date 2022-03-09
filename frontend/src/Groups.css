@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
 
 .groupTitle{
-    padding-top: 9vh;
-    /* margin-top: 10px; */
+    padding-top: 2em;
     margin-bottom: 10px;
     text-align: center;
     font-size: 28px;
@@ -29,18 +28,17 @@
     height: 100%;
     width: 100%;
     display: flex;
-    padding-top: 9vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: rgb(232, 214, 240);
-    overflow: scroll;
+    overflow: visible;
 }
 
 .groupContainer {
     padding-left: 2em;
     padding-right: 2em;
-    padding-bottom: 2em;
+    /* padding-bottom: 2em; */
     background-color: rgb(232, 214, 240);
 }
 

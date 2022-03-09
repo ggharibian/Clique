@@ -160,9 +160,9 @@ function Friends() {
         <div className="friends">
             {/* TODO: TEMPORARY SOLUTION to calling the table data
             setting a setTimeout produces incorrect data to the table*/}
-            <div className="refreshButton">
+            {/* <div className="refreshButton">
                 <button onClick={window.onload = function(){fetchFriendData()}}>Refresh Friend List</button>
-            </div>
+            </div> */}
             <div className="title">
                 Friends
             </div>
@@ -186,6 +186,9 @@ function Friends() {
                     {/* TODO: Should be "send friend request button" instead of adding friend right away */}
                     <button class="addfriend-sendbutton" id="searchfriendbtn" onClick={window.onload = function(){searchFriend()}}>add to friends</button>
                 </div>
+            </div>
+            <div className="refreshButton">
+                <button onClick={window.onload = function(){fetchFriendData()}}>Refresh Friend List</button>
             </div>
         </div>
         </center>

@@ -15,7 +15,7 @@ function Groups() {
         <center>
         <Navbar />
         <div className="groups">
-            <div className="title">My Friend Groups</div>
+            <div className="groupTitle">My Friend Groups</div>
             <br />
 
             <div className="user-info">

@@ -8,7 +8,7 @@
     justify-content: center;
     background-color: rgba(255, 248, 224, 0.892);
     padding: 2rem;
-    overflow: scroll;
+    /* overflow: visible; */
   }
 
   /* "Add Friend" button */
@@ -103,3 +103,23 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+/* @media screen and (min-height:600px) and (max-width:200px){
+    .friends {
+        height: 100%;
+    }
+} */
+
+/* @media screen and (min-height:600px) and (min-width:1000px){
+    .friends {
+        height: 100vh;
+        overflow: visible;
+    }
+} */
+
+/* @media screen and (min-height:600px) and (min-width:200px){
+    .friends {
+        overflow: visible;
+        height: 100%;
+    }
+} */

@@ -52,7 +52,7 @@ function Profile() {
             <Navbar />
             <div className="myProfile">
             
-                <div className="title">{name}'s profile</div>
+                <div className="profileTitle">{name}'s profile</div>
                 <div className="user-info">
                     <div class="button-container">
                         <Button variant="primary" size="md" onClick={logout}>
