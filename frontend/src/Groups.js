@@ -94,7 +94,7 @@ function callCreateGroup() {
                     alert(err.message);
                 }
             }
-            showLoader(false, "load1");
+            showLoader(false, "load");
         }
         else {
             alert("Please put a valid group name/id");
