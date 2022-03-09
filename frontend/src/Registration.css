@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
 
 .title{
     margin-top: 10px;
@@ -7,18 +8,17 @@
     font-size: 28px;
     color: black;
     font-weight: 900;
-    font-family: 'Nunito Sans';
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 .container {
-    margin-top: 10vh;
     height: 100%;
     margin-bottom: 10vh;
     width: 60vmax;
     padding: 4%;
   }
 
-  .profile {
+  .registration {
     width: 100vw;
     height: 100%;
     display: flex;

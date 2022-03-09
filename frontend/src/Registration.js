@@ -108,7 +108,7 @@ function Registration () {
     
     return (
     <center>
-        <div className="profile">
+        <div className="registration">
             <div className="container">
             {isValid ? null : <AlertError show={show} setShow={setShow}/>}
                 <h1 className="title">You are just one Clique away!</h1>
@@ -136,7 +136,7 @@ function Registration () {
                         <Form.Label className="personal-label">Address: </Form.Label>
                         <Form.Control type="text" placeholder="Enter your address" value={address} onChange={(e) => setAddress(e.target.value)}/>
                     </Form.Group>
-
+                    <hr />
                     <h4 className="subtitle-reg"> Driving Capabilities </h4>
                     <Form.Group className="mb-3 radiobtn-input" controlId="forlicense">
                         <Form.Label>Do you have a license: </Form.Label>
@@ -161,27 +161,27 @@ function Registration () {
                             <Form.Check className="radio-bubble" inline label="no" name="Car" type="radio" id={`inline-radio-2`} value="no" onChange={(e) => setCar(e.target.value)}/>
                         </div>
                     </Form.Group>
-
+                    <hr />
                     <h4 className="subtitle-reg">What is your favorite:</h4>
                     <Form.Group className="mb-3 favorite-item" controlId="for">
                         <Form.Label className="favorite-label">Food: </Form.Label>
-                        <Form.Control type="text" placeholder="Enter anything" value={food} onChange={(e) => setFood(e.target.value)}/>
+                        <Form.Control type="text" placeholder="e.g. sushi, burgers, ice cream, etc." value={food} onChange={(e) => setFood(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3 favorite-item" controlId="forbasicName">
                         <Form.Label className="favorite-label">Place: </Form.Label>
-                        <Form.Control type="text" placeholder="Enter anything" value={place} onChange={(e) => setPlace(e.target.value)}/>
+                        <Form.Control type="text" placeholder="e.g. Hawaii, UCLA, home, etc." value={place} onChange={(e) => setPlace(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3 favorite-item" controlId="forbasicName">
                         <Form.Label className="favorite-label">Song: </Form.Label>
-                        <Form.Control type="text" placeholder="Enter anything" value={song} onChange={(e) => setSong(e.target.value)}/>
+                        <Form.Control type="text" placeholder="e.g. Classic, Party in the USA, Treasure, etc." value={song} onChange={(e) => setSong(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3 favorite-item" controlId="forbasicName">
                         <Form.Label className="favorite-label">Movie: </Form.Label>
-                        <Form.Control type="text" placeholder="Enter anything" value={movie} onChange={(e) => setMovie(e.target.value)}/>
+                        <Form.Control type="text" placeholder="e.g. Star Wars, Batman, Hulk, etc." value={movie} onChange={(e) => setMovie(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3 favorite-item" controlId="forbasicName">
                         <Form.Label className="favorite-label">Book: </Form.Label>
-                        <Form.Control type="text" placeholder="Enter anything" value={book} onChange={(e) => setBook(e.target.value)}/>
+                        <Form.Control type="text" placeholder="e.g. Scat, Holes, Hunger Games, etc." value={book} onChange={(e) => setBook(e.target.value)}/>
                     </Form.Group>
                     <Button variant="primary" type="submit"> Submit </Button>
                 </Form>
