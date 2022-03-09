@@ -56,11 +56,12 @@ function Profile() {
                 <div className="user-info">
                     <div class="button-container">
                         <Button variant="primary" size="md" onClick={logout}>
-                            Click to Logout
+                            logout
                         </Button>
                     </div>
+                    <br />
                     <text>
-                        <h6>--- Some information about me ---</h6> <br />
+                        <h6><center>About Me</center></h6>
                         <span className="user-info-subtitle">My email is:</span> {email}<br />
                         <span className="user-info-subtitle">My phone is:</span> {phone} <br />
                         <span className="user-info-subtitle">My address is:</span> {address}<br />
@@ -87,7 +88,7 @@ function Profile() {
                             <div class="card" display="flex">
                                 <img class="card-img-top" src="" alt=""/>
                                 <div class="profileText">
-                                    <h3>groups</h3>
+                                    <h3>cliques</h3>
                                     <p>see my cliques</p>
                                     <a href="../mycliques" class="btn btn-outline-primary btn-sm">
                                         see cliques
@@ -114,8 +115,8 @@ function Profile() {
                             <div class="card" display="flex">
                                 <img class="card-img-top" src="" alt=""/>
                                 <div class="profileText">
-                                    <h3>map</h3>
-                                    <p>see routes for upcoming events</p>
+                                    <h3>routing</h3>
+                                    <p>see routes and navigation for events</p>
                                     <a href="../routing" class="btn btn-outline-primary btn-sm">
                                         see routes
                                     </a>
