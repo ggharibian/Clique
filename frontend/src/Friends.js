@@ -7,7 +7,7 @@ import Table from 'react-bootstrap/Table';
 import { db, auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
-import { query, collection, getDocs, where, doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import { query, collection, getDocs, where, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import Navbar from "./components/navbar"
 
 // Loading UI while data is retrieved
@@ -38,9 +38,9 @@ function resultMessage(divID, success, message){
     setTimeout(() => {messageDiv.textContent = "";}, 5000);
 }
 
-function searchFriendPopup() {
-    const modal = document.getElementById("addfriendpopup");
-    const span = document.getElementsByClassName("close")[0];
+function friendPopup(id,close) {
+    const modal = document.getElementById(id);
+    const span = document.getElementsByClassName(close)[0];
     modal.style.display = "block";
     span.onclick = function() {
         modal.style.display = "none";
@@ -62,7 +62,7 @@ function searchFriend() {
                 const userData = getUserDoc.docs[0].data();
                 try {
                     const friendToAdd = querySnapshot.docs[0].data();
-                    if (user.uid == friendToAdd.uid) {
+                    if (user.uid === friendToAdd.uid) {
                         resultMessage("addFriendResult", false, "Cannot add yourself as a friend!\nHave you got no friends? :(");
                     }
                     else if (userData.friends.includes(friendToAdd.uid)) {
@@ -95,6 +95,7 @@ function searchFriend() {
         searchFriendEmail();
     } 
 }
+
 const addFriendToList = async(uid, userDocId) => {
     try {
         const userDoc = doc(db, "users", userDocId);
@@ -106,12 +107,47 @@ const addFriendToList = async(uid, userDocId) => {
     }
 }
 
-function deleteFriend(friend) {
-    // if (!e.target.classList.contains("deleteBtn")) {
-    //     return;
+// TODO: have a remove friend button for each friend row (instead of having to put email)
+function callDeleteFriend() {
+    const input = document.getElementById("removeFriendInput");
+    const deleteFriend = async() => {
+        if (input.value != "") {
+            havePatience(true, "load1", "removeFriendResult");
+            const auth = getAuth();
+            const user = auth.currentUser;
+            const currentUserQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
+            const getUserDoc = await getDocs(currentUserQuery);
+            const userDocId = getUserDoc.docs[0].id;
+            try {
+                const filter = input.value.toLowerCase();
+                const queryFriend = query(collection(db, "users"), where("email".toLowerCase(), "==", filter));
+                const friendDoc = await getDocs(queryFriend);
+                const friendToAdd = friendDoc.docs[0].data();
+                if (friendToAdd.uid === user?.uid) {
+                    resultMessage("removeFriendResult", false, "Don't remove yourself! Learn self-love (●'◡'●)");
+                }
+                else {
+                    const userDoc = doc(db, "users", userDocId);
+                    await updateDoc(userDoc, {
+                        friends: arrayRemove(friendToAdd.uid)
+                    });
+                    resultMessage("removeFriendResult", true, "Removed " + friendToAdd.name + " from friends list.");
+                }
+
+            } catch (err) {
+                console.error(err);
+                resultMessage("removeFriendResult", false, "Cannot find friend with email " + input.value + ".");
+            }
+            input.value = "";
+            havePatience(false, "load1");
+        }
+        else {
+            resultMessage("removeFriendResult", false, "Please enter an email.");
+        }
+    };
+    deleteFriend();
 }
 
-// TODO: add remove friend feature
 function addToTable(friend) {
     var table = document.getElementById("friendTable");
     const tbodyEl = document.querySelector("tbody");
@@ -124,7 +160,6 @@ function addToTable(friend) {
     <td>${friend.address}</td>
     </tr>
     `;
-    // <td><button id = "searchfriendbtn" class = "deleteBtn"}>Remove Friend</button></td>
 }
 
 function Friends() {
@@ -183,7 +218,7 @@ function Friends() {
                 <tbody>
                 </tbody>
             </Table>
-            <button class="button" id="addfriendbtn" onClick={window.onload = function(){searchFriendPopup()}}> Add Friend </button>
+            <button class="button" id="addfriendbtn" onClick={window.onload = function(){friendPopup("addfriendpopup", "close")}}> Add Friend </button>
             <div id="addfriendpopup" class="addfriend">
                 <div class="addfriend-content">
                     <span class="close">&times;</span>
@@ -192,6 +227,16 @@ function Friends() {
                     <button class="btn btn-outline-primary btn-sm" id="searchfriendbtn" onClick={window.onload = function(){searchFriend()}}>add to friends</button>
                     <div id="addFriendResult"></div>
                     <div class="loader" id="load"></div>
+                </div>
+            </div>
+            <button class="button-remove" id="removefriendbtn" onClick={window.onload = function(){friendPopup("removefriendpopup", "close1")}}> Remove friend by email </button>
+            <div id="removefriendpopup" class="removefriend">
+                <div class="removefriend-content">
+                    <span class="close1">&times;</span>
+                    <input type="text" id="removeFriendInput" placeholder="Enter email address of friend to remove"></input>
+                    <button class="btn btn-outline-primary btn-sm" id="searchfriendbtn" onClick={window.onload = function(){callDeleteFriend()}}>remove friend</button>
+                    <div id="removeFriendResult"></div>
+                    <div class="loader" id="load1"></div>
                 </div>
             </div>
             <div className="refreshButton">
