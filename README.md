@@ -3,9 +3,10 @@
 Clique is an application meant to enhance the experience of social circles.
 It's current implementation contains the following features:
 
+* Profile - Create a profile and add/modify address, driving preferences, and availability
+* Friends & Cliques - Add friends and create/join a Clique (friend group)
 * Routing - Multiple addresses, driving/time constraints, etc.
 * Calendar - Automatic import from Google Calendar, priority lists, etc.
-* Favorites - Group's most visited locations, most favorite foods, name, etc.
 
 Clique leverages technology to resolve the issues that many groups face,
 especially in terms of planning where and when to meet.
@@ -68,6 +69,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 “Alerts.” React-Bootstrap, https://react-bootstrap.github.io/components/alerts/#dismissing.
 
 Ed. “Responsive Navigation Bar Tutorial | HTML CSS JAVASCRIPT.” Youtube, 29 Aug. 2018, https://www.youtube.com/watch?v=gXkqy0b4M5g. 
+
+“How To Create a Sticky Navbar.” W3Schools, https://www.w3schools.com/howto/howto_js_navbar_sticky.asp. 
 
 Raj, Shanjai. “Build a Contact Form Using React and Firebase - YouTube.” YouTube, 3 Aug. 2020, https://www.youtube.com/watch?v=RKj3OjgftXc. 
 
