@@ -15,6 +15,7 @@
     "react-google-button": "^0.7.2",
     "react-router-dom": "^6.2.2",
     "react-scripts": "4.0.1",
+    "react-time-range": "^1.0.4",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
