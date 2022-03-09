@@ -18,6 +18,11 @@
     padding: 4%;
   }
 
+.container Button{
+  background-color: #558aec;
+  border-color: #558aec;
+}
+
   .registration {
     width: 100vw;
     height: 100%;
