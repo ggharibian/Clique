@@ -69,25 +69,44 @@
     height: 20%;
     width: 50%;
     text-align: center;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
 }
 
 /* Search bar */
 .addfriend input[type=text] {
     position: inherit;
     margin-top: 30px;
+    margin-left: 10px;
     width: 50%;
     font-size: 17px;
-    border-radius: 10px;
+    border-radius: 8px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-style: italic;
 }
 
 /* TODO: style to make it look better */
 /* "send friend request" button */
 .addfriend-sendbutton {
-    border-radius: 10px;
-    width: 90px;
+    border-radius: 8px;
+    margin-right: 10px;
     text-align: center;
     background-color:#fefefe;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    padding: 3px;
 }
+
+.addfriend-content button{
+    background-color: #6495ed;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-left: 10px;
+    border-color: #6495ed;
+}
+
 
 .close {
     color: #6495ed;

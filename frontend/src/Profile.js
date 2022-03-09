@@ -59,9 +59,8 @@ function Profile() {
                             logout
                         </Button>
                     </div>
-                    <br />
                     <text>
-                        <h6><center>About Me</center></h6>
+                        <h2><center>About Me</center></h2>
                         <span className="user-info-subtitle">My email is:</span> {email}<br />
                         <span className="user-info-subtitle">My phone is:</span> {phone} <br />
                         <span className="user-info-subtitle">My address is:</span> {address}<br />

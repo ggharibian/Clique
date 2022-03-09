@@ -73,8 +73,8 @@
       font-family: 'Nunito Sans', sans-serif;
   }
 
-.myProfile h6 { 
-    font-size: 20px;
+.myProfile h2 { 
+    font-size: 25px;
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 700;
 }
@@ -90,13 +90,13 @@
         height: 100vh;
     }
 } */
-/* 
+
 @media screen and (min-height:840px) {
     .myProfile {
         height: 100vh;
     }
 }
-
+/*
 @media screen and (min-height:840px) and (max-width:915px) {
     .myProfile {
         height: 100%;
