@@ -30,6 +30,12 @@ Then, `cd` into the frontend in order to start it up:
 
 From here, we can run:
 
+`npm install`
+`npm install firebase react-router-dom react-firebase-hooks`
+'npm install react-time-range'
+'npm install --save react react-dom @emotion/react'
+'npm install --save --legacy-peer-deps @ericz1803/react-google-calendar'
+
 `npm start`
 
 Runs the app in the development mode.\
