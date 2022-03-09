@@ -32,7 +32,7 @@ function Login() {
         <Card className="titleCard">
           <Card.Header className="headerCard">
           <div className="titleText"> Clique. </div>
-          <div className="subtitle"> Fancy slogan in the works... </div>
+          <div className="subtitle">One click to your Clique</div>
           </Card.Header>
 
           <Card.Body className="bodyCard">
