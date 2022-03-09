@@ -29,6 +29,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope('https://www.googleapis.com/auth/calendar.readonly');
 
 const signInWithGoogle = async () => {
   try {
