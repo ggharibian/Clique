@@ -10,6 +10,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import ListGroup from "react-bootstrap/ListGroup"
 import ListGroupItem from "react-bootstrap/ListGroupItem";
+import checkPage from "./CheckPage";
+import Navbar from "./components/navbar"
 
 // function getUsers(props){
 //     useEffect(() => {
@@ -72,9 +74,11 @@ class Routing extends React.Component {
 
     componentDidMount() {
         this.updateDatabaseItems()
+        checkPage();
     }
 
     async updateStateWithAsync(user){
+        console.log("YES")
         const currentUserQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
         const getUserDoc = await getDocs(currentUserQuery);
         const userinfo = getUserDoc.docs[0].data()
@@ -116,10 +120,6 @@ class Routing extends React.Component {
 
     getAllMarkers(map){
         
-    }
-
-    componentDidMount() {
-        checkPage();
     }
 
     render(){
