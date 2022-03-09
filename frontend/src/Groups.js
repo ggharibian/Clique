@@ -39,30 +39,10 @@ function resultMessage(divID, success, message){
     setTimeout(() => {messageDiv.textContent = "";}, 5000);
 }
 
-// Modal/popup when first "Create a group" button is clicked
-function createGroupPopup() {
-    const modal = document.getElementById("creategroup-popup");
-    const span = document.getElementsByClassName("close")[0];
-    modal.style.display = "block";
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-}
-
-// Modal/popup when "Join a group" button is clicked
-function joinGroupPopup() {
-    const modal = document.getElementById("joingroup-popup");
-    const span = document.getElementsByClassName("close1")[0];
-    modal.style.display = "block";
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-}
-
-// Modal/popup when "Leave a group" button is clicked
-function leaveGroupPopup() {
-    const modal = document.getElementById("leavegroup-popup");
-    const span = document.getElementsByClassName("close2")[0];
+// Modal/popup
+function groupPopup(id, close) {
+    const modal = document.getElementById(id);
+    const span = document.getElementsByClassName(close)[0];
     modal.style.display = "block";
     span.onclick = function() {
         modal.style.display = "none";
@@ -136,9 +116,8 @@ function callJoinGroup() {
     const joinGroup = async() => {
         const groupId = document.getElementById("joingroupid");
         
-        if (groupId) {
+        if (groupId.value!="") {
             havePatience(true, "load1","joinGroupResult");
-                    
             const auth = getAuth();
             const user = auth.currentUser;
             const currentUserQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -188,6 +167,9 @@ function callJoinGroup() {
                 }
             }
             havePatience(false, "load1");
+        }
+        else {
+            resultMessage("joinGroupResult", false, "Please enter a Clique ID.");
         }
     };
     joinGroup();
@@ -248,8 +230,8 @@ function addGroupCard(group) {
     <div class="col-lg-4 mb-3">
         <div class="groupTextContainer">
             <div class="groupText">
-            <h3>Group Name: ${group.name}</h3>
-            <div>GID: ${group.gid}</div>
+            <h3>Clique Name: ${group.name}</h3>
+            <div>Clique ID: ${group.gid}</div>
             <p>there are ${group.people.length} people in this friend group and ${group.Events.length} upcoming events with them</p>
             <a href="../calendar" class="btn btn-outline-primary btn-sm">
             see events for ${group.name}
@@ -301,7 +283,7 @@ function Groups() {
                 </text>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="createGroupPopupBtn" onClick={window.onload = function(){createGroupPopup()}}> Create a Clique </button>
+            <button class="btn btn-outline-primary btn-sm" id="createGroupPopupBtn" onClick={window.onload = function(){groupPopup("creategroup-popup", "close")}}> Create a Clique </button>
             <div id="creategroup-popup" class="creategroup">
                 <div class="creategroup-content">
                     <span class="close">&times;</span>
@@ -309,7 +291,7 @@ function Groups() {
                         <input type="text" id="groupname"></input>
                     </div>
                     <div>Clique ID: {'\n'}
-                        <input type="text" id="groupid"></input>
+                        <input type="text" id="groupid" placeholder="Clique IDs are case-sensitive"></input>
                     </div>
                     <br/>
                     <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callCreateGroup()}}>Confirm Clique</button>
@@ -319,7 +301,7 @@ function Groups() {
                 </div>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="joinGroupBtn" onClick={window.onload = function(){joinGroupPopup()}}> Join a Clique </button>
+            <button class="btn btn-outline-primary btn-sm" id="joinGroupBtn" onClick={window.onload = function(){groupPopup("joingroup-popup", "close1")}}> Join a Clique </button>
             <div id="joingroup-popup" class="joingroup">
                 <div class="joingroup-content">
                     <span class="close1">&times;</span>
@@ -334,12 +316,12 @@ function Groups() {
                 </div>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="leavegroupbtn" onClick={window.onload = function(){leaveGroupPopup()}}>Leave a Clique</button>
+            <button class="btn btn-outline-primary btn-sm" id="leavegroupbtn" onClick={window.onload = function(){groupPopup("leavegroup-popup", "close2")}}>Leave a Clique</button>
             <div id="leavegroup-popup" class="leavegroup">
                 <div id="leavegroup-content" class="leavegroup-content">
                     <span class="close2">&times;</span>
                     <div>Clique ID: {'\n'}
-                        <input type="text" id="leavegroupid" placeholder="GID of clique to leave"></input>
+                        <input type="text" id="leavegroupid" placeholder="Clique ID of clique to leave"></input>
                     </div>
                     <br/>
                     <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callLeaveGroup()}}>Leave Clique</button>
