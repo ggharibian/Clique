@@ -8,6 +8,7 @@ import { db, auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { query, collection, getDocs, where, doc, updateDoc, arrayUnion, arrayRemove, addDoc } from "firebase/firestore";
+import Navbar from "./components/navbar";
 
 // Modal/popup when first "Create a group" button is clicked
 function createGroupPopup() {
@@ -47,6 +48,7 @@ function callCreateGroup() {
 
         // note: await in query is ineffective..
         if (groupId.value != "" && groupName.value != "") {
+            showLoader(true, "load");
             const auth = getAuth();
             const user = auth.currentUser;
             const currentUserQuery = await query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -90,6 +92,7 @@ function callCreateGroup() {
                     alert(err.message);
                 }
             }
+            showLoader(false, "load1");
         }
         else {
             alert("Please put a valid group name/id");
@@ -100,12 +103,11 @@ function callCreateGroup() {
 
 // Join a group in a database
 function callJoinGroup() {
-    
     const joinGroup = async() => {
         const groupId = document.getElementById("joingroupid");
-
         // note: await in query is ineffective..
         if (groupId) {
+            showLoader(true, "load1");
             const auth = getAuth();
             const user = auth.currentUser;
             const currentUserQuery = await query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -154,6 +156,7 @@ function callJoinGroup() {
                     alert(err.message);
                 }
             }
+            showLoader(false, "load1");
         }
     };
     joinGroup();
@@ -165,18 +168,17 @@ function callJoinGroup() {
 function callLeaveGroup() {
     const leaveGroup = async() => {
         const groupId = document.getElementById("leavegroupid");
-        console.log(groupId.value);
-        // note: await in query is ineffective..
         if (groupId.value != "") {
+            showLoader(true, "load2");
             const auth = getAuth();
             const user = auth.currentUser;
-            const currentUserQuery = await query(collection(db, "users"), where("uid", "==", user?.uid));
+            const currentUserQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
             const getUserDoc = await getDocs(currentUserQuery);
             const userDocId = getUserDoc.docs[0].id;
             const userData = getUserDoc.docs[0].data();
 
-            // check if gid is in user's group
-            const groupQuery = await query(collection(db, "groups"), where("gid", "==", groupId.value));
+            // check if gid is in user's group\
+            const groupQuery = query(collection(db, "groups"), where("gid", "==", groupId.value));
             const groupSnapshot = await getDocs(groupQuery);
             if (!userData.groups.includes(groupId.value)) {
                 alert("Group ID does not exist.");
@@ -203,9 +205,32 @@ function callLeaveGroup() {
                 }
                 groupId.value = "";
             }
+            showLoader(false, "load2");
         }
     };
     leaveGroup();
+}
+
+// These were put when a request button was clicked, but after response is returned
+// the popups became unresponsive.
+// function addLoader() {
+//     var content = document.getElementById("groups");
+//     content.innerHTML = `
+//     <div class="loader" id="load"></div>
+//     `;
+// }
+// function removeLoader() {
+//     var loader = document.getElementById("load");
+//     loader.remove();
+// }
+function showLoader(show, id) {
+    const loader = document.getElementById(id);
+    if (show) {
+        loader.style.display = "block";
+    }
+    else{
+        loader.style.display = "none";
+    }
 }
 
 // Create card for each group user is in
@@ -224,7 +249,7 @@ function addGroupCard(group) {
             </div>
         </div>
     </div>
-    `
+    `;
 }
 
 function Groups() {
@@ -255,14 +280,14 @@ function Groups() {
     }, [user, loading])
 
     // TODO: add loading icon while this runs so user knows it's loading
-    setTimeout(() => {fetchGroupData()}, 500);
+    setTimeout(() => {fetchGroupData();}, 500);
 
     return (
         <center>
+        <Navbar />
         <div className="groups" id="groups">
             <div className="title">My Friend Groups</div>
             <br />
-            
             <div className="user-info">
                 <text>
                     You are part of {groups.length} friend groups <br />
@@ -281,6 +306,7 @@ function Groups() {
                     </div>
                     <br/>
                     <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callCreateGroup()}}>Confirm Group</button>
+                    <div class="loader" id="load"></div>
                 </div>
             </div>
             <br />
@@ -293,18 +319,20 @@ function Groups() {
                     </div>
                     <br/>
                     <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callJoinGroup()}}>Join</button>
+                    <div class="loader" id="load1"></div>
                 </div>
             </div>
             <br />
             <button class="btn btn-outline-primary btn-sm" id="leavegroupbtn" onClick={window.onload = function(){leaveGroupPopup()}}>Leave a group</button>
             <div id="leavegroup-popup" class="leavegroup">
-                <div class="leavegroup-content">
+                <div id="leavegroup-content" class="leavegroup-content">
                     <span class="close2">&times;</span>
                     <div>Group ID: {'\n'}
                         <input type="text" id="leavegroupid" placeholder="ID of group to leave"></input>
                     </div>
                     <br/>
                     <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callLeaveGroup()}}>Leave group</button>
+                    <div class="loader" id="load2"></div>
                 </div>
             </div>
             <br />
