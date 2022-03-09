@@ -259,6 +259,10 @@ function Groups() {
 
     return (
         <center>
+<<<<<<< HEAD
+
+=======
+>>>>>>> d379b34fa0703ccbb42d6b01e05d1ee25e8c420c
         <Navbar />
         <div className="groups" id="groups">
             <div className="groupTitle">My Friend Groups</div>
