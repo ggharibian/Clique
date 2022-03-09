@@ -5,7 +5,8 @@ import MyMap from "./components/Map";
 import { db, /*auth*/ } from "./firebase";
 import { /*useAuthState*/ } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
-import { query, collection, getDocs, where/*, doc, updateDoc, arrayUnion, getDoc*/ } from "firebase/firestore";
+import { query, collection, getDocs, where,/*, doc, updateDoc, arrayUnion, getDoc*/ 
+connectFirestoreEmulator} from "firebase/firestore";
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import ListGroup from "react-bootstrap/ListGroup"
@@ -43,6 +44,8 @@ class Routing extends React.Component {
                     );
                   }
             }}/>,
+            geocoder: new window.google.maps.Geocoder(),
+            distanceMatrix: new window.google.maps.DistanceMatrixService(),
             events: [],
             currentEventIndex: -1,
             adjacencyList: new Map()
@@ -77,38 +80,144 @@ class Routing extends React.Component {
     }
 
     distanceBetween(from, to){
+        this.state.distanceMatrix.getDistanceMatrix({
+                origins: [from],
+                destinations: [to],
+                travelMode: 'DRIVING'
+        }, (response, status) => {
+            console.log('Distance Matrix Response: ', response.rows[0].elements[0].duration)
+            console.log('Distance Matrix Status: ', status)
+            return response.rows[0].elements
 
+        })
     }
 
-    routeChange(index){
-        var newAdjacencyList = this.state.adjacencyList;
-        newAdjacencyList.clear()
-        // console.log('Index: ', this.state.currentEventIndex)
-        // console.log('Events List: ', this.state.events[0])
-
-        // for (var i = 0; i < this.state.events[index][0].length; i++){
-        //     console.log(this.state.events[index][0][i])
-        // }
+    getAllDrivers(index) {
+        const people = this.state.events[index][0]
+        // return people.filter( (item) => {return (item.licence === 'yes')})
+        var result = []
+        for (var i = 0; i < people.length; i++){
+            if (people[i].license === 'yes'){
+                result.push(people[i])
+            }
+        }
+        return result
     }
 
-    updateEventIndex(index){
+    async getDistancesToAll(from, toAll){
+        console.log(new Array(toAll.length).fill(from))
+        console.log(toAll)
+        return new Promise((resolve, reject) => {
+            this.state.distanceMatrix.getDistanceMatrix({
+                origins: new Array(toAll.length).fill(from),
+                destinations: toAll,
+                travelMode: 'DRIVING'
+            }, (response, status) => {
+                // console.log('Distance Matrix Response: ', response.rows[0].elements)
+                // console.log('Distance Matrix Status: ', status)
+                console.log('results:', response.rows.map((item) => {return item.elements[0].duration}))
+                resolve(response.rows.map((item) => {return item.elements[0].duration}))
+            })
+        })
+    }
+
+    async getDistancesFromAll(fromAll, to){
+        this.state.distanceMatrix.getDistanceMatrix({
+            origins: fromAll,
+            destinations: new Array(fromAll.length).fill(to),
+            travelMode: 'DRIVING'
+        }, (response, status) => {
+                // console.log('Distance Matrix Response: ', response.rows[0].elements[0].duration)
+                // console.log('Distance Matrix Status: ', status)
+
+            return response.rows[0].elements
+        })
+    }
+
+    convertPeopleToAddresses(people){
+        var addresses = []
+        for (var i = 0; i < people.length; i++){
+            addresses.push(people[i].address)
+        }
+        return addresses
+    }
+
+    async getOrderingMatrix(drivers, nondrivers){
+        return new Promise((resolve, reject) => {
+            const ordermatrixpromises = new Array(drivers.length)
+
+            for (var i = 0; i < drivers.length; i++){
+                const e = i
+                ordermatrixpromises[e] = this.getDistancesToAll(drivers[e].address, nondrivers.map((item) => {return item.address}))
+            }
+
+            Promise.all(ordermatrixpromises).then((values) => {
+                resolve(values)
+            })
+        })
+    }
+
+    async updateEventIndex(index){
         if (index !== -1){
             this.setState({
                 currentEventIndex: index
             })
-            this.markNewPeople(index)
-            this.routeChange(index)
+                    // this.getDistancesToAll('10001 Lanark St. Sun Valley', ['330 De Neve Dr.', '8447 Yarrow St. Rosemead'])
+            const drivers = this.getAllDrivers(index)
+            const nondrivers = this.state.events[index][0].filter( (item) => {return (!drivers.includes(item))} )
+            this.getOrderingMatrix(drivers, nondrivers).then((result) => {
+                var matrix = result
+                console.log('Matrix: ', matrix)
+                this.updateMap(index)
+            })
         }
     }
 
-    markNewPeople(index){
+    getLatLngOfAddress(address){
+        this.state.geocoder
+        .geocode({address: address})
+        .then((result) => {
+            const { results } = result;
+            return results[0].geometry.location
+        })
+        .catch((e) => {
+            console.log("Geocode was not successful for the following reason: " + e);
+            return {lat: null, lng: null}
+        });
+    }
 
+    updateMap(index){
         this.setState({
             map: <MyMap id="myMap" options={{zoom: 12}}
             onMapLoad = {map => {
                 for (var i = 0; i < this.state.events[index][0].length; i++){
-                    console.log(this.state.events[index][0][i])
+                    const e = i
+                    this.state.geocoder
+                    .geocode({address: this.state.events[index][0][e].address})
+                    .then((result) => {
+                    
+                    const marker = new window.google.maps.Marker({
+                        map,
+                        title: this.state.events[index][0][e].name + '\'s Address'
+                    })
+                    const { results } = result;
+    
+                    map.setCenter(results[0].geometry.location);
+                    marker.setPosition(results[0].geometry.location);
+                    marker.setMap(map);
+                    })
+                    .catch((e) => {
+                    console.log("Geocode was not successful for the following reason: " + e);
+                    });
                 }
+
+                
+                // console.log('WHY?')
+                // new window.google.maps.Marker({
+                //     position: {lat: 80, lng: 80},
+                //     map: map
+                // })
+                
             }}/>
         })
     }
@@ -125,20 +234,27 @@ class Routing extends React.Component {
         const gids = userinfo.groups
         var events = []
 
+        console.log('gids: ', gids)
+
         for (var i = 0; i < gids.length; i++){
             const gQuery = query(collection(db, "groups"), where("gid", "==", gids[i]))
             const getGroupDoc = await getDocs(gQuery)
             if (getGroupDoc.docs.length){
                 var pids = getGroupDoc.docs[0].data().people
                 var people = []
+                console.log('pids: ', pids)
 
                 for (var e = 0; e < pids.length; e++){
                     const pQuery = query(collection(db, "users"), where("uid", "==", pids[e]))
                     const getPeopleDoc = await getDocs(pQuery)
-                    people.push(getPeopleDoc.docs[0].data())
+                    if (getPeopleDoc.docs.length){
+                        people.push(getPeopleDoc.docs[0].data())
+                    }
                 }
 
+
                 var eids = getGroupDoc.docs[0].data().Events
+                console.log('eids: ', eids)
                 for (e = 0; e < eids.length; e++){
                     const eQuery = query(collection(db, "events"), where("eid", "==", eids[e]))
                     const getEventDoc = await getDocs(eQuery)
@@ -210,7 +326,7 @@ class Routing extends React.Component {
                                                         </ul>
                                                     </li>
                                                 </l> */}
-                                            <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={() => { this.updateEventIndex(index) }}>
+                                            <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={async () => { await this.updateEventIndex(index).then(()=>{console.log('yay we did it')}, () => {console.log('oh no')}) }}>
                                                 View Your Pickup Route.
                                             </Button>
 
