@@ -8,6 +8,7 @@ import { db, auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { query, collection, getDocs, where, doc, updateDoc, arrayUnion, arrayRemove, addDoc } from "firebase/firestore";
+import Navbar from "./components/navbar"
 
 // Modal/popup when first "Create a group" button is clicked
 function createGroupPopup() {
@@ -259,10 +260,6 @@ function Groups() {
 
     return (
         <center>
-<<<<<<< HEAD
-
-=======
->>>>>>> d379b34fa0703ccbb42d6b01e05d1ee25e8c420c
         <Navbar />
         <div className="groups" id="groups">
             <div className="groupTitle">My Friend Groups</div>
