@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
 
+.cal_regtext {
+    font-size: 20px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    font-family: 'Nunito Sans';
+    font-weight: bold;
+    color: #6495ed;
+  }
+  
 .text {
     margin-bottom: 10px;
     text-align: center;

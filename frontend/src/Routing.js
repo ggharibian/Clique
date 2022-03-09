@@ -25,15 +25,27 @@ class Routing extends React.Component {
         this.onScriptLoad = this.onScriptLoad.bind(this)
 
         this.state = {
-            map: <MyMap id="myMap" options={{center: {lat: 0, lng: 0}, zoom: 1}}
+            map: <MyMap id="myMap" options={{ zoom: 12 }}
             onMapLoad = {map => {
                 this.getAllMarkers(map)
                 // this.state.directionsDisplay.setMap(map)
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                      (position) => {
+                        const pos = {
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude,
+                        };
+                        map.setCenter(pos);
+                      },
+                      () => {
+                      }
+                    );
+                  }
             }}/>,
             events: [],
             currentEventIndex: -1,
-            // directions: new window.google.maps.DirectionsService(),
-            // directionsDisplay: new window.google.maps.DirectionsRenderer()
+            adjacencyList: new Map()
         }
     }
 
@@ -64,12 +76,41 @@ class Routing extends React.Component {
         
     }
 
-    updateEventIndex(index){
-        this.setState({
-            currentEventIndex: index
-        })
+    distanceBetween(from, to){
 
-        this.displayEventOnMap()
+    }
+
+    routeChange(index){
+        var newAdjacencyList = this.state.adjacencyList;
+        newAdjacencyList.clear()
+        // console.log('Index: ', this.state.currentEventIndex)
+        // console.log('Events List: ', this.state.events[0])
+
+        // for (var i = 0; i < this.state.events[index][0].length; i++){
+        //     console.log(this.state.events[index][0][i])
+        // }
+    }
+
+    updateEventIndex(index){
+        if (index !== -1){
+            this.setState({
+                currentEventIndex: index
+            })
+            this.markNewPeople(index)
+            this.routeChange(index)
+        }
+    }
+
+    markNewPeople(index){
+
+        this.setState({
+            map: <MyMap id="myMap" options={{zoom: 12}}
+            onMapLoad = {map => {
+                for (var i = 0; i < this.state.events[index][0].length; i++){
+                    console.log(this.state.events[index][0][i])
+                }
+            }}/>
+        })
     }
 
     componentDidMount() {
@@ -109,8 +150,6 @@ class Routing extends React.Component {
         this.setState({
             events: events
         })
-
-        console.log(this.state.events)
     }
 
     onScriptLoad(){
@@ -122,7 +161,6 @@ class Routing extends React.Component {
     }
 
     render(){
-        console.log(this.state.currentEventIndex)
         return (
             <div>
             <Navbar />
@@ -134,10 +172,10 @@ class Routing extends React.Component {
                     </Card.Body>
                 </Card>
                 </div>
-                <div className="Friends">
-                    <Card style={{width: "40%", height: "41.75%", position: 'absolute', top: '100px', left: '55%'}}>
+                <div className="Events">
+                    <Card style={{width: "40%", height: /*"41.75%"*/ "85%", position: 'absolute', top: '100px', left: '55%'}}>
                         <Card.Body style={{overflow: "scroll"}}>
-                            <div className="title-text-card">Events</div>
+                            <div className="cal_regtext">Events</div>
                             <Accordion defaultActiveKey="3">
                                 {/* <Modal> */}
                                 { this.state.events.map((item, index) => {
@@ -198,15 +236,15 @@ class Routing extends React.Component {
                         </Card.Body>
                     </Card>
                 </div>
-                <div className="Trips">
-                    <Card style={{width: "40%", height: "41.75%", position: 'absolute', top: '53.25%', left: '55%'}}>
+                {/* <div className="Trips">
+                    <Card style={{width: "40%", height: "41.75%", position: 'absolute', top:  (window.screen.height * 0.4175 + 60), left: '55%'}}>
                         <Card.Body>
                             Should this card be here? I mean, the routes page only needs to display the information about
                             preexisting routes, so isn't that just composed of the events that the user has, and their corresponding
                             route (on the map)?
                         </Card.Body>
                     </Card>
-                </div>
+                </div> */}
             </div>
             </div>
         );

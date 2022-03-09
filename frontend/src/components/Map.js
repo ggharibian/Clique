@@ -6,7 +6,7 @@ class MyMap extends Component {
     this.onScriptLoad = this.onScriptLoad.bind(this)
   }
 
-  onScriptLoad() {
+  createMap(){
     const map = new window.google.maps.Map(
       document.getElementById(this.props.id),
       this.props.options);
@@ -19,13 +19,21 @@ class MyMap extends Component {
               lng: position.coords.longitude,
             };
             map.setCenter(pos);
-            map.setZoom(12)
+            map.setZoom(this.props.options.zoom)
           },
           () => {
           }
         );
       }
     this.props.onMapLoad(map)
+  }
+
+  onScriptLoad() {
+    this.createMap()
+  }
+
+  componentDidUpdate(){
+    this.createMap()
   }
 
   componentDidMount() {
@@ -46,6 +54,7 @@ class MyMap extends Component {
   }
 
   render() {
+    
     return (
       <div style={{ width: '100%', height: '100%' }} id={this.props.id} />
     );
