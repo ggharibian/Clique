@@ -55,7 +55,7 @@ function callCreateGroup() {
         const groupName = document.getElementById("groupname");
         const groupId = document.getElementById("groupid");
 
-        if (groupId.value != "" && groupName.value != "") {
+        if (groupId.value !== "" && groupName.value !== "") {
             havePatience(true, "load", "createGroupResult");
             const auth = getAuth();
             const user = auth.currentUser;
@@ -116,7 +116,7 @@ function callJoinGroup() {
     const joinGroup = async() => {
         const groupId = document.getElementById("joingroupid");
         
-        if (groupId.value!="") {
+        if (groupId.value!=="") {
             havePatience(true, "load1","joinGroupResult");
             const auth = getAuth();
             const user = auth.currentUser;
@@ -180,7 +180,7 @@ function callJoinGroup() {
 function callLeaveGroup() {
     const leaveGroup = async() => {
         const groupId = document.getElementById("leavegroupid");
-        if (groupId.value != "") {
+        if (groupId.value !== "") {
             havePatience(true, "load2", "leaveGroupResult");
             const auth = getAuth();
             const user = auth.currentUser;
@@ -254,7 +254,7 @@ function Groups() {
         
         var groupContainer = document.getElementById("flexbox");
         const cards = groupContainer.childElementCount;
-        if(groups.length != 0 && groups.length > cards) {
+        if(groups.length !== 0 && groups.length > cards) {
             userGroups.docs.map(doc => 
                 {addGroupCard(doc.data())}
             )
