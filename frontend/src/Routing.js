@@ -394,6 +394,8 @@ class Routing extends React.Component {
     }
 
     render(){
+        var pickupPopup = "pickupPopup";
+        var close = "close";
         return (
             <div>
             <Navbar />
@@ -443,15 +445,14 @@ class Routing extends React.Component {
                                                         </ul>
                                                     </li>
                                                 </l> */}
-                                            <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={async () => { await this.updateEventIndex(index).then(()=>{this.updateEventIndex(index);pickUp("pickupPopup", "close") }, () => {console.log('oh no')}) }}>
+                                            <Button id={index} style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={async () => { await this.updateEventIndex(index).then(()=>{this.updateEventIndex(index);pickUp(pickupPopup+index, close+index) }, () => {console.log('oh no')}) }}>
 
                                                 View Your Pickup Route.
                                             </Button>
-                                            <div id="pickupPopup" class="pickup">
+                                            <div id={pickupPopup+index} class="pickup">
                                                 <div class="pickup-content">
-                                                    <span class="close">&times;</span>
+                                                    <span id={close+index} class="close">&times;</span>
                                                         <p>You will be picked up by {name}</p>
-                                                    <div class="loader" id="load"></div>
                                                 </div>
                                             </div>
 
