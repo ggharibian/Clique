@@ -6,7 +6,7 @@ import { db, /*auth*/ } from "./firebase";
 import { /*useAuthState*/ } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { query, collection, getDocs, where,/*, doc, updateDoc, arrayUnion, getDoc*/ 
-connectFirestoreEmulator} from "firebase/firestore";
+} from "firebase/firestore";
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import ListGroup from "react-bootstrap/ListGroup"
@@ -14,9 +14,6 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import checkPage from "./CheckPage";
 import Navbar from "./components/navbar"
 import pickUp from "./components/pickUp";
-
-// DELETE THIS LATERRRR
-var name = "Allie"
 
 // function getUsers(props){
 //     useEffect(() => {
@@ -52,7 +49,9 @@ class Routing extends React.Component {
             distanceMatrix: new window.google.maps.DistanceMatrixService(),
             events: [],
             currentEventIndex: -1,
-            adjacencyList: new Map()
+            adjacencyList: new Map(),
+            user: null,
+            message: ''
         }
     }
 
@@ -214,7 +213,7 @@ class Routing extends React.Component {
         }
 
         for (var p = 0; p < sorted_matrix[0].length; p++){
-            indexOfMin.set(sorted_matrix[0][p].person.name, -1)
+            indexOfMin.set(sorted_matrix[0][p].person.uid, -1)
         }
 
         // console.log('sortedMatrix: ', sorted_matrix)
@@ -247,13 +246,13 @@ class Routing extends React.Component {
         while (!allDone() && seen.size < nondrivers.length){
             for (var k = 0; k < current_indices.length; k++){
                 if (current_indices[k] < sorted_matrix[k].length){
-                    if (!seen.has(sorted_matrix[k][current_indices[k]].person.name)){
-                        if (indexOfMin.get(sorted_matrix[k][current_indices[k]].person.name) === -1){
-                            indexOfMin.set(sorted_matrix[k][current_indices[k]].person.name, k)
+                    if (!seen.has(sorted_matrix[k][current_indices[k]].person.uid)){
+                        if (indexOfMin.get(sorted_matrix[k][current_indices[k]].person.uid) === -1){
+                            indexOfMin.set(sorted_matrix[k][current_indices[k]].person.uid, k)
                         } else {
-                            const oldindex = indexOfMin.get(sorted_matrix[k][current_indices[k]].person.name)
+                            const oldindex = indexOfMin.get(sorted_matrix[k][current_indices[k]].person.uid)
                             if (sorted_matrix[k][current_indices[k]].value < sorted_matrix[oldindex][current_indices[oldindex]].value){
-                                indexOfMin.set(sorted_matrix[k][current_indices[k]].person.name, k)
+                                indexOfMin.set(sorted_matrix[k][current_indices[k]].person.uid, k)
                             }
                         }
                     }else{
@@ -267,7 +266,7 @@ class Routing extends React.Component {
                 if (index !== -1){
                     retMatrix[index].push(sorted_matrix[index][current_indices[index]])
                     indexOfMin.set(key, -1)
-                    seen.add(sorted_matrix[index][current_indices[index]].person.name)
+                    seen.add(sorted_matrix[index][current_indices[index]].person.uid)
                 }
             }
         }
@@ -276,19 +275,61 @@ class Routing extends React.Component {
 
     }
 
+    
+
     async updateEventIndex(index){
         if (index !== -1){
             this.setState({
                 currentEventIndex: index
             })
+
+            function getRowOfItem(matrix, currentUserUID){
+                for (var i = 0; i < matrix.length; i++){
+                    for (var e = 0; e < matrix[i].length; e++){
+                        if (matrix[i][e].person.uid === currentUserUID){
+                            return i
+                        }
+                    }
+                }
+                return -1
+            }
+
+            function getDriverNumber(drivers, uid){
+                for (var i = 0; i < drivers.length; i++){
+                    if (drivers[i].uid == uid)
+                        return i
+                }
+
+                return -1
+            }
+
                     // this.getDistancesToAll('10001 Lanark St. Sun Valley', ['330 De Neve Dr.', '8447 Yarrow St. Rosemead'])
             const drivers = this.getAllDrivers(index)
             const nondrivers = this.state.events[index][0].filter( (item) => {return (!drivers.includes(item))} )
             console.log('drivers:', drivers)
             console.log('nondrivers:', nondrivers)
             this.getOrderingMatrix(drivers, nondrivers).then((result) => {
-                var matrix = result
-                this.updateMap(index, drivers, nondrivers, this.getOrderedPickUpSequence(nondrivers, matrix))
+                const matrix = result
+                const pickupSequences = this.getOrderedPickUpSequence(nondrivers, matrix)
+                // const pickupRow = 1
+                const pickupRow = getRowOfItem(pickupSequences, this.state.user.uid)
+
+                if (pickupRow !== -1){
+                    this.setState({
+                        message: 'You will be picked up by ' + drivers[pickupRow].name
+                    })
+                } else {
+                    const peopletobepickedup = pickupSequences[getDriverNumber(drivers, this.state.user.uid)]
+                    console.log(peopletobepickedup)
+                    console.log(peopletobepickedup[peopletobepickedup.length - 1].person.name)
+                    this.setState({
+                        message: 'You will need to pick up the following members of the event in the following order (to optimize your route!): ' + peopletobepickedup.slice(0, peopletobepickedup.length - 1).map((value) => {
+                            return value.person.name + ', '
+                        }) + peopletobepickedup[peopletobepickedup.length - 1].person.name
+                    })
+                }
+
+                this.updateMap(index, drivers, nondrivers, pickupSequences)
             })
         }
     }
@@ -320,6 +361,20 @@ class Routing extends React.Component {
                         map,
                         title: this.state.events[index][0][e].name + '\'s Address'
                     })
+
+                    marker.addListener('click', () => {
+                        const infowindow = new window.google.maps.InfoWindow({
+                            title: this.state.events[index][0][e].name + '\'s Address',
+                            content: this.state.events[index][0][e].name + `; Address: ` + this.state.events[index][0][e].address
+                        })
+    
+                        infowindow.open({
+                            anchor: marker,
+                            map,
+                            shouldFocus: false
+                        });
+                    })
+
                     const { results } = result;
     
                     map.setCenter(results[0].geometry.location);
@@ -355,6 +410,10 @@ class Routing extends React.Component {
         const userinfo = getUserDoc.docs[0].data()
         const gids = userinfo.groups
         var events = []
+
+        this.setState({
+            user: userinfo
+        })
 
         for (var i = 0; i < gids.length; i++){
             const gQuery = query(collection(db, "groups"), where("gid", "==", gids[i]))
@@ -445,14 +504,13 @@ class Routing extends React.Component {
                                                         </ul>
                                                     </li>
                                                 </l> */}
-                                            <Button id={index} style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={async () => { await this.updateEventIndex(index).then(()=>{this.updateEventIndex(index);pickUp(pickupPopup+index, close+index) }, () => {console.log('oh no')}) }}>
-
+                                            <Button id={index} style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={async () => { await this.updateEventIndex(index).then(()=>{pickUp(pickupPopup+index, close+index) }, () => {console.log('oh no')}) }}>
                                                 View Your Pickup Route.
                                             </Button>
                                             <div id={pickupPopup+index} class="pickup">
-                                                <div class="pickup-content">
-                                                    <span id={close+index} class="close">&times;</span>
-                                                        <p>You will be picked up by {name}</p>
+                                                <div style={{overflow: 'auto'}} class="pickup-content">
+                                                    <span style={{overflow: 'auto'}} id={close+index} class="close">&times;</span>
+                                                        <p>{this.state.message}</p>
                                                 </div>
                                             </div>
 
