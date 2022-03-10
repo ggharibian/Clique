@@ -15,8 +15,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 250px;
+    min-width: 300px;
+    min-height: 200px;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
@@ -25,12 +25,13 @@
 }
 
 .groupText {
-    margin: auto 10px auto 10px;
+    margin: 10px 10px 10px 10px;
     text-align: center;
     font-size: 22px;
     color: black;
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 400;
+    
 }
 
 .groupText a{
