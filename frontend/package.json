@@ -15,8 +15,10 @@
     "react-dom": "^17.0.2",
     "react-firebase-hooks": "^4.0.2",
     "react-google-button": "^0.7.2",
+    "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^6.2.2",
     "react-scripts": "4.0.1",
+    "react-time-range": "^1.0.4",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

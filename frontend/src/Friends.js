@@ -111,7 +111,7 @@ const addFriendToList = async(uid, userDocId) => {
 function callDeleteFriend() {
     const input = document.getElementById("removeFriendInput");
     const deleteFriend = async() => {
-        if (input.value != "") {
+        if (input.value !== "") {
             havePatience(true, "load1", "removeFriendResult");
             const auth = getAuth();
             const user = auth.currentUser;
@@ -149,9 +149,7 @@ function callDeleteFriend() {
 }
 
 function addToTable(friend) {
-    var table = document.getElementById("friendTable");
     const tbodyEl = document.querySelector("tbody");
-    var x = table.rows.length-1;
 
     tbodyEl.innerHTML += `<tr>
     <td>${friend.name}</td>
@@ -229,12 +227,12 @@ function Friends() {
                     <div class="loader" id="load"></div>
                 </div>
             </div>
-            <button class="button-remove" id="removefriendbtn" onClick={window.onload = function(){friendPopup("removefriendpopup", "close1")}}> Remove friend by email </button>
+            <button class="button-remove" id="removefriendbtn" onClick={window.onload = function(){friendPopup("removefriendpopup", "close1")}}> Remove Friend</button>
             <div id="removefriendpopup" class="removefriend">
                 <div class="removefriend-content">
                     <span class="close1">&times;</span>
                     <input type="text" id="removeFriendInput" placeholder="Enter email address of friend to remove"></input>
-                    <button class="btn btn-outline-primary btn-sm" id="searchfriendbtn" onClick={window.onload = function(){callDeleteFriend()}}>remove friend</button>
+                    <button class="btn btn-outline-primary btn-sm" id="searchfriendbtn" onClick={window.onload = function(){callDeleteFriend()}}>remove from friends</button>
                     <div id="removeFriendResult"></div>
                     <div class="loader" id="load1"></div>
                 </div>

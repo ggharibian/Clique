@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;0,300;0,400;0,600;1,300;1,400;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap'); */
 
 .cal_text {
     font-size: 70px;
@@ -11,11 +12,19 @@
 
 .cal_regtext {
   font-size: 20px;
+  /* display: flex;
+  flex-direction: row; */
   margin-top: 1vh;
   margin-bottom: 1vh;
-  font-family: 'Nunito Sans';
+  font-family: 'Nunito Sans', sans-serif;
   font-weight: bold;
   color: #6495ed;
+}
+
+.sched_but Button{
+  font-weight: 600;
+  font-family: 'Nunito Sans', sans-serif;
+  letter-spacing: 0.25px;
 }
 
 .carousel-inner > img, .carousel-inner > img {
@@ -25,13 +34,16 @@
 
 .cal_row {
   display: flex;
+  /* flex-direction: row; */
+  /* word-wrap: break-word; */
   align-items: center;
   height: 20vh;
-  padding: 1rem;
+  /* overflow: scroll; */
+  /* padding: 1rem; */
 }
 
 .cal_bottomtext {
-  font-size: 30px;
+  font-size: 24px;
   margin-top: 1vh;
   margin-bottom: 1vh;
   font-family: 'Nunito Sans';
@@ -49,6 +61,8 @@
 
 .google_background {
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png");
+    width: 100%;
+    overflow-y: auto; 
 }
 
 .calendar {
@@ -60,7 +74,7 @@
     background-color: rgba(255, 234, 245, 0.911);
     padding: 3rem;
     margin-top: 0vh;
-    overflow: auto;
+    /* overflow: auto; */
   }
 
 .cal_titleCard {
@@ -88,9 +102,14 @@
 .cal_widgetCard {
   height: 82vh;
   width: 60vw;
-  margin-top: 1vh;
+  margin-top: 0vh;
   margin-bottom: 2vh;
   padding: 1rem;
+}
+
+.cal_datePicker {
+  font-size: 16px;
+  font-family: 'Nunito Sans';
 }
 
 .cal_form {
@@ -100,26 +119,47 @@
 .cal_funCard {
   height: 20vh;
   width: 60vw;
-  padding: 1rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  overflow: auto;
 }
 
 .cal_meetingCard {
-  height: 52vh;
+  height: 48vh;
   width: 30vw;
   margin-top: 1vh;
   margin-bottom: 2vh;
+  /* display: flex;
+  flex-direction: column; */
   padding: 1rem;
 }
 
 .cal_scheduleCard {
-  height: 50vh;
+  height: 54vh;
   width: 30vw;
   padding: 1rem;
+  margin-bottom: 2vh; 
+  max-height: 54vh;
+  overflow-y: auto;
 }
 
 .scroll {
   max-height: 52vh;
   overflow-y: auto;
+}
+
+.cal_listLegend {
+  max-height: 14vh;
+  overflow-y: auto;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.cal_schedEvent {
+  float: right;
 }
 
 .past {
@@ -134,8 +174,8 @@
   font-weight: bold;
 }
 
-@media screen and (min-height:840px) {
+@media screen and (min-height:840px) and (min-width: 1200px) {
   .calendar {
-      height: 100vh;
+      height: 112vh;
   }
 }

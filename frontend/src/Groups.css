@@ -15,7 +15,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    min-width: 300px;
+    width: 300px;
+    height: 250px;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
@@ -24,28 +25,47 @@
 }
 
 .groupText {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: auto 10px auto 10px;
     text-align: center;
     font-size: 22px;
     color: black;
-    font-family: 'Nunito Sans';
+    font-family: 'Nunito Sans', sans-serif;
     font-weight: 400;
+}
+
+.groupText a{
+    background-color: #6495ed;
+    color: white;
+    border-color: #6e85ad;
+    letter-spacing: 0.25px;
 }
 
 .groupText p{
     font-size: 15px;
 }
 
+.groupText h3{
+    font-size: 28px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
+
+.groupText h4{
+    font-size: 20px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
+
 .groups {
+    padding-top: 10vh;
     height: 100%;
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: rgb(232, 214, 240);
-    overflow: visible;
+    overflow:auto;
 }
 
 .groupContainer {
@@ -64,6 +84,12 @@
 @media screen and (min-width:400px){
     .groups {
         height: 100vh;
+    }
+}
+
+@media screen and (max-height:600px){
+    .groups {
+        padding-top: 19vh;
     }
 }
 
@@ -281,4 +307,20 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+  
+  .groups button{
+    background-color: #6495ed;
+    color: white;
+    border-color: #6e85ad;
+    letter-spacing: 0.25px;
+  }
+
+.group-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn, .btn-outline-primary, .btn-sm {
+    margin: 0vw .5vw 0vw .5vw;
 }

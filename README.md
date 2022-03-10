@@ -21,6 +21,8 @@ especially in terms of planning where and when to meet.
 
 ## Running the Program
 
+Please ensure that location services are turned on and that you allow the local host that opens when you run `npm start` after the following directions to access your location.
+
 First, clone this repository with the following command:
 
 `git clone https://github.com/ggharibian/Clique`
@@ -41,10 +43,12 @@ From here, we can run:
 
 `npm install --save --legacy-peer-deps @ericz1803/react-google-calendar`
 
+`npm install react-places-autocomplete`
+
 `npm start`
 
 Runs the app in the development mode.\
-Now, open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Now, open [http://localhost:3000](http://localhost:3000), or whichever local host npm start directs you to, to view it in your browser.
 
 > TODO: FIGURE OUT HOW BACKEND WILL LOOK LIKE!
 

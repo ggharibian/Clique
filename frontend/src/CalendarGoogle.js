@@ -11,8 +11,8 @@ let styles = {
   calendar: {
     borderWidth: "0px", //make outer edge of calendar thicker
     width: "58vw", //  58vw
-    height: "0vh", // 57vh
-    marginTop: "-70px",
+    height: "76vh", // 57vh
+    marginTop: "0px",
     objectFit: "fit",
     padding: "-10px",
     opacity: "1.0",
@@ -20,6 +20,7 @@ let styles = {
   },
 
   //you can also use emotion's string styles
+  
   today: {
    /* highlight today by making the text red and giving it a red border */
     color: "red",
@@ -43,12 +44,12 @@ function calendarGoogle (calendarIDs, members, colorCalMapping){
   ];
 
   var calendars = [] 
-  console.log(colorCalMapping); 
+  //console.log(colorCalMapping); 
   calendarIDs.map(element => calendars.push({calendarId: element, color: colorCalMapping[element]}));
 
   //console.log(calendarIDs)
-  calendars.splice(0, 1);
-  console.log(calendars);
+  //calendars.splice(0, 1);
+  //console.log(calendars);
   //console.log(calendars2);  
 
   if (calendars.length == 0)
