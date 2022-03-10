@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,900;1,700;0,300;0,400;0,600;1,300;1,400;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap'); */
 
 .cal_text {
     font-size: 70px;
@@ -11,11 +12,20 @@
 
 .cal_regtext {
   font-size: 20px;
+  /* display: flex;
+  flex-direction: row; */
   margin-top: 1vh;
   margin-bottom: 1vh;
-  font-family: 'Nunito Sans';
+  font-family: 'Nunito Sans', sans-serif;
   font-weight: bold;
   color: #6495ed;
+  /* overflow: scroll; */
+}
+
+.sched_but Button{
+  font-weight: 600;
+  font-family: 'Nunito Sans', sans-serif;
+  letter-spacing: 0.25px;
 }
 
 .carousel-inner > img, .carousel-inner > img {
@@ -25,13 +35,16 @@
 
 .cal_row {
   display: flex;
+  /* flex-direction: row; */
+  /* word-wrap: break-word; */
   align-items: center;
   height: 20vh;
-  padding: 1rem;
+  /* overflow: scroll; */
+  /* padding: 1rem; */
 }
 
 .cal_bottomtext {
-  font-size: 30px;
+  font-size: 24px;
   margin-top: 1vh;
   margin-bottom: 1vh;
   font-family: 'Nunito Sans';
@@ -54,7 +67,7 @@
 }
 
 .calendar {
-    height: 112vh;
+    height: 100%;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -62,6 +75,7 @@
     background-color: rgba(255, 234, 245, 0.911);
     padding: 3rem;
     margin-top: 0vh;
+    /* overflow: auto; */
   }
 
 .cal_titleCard {
@@ -101,7 +115,12 @@
 .cal_funCard {
   height: 20vh;
   width: 60vw;
-  padding: 1rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  overflow: scroll;
 }
 
 .cal_meetingCard {
@@ -109,6 +128,8 @@
   width: 30vw;
   margin-top: 1vh;
   margin-bottom: 2vh;
+  /* display: flex;
+  flex-direction: column; */
   padding: 1rem;
 }
 
@@ -129,6 +150,8 @@
 .cal_listLegend {
   max-height: 14vh;
   overflow-y: auto;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 .past {
@@ -143,7 +166,7 @@
   font-weight: bold;
 }
 
-@media screen and (min-height:840px) {
+@media screen and (min-height:840px) and (min-width: 1200px) {
   .calendar {
       height: 112vh;
   }

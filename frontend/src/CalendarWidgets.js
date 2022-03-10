@@ -114,9 +114,9 @@ function ChooseMeetingTImes() {
                       minuteIncrement="15"
                       onChange={React.returnFunction}
                   />
-                </Col>
-                <Col sm={2}>
-                <Button variant="success">Schedule</Button>{' '}
+                  <div className="sched_but">
+                  <Button variant="success">Schedule</Button>{' '}
+                  </div>
                 </Col>
               </Row>
               {EventScheduler()}
@@ -134,16 +134,15 @@ function ChooseMeetingTImes() {
                     minuteIncrement="15"
                     onChange={React.returnFunction}
                 />
-              </Col>
-              <Col sm={2}>
-              <Button variant="success">Schedule</Button>{' '}
+                <div className="sched_but">
+                  <Button variant="success">Schedule</Button>{' '}
+                </div>
               </Col>
             </Row>
             {EventScheduler()}
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
-  
       </div>
     );
   }
