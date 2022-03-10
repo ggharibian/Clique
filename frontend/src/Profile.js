@@ -72,7 +72,7 @@ function Profile() {
                 <div class="profileContainer">
                     <div class="row">
                         <div class="col-lg-6 mb-4">
-                            <Card classname="card" display="flex">
+                            <div class="profCard" display="flex">
                                 <img class="card-img-top" src="" alt=""/>
                                 <div class="profileText">
                                     <h3>friends</h3>
@@ -81,10 +81,10 @@ function Profile() {
                                         see friends
                                     </a>
                                 </div>
-                            </Card>
+                            </div>
                         </div>
                         <div class="col-lg-6 mb-4">
-                            <div class="card" display="flex">
+                            <div class="profCard" display="flex">
                                 <img class="card-img-top" src="" alt=""/>
                                 <div class="profileText">
                                     <h3>cliques</h3>
@@ -99,7 +99,7 @@ function Profile() {
 
                     <div class="row">
                         <div class="col-lg-6 mb-4">
-                            <div class="card">
+                            <div class="profCard">
                                 <img class="card-img-top" src="" alt=""/>
                                 <div class="profileText" display="flex">
                                     <h3>calendar</h3>
@@ -111,7 +111,7 @@ function Profile() {
                             </div>
                         </div>
                         <div class="col-lg-6 mb-4">
-                            <div class="card" display="flex">
+                            <div class="profCard" display="flex">
                                 <img class="card-img-top" src="" alt=""/>
                                 <div class="profileText">
                                     <h3>routing</h3>
