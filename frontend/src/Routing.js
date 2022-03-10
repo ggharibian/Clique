@@ -508,7 +508,7 @@ class Routing extends React.Component {
                                                 View Your Pickup Route.
                                             </Button>
                                             <div id={pickupPopup+index} class="pickup">
-                                                <div class="pickup-content">
+                                                <div style={{overflow: 'auto'}} class="pickup-content">
                                                     <span style={{overflow: 'auto'}} id={close+index} class="close">&times;</span>
                                                         <p>{this.state.message}</p>
                                                 </div>
