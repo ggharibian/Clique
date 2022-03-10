@@ -20,6 +20,7 @@ let styles = {
   },
 
   //you can also use emotion's string styles
+  
   today: {
    /* highlight today by making the text red and giving it a red border */
     color: "red",

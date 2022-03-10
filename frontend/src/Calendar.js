@@ -25,7 +25,6 @@ THINGS NEEDED TO POPULATE PAGE:
   o Create a new Event
   o Update all user's calendars with Event
   o Store that new Event ID in Firebase
-  o Remove that day from top widget, move to bottom
 */
 
 import { useEffect, useState } from "react";
@@ -254,7 +253,7 @@ function Calendar() {
 
             <Col>
               <Card border="info" className="cal_scheduleCard">
-                  {ChooseMeetingTImes()}
+                  {ChooseMeetingTImes(group)}
               </Card>
 
               <Card border="info" className="cal_meetingCard scroll">

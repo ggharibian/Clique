@@ -45,10 +45,12 @@ From here, we can run:
 
 `npm install react-places-autocomplete`
 
+`npm install react-datetime-picker`
+
 `npm start`
 
 Runs the app in the development mode.\
-Now, open [http://localhost:3000](http://localhost:3000), or whichever local host npm start directs you to, to view it in your browser.
+Now, open [http://localhost:3000](http://localhost:3000), or whichever local host `npm start` directs you to, to view it in your browser.
 
 > TODO: FIGURE OUT HOW BACKEND WILL LOOK LIKE!
 
