@@ -254,7 +254,7 @@ function Calendar() {
 
             <Col>
               <Card border="info" className="cal_scheduleCard">
-                  {ChooseMeetingTImes()}
+                  {ChooseMeetingTImes(group)}
               </Card>
 
               <Card border="info" className="cal_meetingCard scroll">

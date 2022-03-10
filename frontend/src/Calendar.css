@@ -108,6 +108,11 @@
   padding: 1rem;
 }
 
+.cal_datePicker {
+  font-size: 16px;
+  font-family: 'Nunito Sans';
+}
+
 .cal_form {
   padding: 10px;
 }
@@ -124,7 +129,7 @@
 }
 
 .cal_meetingCard {
-  height: 52vh;
+  height: 48vh;
   width: 30vw;
   margin-top: 1vh;
   margin-bottom: 2vh;
@@ -134,11 +139,11 @@
 }
 
 .cal_scheduleCard {
-  height: 50vh;
+  height: 54vh;
   width: 30vw;
   padding: 1rem;
   margin-bottom: 2vh; 
-  max-height: 50vh;
+  max-height: 54vh;
   overflow-y: auto;
 }
 
@@ -152,6 +157,10 @@
   overflow-y: auto;
   /* display: flex;
   flex-direction: column; */
+}
+
+.cal_schedEvent {
+  float: right;
 }
 
 .past {
