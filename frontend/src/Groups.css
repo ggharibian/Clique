@@ -317,3 +317,12 @@
     border-color: #6e85ad;
     letter-spacing: 0.25px;
   }
+
+.group-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn, .btn-outline-primary, .btn-sm {
+    margin: 0vw .5vw 0vw .5vw;
+}
