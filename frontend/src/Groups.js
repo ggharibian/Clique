@@ -283,10 +283,16 @@ function Groups() {
                 </text>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="createGroupPopupBtn" onClick={window.onload = function(){groupPopup("creategroup-popup", "close")}}> Create a Clique </button>
+
+            <div className="group-buttons">
+                <button className="btn btn-outline-primary btn-sm" id="createGroupPopupBtn" onClick={window.onload = function(){groupPopup("creategroup-popup", "close")}}> Create a Clique </button>
+                <button className="btn btn-outline-primary btn-sm" id="joinGroupBtn" onClick={window.onload = function(){groupPopup("joingroup-popup", "close1")}}> Join a Clique </button>
+                <button className="btn btn-outline-primary btn-sm" id="leavegroupbtn" onClick={window.onload = function(){groupPopup("leavegroup-popup", "close2")}}>Leave a Clique</button>
+            </div>
+            
             <div id="creategroup-popup" class="creategroup">
-                <div class="creategroup-content">
-                    <span class="close">&times;</span>
+                <div className="creategroup-content">
+                    <span className="close">&times;</span>
                     <div>Clique Name: {'\n'}
                         <input type="text" id="groupname"></input>
                     </div>
@@ -294,45 +300,43 @@ function Groups() {
                         <input type="text" id="groupid" placeholder="Clique IDs are case-sensitive"></input>
                     </div>
                     <br/>
-                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callCreateGroup()}}>Confirm Clique</button>
+                    <button className="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callCreateGroup()}}>Confirm Clique</button>
                     <br/>
                     <div id="createGroupResult"></div>
-                    <div class="loader" id="load"></div>
+                    <div className="loader" id="load"></div>
                 </div>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="joinGroupBtn" onClick={window.onload = function(){groupPopup("joingroup-popup", "close1")}}> Join a Clique </button>
-            <div id="joingroup-popup" class="joingroup">
-                <div class="joingroup-content">
-                    <span class="close1">&times;</span>
+            <div id="joingroup-popup" className="joingroup">
+                <div className="joingroup-content">
+                    <span className="close1">&times;</span>
                     <div>Clique ID: {'\n'}
                         <input type="text" id="joingroupid"></input>
                     </div>
                     <br/>
-                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callJoinGroup()}}>Join Clique</button>
+                    <button className="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callJoinGroup()}}>Join Clique</button>
                     <br/>
                     <div id="joinGroupResult"></div>
-                    <div class="loader" id="load1"></div>
+                    <div className="loader" id="load1"></div>
                 </div>
             </div>
             <br />
-            <button class="btn btn-outline-primary btn-sm" id="leavegroupbtn" onClick={window.onload = function(){groupPopup("leavegroup-popup", "close2")}}>Leave a Clique</button>
-            <div id="leavegroup-popup" class="leavegroup">
+             <div id="leavegroup-popup" class="leavegroup">
                 <div id="leavegroup-content" class="leavegroup-content">
-                    <span class="close2">&times;</span>
+                    <span className="close2">&times;</span>
                     <div>Clique ID: {'\n'}
                         <input type="text" id="leavegroupid" placeholder="Clique ID of clique to leave"></input>
                     </div>
                     <br/>
-                    <button class="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callLeaveGroup()}}>Leave Clique</button>
+                    <button className="btn btn-outline-primary btn-sm" onClick={window.onload = function(){callLeaveGroup()}}>Leave Clique</button>
                     <br/>
                     <div id="leaveGroupResult"></div>
-                    <div class="loader" id="load2"></div>
+                    <div className="loader" id="load2"></div>
                 </div>
             </div>
             <br />
-            <div class="groupContainer" id="groupContainer">
-                <div class="row" id="flexbox">
+            <div className="groupContainer" id="groupContainer">
+                <div className="row" id="flexbox">
                 </div>
             </div>
         </div>

@@ -12,6 +12,10 @@ import ListGroup from "react-bootstrap/ListGroup"
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import checkPage from "./CheckPage";
 import Navbar from "./components/navbar"
+import pickUp from "./components/pickUp";
+
+// DELETE THIS LATERRRR
+var name = "Allie"
 
 // function getUsers(props){
 //     useEffect(() => {
@@ -210,9 +214,17 @@ class Routing extends React.Component {
                                                         </ul>
                                                     </li>
                                                 </l> */}
-                                            <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={() => { this.updateEventIndex(index) }}>
+                                                
+                                            <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={() => { this.updateEventIndex(index);pickUp("pickupPopup", "close") }}>
                                                 View Your Pickup Route.
                                             </Button>
+                                            <div id="pickupPopup" class="pickup">
+                                                <div class="pickup-content">
+                                                    <span class="close">&times;</span>
+                                                        <p>You will be picked up by {name}</p>
+                                                    <div class="loader" id="load"></div>
+                                                </div>
+                                            </div>
 
                                         </Accordion.Body>
                                     </Accordion.Item>

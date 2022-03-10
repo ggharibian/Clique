@@ -25,9 +25,9 @@
 .profCard{
     background-color: white;
     align-items: center;
-    height: 22vh;
-    width: 20vw;
-    overflow: auto;
+    height: 225px;
+    width: 250px;
+    margin: auto;
 }
 
 .profileText {
