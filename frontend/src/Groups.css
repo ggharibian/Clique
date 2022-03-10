@@ -46,6 +46,18 @@
     font-size: 15px;
 }
 
+.groupText h3{
+    font-size: 28px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
+
+.groupText h4{
+    font-size: 20px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
+
 .groups {
     padding-top: 10vh;
     height: 100%;
