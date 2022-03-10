@@ -18,6 +18,26 @@ import Navbar from "./components/navbar"
 //         onSnapshot(collection(this.state.db, 'users'), () => {});
 //     });
 // }
+function displayRoute(origin, destination, service, display) {
+    service
+      .route({
+        origin: origin,
+        destination: destination,
+        waypoints: [
+          { location: "Adelaide, SA" },
+          { location: "Broken Hill, NSW" },
+        ],
+        travelMode: window.google.maps.TravelMode.DRIVING,
+        avoidTolls: true,
+      })
+      .then((result) => {
+        display.setDirections(result);
+      })
+      .catch((e) => {
+        alert("Could not display directions due to: " + e);
+      });
+  }
+
 class Routing extends React.Component {
 
     constructor(props){
@@ -25,6 +45,7 @@ class Routing extends React.Component {
         this.onScriptLoad = this.onScriptLoad.bind(this)
 
         this.state = {
+            directionsRenderer: null,
             map: <MyMap id="myMap" options={{ zoom: 12 }}
             onMapLoad = {map => {
                 this.getAllMarkers(map)
@@ -41,8 +62,14 @@ class Routing extends React.Component {
                       () => {
                       }
                     );
-                  }
+                }
+                this.state.directionsRenderer = new window.google.maps.DirectionsRenderer({
+                    draggable: true,
+                    map,
+                    panel: document.getElementById("myMap"),
+                })
             }}/>,
+            directionsService: new window.google.maps.DirectionsService(),
             events: [],
             currentEventIndex: -1,
             adjacencyList: new Map()
@@ -98,6 +125,13 @@ class Routing extends React.Component {
             })
             this.markNewPeople(index)
             this.routeChange(index)
+            displayRoute(
+                "Perth, WA",
+                "Sydney, NSW",
+                this.state.directionsService,
+                this.state.directionsRenderer
+            );
+            console.log("Display route")
         }
     }
 
