@@ -361,6 +361,20 @@ class Routing extends React.Component {
                         map,
                         title: this.state.events[index][0][e].name + '\'s Address'
                     })
+
+                    marker.addListener('click', () => {
+                        const infowindow = new window.google.maps.InfoWindow({
+                            title: this.state.events[index][0][e].name + '\'s Address',
+                            content: this.state.events[index][0][e].name + `; Address: ` + this.state.events[index][0][e].address
+                        })
+    
+                        infowindow.open({
+                            anchor: marker,
+                            map,
+                            shouldFocus: false
+                        });
+                    })
+
                     const { results } = result;
     
                     map.setCenter(results[0].geometry.location);
@@ -491,12 +505,11 @@ class Routing extends React.Component {
                                                     </li>
                                                 </l> */}
                                             <Button id={index} style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={async () => { await this.updateEventIndex(index).then(()=>{pickUp(pickupPopup+index, close+index) }, () => {console.log('oh no')}) }}>
-
                                                 View Your Pickup Route.
                                             </Button>
                                             <div id={pickupPopup+index} class="pickup">
                                                 <div class="pickup-content">
-                                                    <span id={close+index} class="close">&times;</span>
+                                                    <span style={{overflow: 'auto'}} id={close+index} class="close">&times;</span>
                                                         <p>{this.state.message}</p>
                                                 </div>
                                             </div>
