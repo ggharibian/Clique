@@ -79,16 +79,41 @@ class Routing extends React.Component {
         
     }
 
-    distanceBetween(from, to){
-        this.state.distanceMatrix.getDistanceMatrix({
+    async distanceBetween(from, to){
+        // console.log('FROM VALUE:', from)
+        // console.log('TO VALUE:', to)
+        return new Promise((resolve, reject) => {
+            this.state.distanceMatrix.getDistanceMatrix({
                 origins: [from],
                 destinations: [to],
                 travelMode: 'DRIVING'
-        }, (response, status) => {
-            console.log('Distance Matrix Response: ', response.rows[0].elements[0].duration)
-            console.log('Distance Matrix Status: ', status)
-            return response.rows[0].elements
+            }, (response, status) => {
+                // console.log('Distance Matrix Response: ', response.rows[0].elements)
+                // console.log('Distance Matrix Status: ', status)
+                // console.log('results:', response.rows.map((item) => {return item.elements[0].duration}))
+                var ret = response.rows.map((item) => {return item.elements[0].duration})
+                ret = ret.sort((a, b) => {
+                    return a.value - b.value
+                })
+                // console.log('ret:', ret)
+                // console.log('NONO')
+                resolve(ret)
+            })
+        })
+    }
 
+    async gDTA(from, toAll){
+        return new Promise((resolve, reject) => {
+            const DBPromises = new Array(toAll.length)
+
+            for (var i = 0; i < toAll.length; i++){
+                const e = i
+                DBPromises[e] = this.distanceBetween(from, toAll[i])
+            }
+
+            Promise.all(DBPromises).then((values) => {
+                resolve(values)
+            })
         })
     }
 
@@ -105,8 +130,8 @@ class Routing extends React.Component {
     }
 
     async getDistancesToAll(from, toAll){
-        // console.log(new Array(toAll.length).fill(from))
-        // console.log(toAll)
+        // console.log('FROM CHANGE:', new Array(toAll.length).fill(from))
+        // console.log('TO ALL:', toAll)
         return new Promise((resolve, reject) => {
             this.state.distanceMatrix.getDistanceMatrix({
                 origins: new Array(toAll.length).fill(from),
@@ -115,10 +140,13 @@ class Routing extends React.Component {
             }, (response, status) => {
                 // console.log('Distance Matrix Response: ', response.rows[0].elements)
                 // console.log('Distance Matrix Status: ', status)
-                console.log('results:', response.rows.map((item) => {return item.elements[0].duration}))
-                resolve(response.rows.map((item) => {return item.elements[0].duration})/*.sorted((first, second) => {
-                return first.value - second.value
-                })*/)
+                // console.log('results:', response.rows.map((item) => {return item.elements[0].duration}))
+                var ret = response.rows.map((item) => {return item.elements[0].duration})
+                ret = ret.sort((a, b) => {
+                    return a.value - b.value
+                })
+                // console.log('ret:', ret)
+                resolve(ret)
             })
         })
     }
@@ -150,23 +178,97 @@ class Routing extends React.Component {
 
             for (var i = 0; i < drivers.length; i++){
                 const e = i
-                console.log('index: ', e)
-                console.log('drivers: ', drivers[e].address)
-                console.log('nondrivers: ', nondrivers.map((item) => {return item.address}))
-                ordermatrixpromises[e] = this.getDistancesToAll(drivers[e].address, nondrivers.map((item) => {return item.address}))
+                // console.log('index: ', e)
+                // console.log('drivers: ', drivers[e].address)
+                // console.log('nondrivers: ', nondrivers.map((item) => {return item.address}))
+                ordermatrixpromises[e] = this.gDTA(drivers[e].address, nondrivers.map((item) => {return item.address}))
             }
 
             Promise.all(ordermatrixpromises).then((values) => {
+                // console.log('OUTPUT:', values)
                 resolve(values)
             })
         })
     }
 
-    getOrderedPickUpSequence(orderingmatrix){
-        // const sorted_matrix = new Array(orderingmatrix.length).fill([])
-        // for (var i = 0; i < orderingmatrix.length; i++){
-        //     sorted_matrix[i] = orderingmatrix[i].sort((first, second) => { return first.value - second.value })
+    getOrderedPickUpSequence(nondrivers, orderingmatrix){
+        const sorted_matrix = new Array(orderingmatrix.length).fill()
+        const current_indices = new Array(orderingmatrix.length).fill(0)
+        const retMatrix = new Array(orderingmatrix.length).fill()
+        const indexOfMin = new Map()
+
+        for (var j = 0; j < orderingmatrix.length; j++){
+            sorted_matrix[j] = []
+            retMatrix[j] = []
+            for (var e = 0; e < orderingmatrix[j].length; e++){
+                sorted_matrix[j].push({time: orderingmatrix[j][e], person: nondrivers[e]})
+            }
+        }
+
+        for (var i = 0; i < orderingmatrix.length; i++){
+            sorted_matrix[i] = sorted_matrix[i].sort((first, second) => { return first.time[0].value - second.time[0].value })
+        }
+
+        for (var p = 0; p < sorted_matrix[0].length; p++){
+            indexOfMin.set(sorted_matrix[0][p].person.name, -1)
+        }
+
+        // console.log('sortedMatrix: ', sorted_matrix)
+
+        // for (var x = 0; x < sorted_matrix.length; x++){
+        //     for (var y = 0; y < sorted_matrix[x].length; y++){
+        //         console.log('x:', x, 'y:', y, 'val:', sorted_matrix[x][y].time[0].value)
+        //     }
         // }
+
+        // console.log('current_indices: ', current_indices)
+
+        // console.log('ordering matrix: ', orderingmatrix)
+
+        // console.log('indexOfMin: ', indexOfMin)
+
+        // console.log('retMatrix:', retMatrix)
+
+        function allDone(){
+            for (var i = 0; i < sorted_matrix.length; i++){
+                if (current_indices[i] < sorted_matrix[i].length){
+                    return false
+                }
+            }
+            return true
+        }
+
+        var seen = new Set()
+
+        while (!allDone() && seen.size < nondrivers.length){
+            for (var k = 0; k < current_indices.length; k++){
+                if (current_indices[k] < sorted_matrix[k].length){
+                    if (!seen.has(sorted_matrix[k][current_indices[k]].person.name)){
+                        if (indexOfMin.get(sorted_matrix[k][current_indices[k]].person.name) === -1){
+                            indexOfMin.set(sorted_matrix[k][current_indices[k]].person.name, k)
+                        } else {
+                            const oldindex = indexOfMin.get(sorted_matrix[k][current_indices[k]].person.name)
+                            if (sorted_matrix[k][current_indices[k]].value < sorted_matrix[oldindex][current_indices[oldindex]].value){
+                                indexOfMin.set(sorted_matrix[k][current_indices[k]].person.name, k)
+                            }
+                        }
+                    }else{
+                        current_indices[k]++
+                    }
+                }
+            }
+
+            for (const key of indexOfMin.keys()){
+                const index = indexOfMin.get(key)
+                if (index !== -1){
+                    retMatrix[index].push(sorted_matrix[index][current_indices[index]])
+                    indexOfMin.set(key, -1)
+                    seen.add(sorted_matrix[index][current_indices[index]].person.name)
+                }
+            }
+        }
+
+        return retMatrix
 
     }
 
@@ -182,12 +284,7 @@ class Routing extends React.Component {
             console.log('nondrivers:', nondrivers)
             this.getOrderingMatrix(drivers, nondrivers).then((result) => {
                 var matrix = result
-
-                console.log('matrix:', matrix)
-
-                this.getOrderedPickUpSequence(matrix)
-
-                this.updateMap(index)
+                this.updateMap(index, drivers, nondrivers, this.getOrderedPickUpSequence(nondrivers, matrix))
             })
         }
     }
