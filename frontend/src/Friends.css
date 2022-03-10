@@ -58,7 +58,9 @@
     text-align: center;
     font-size: 15px;
     color: white;
-    font-family: 'Nunito Sans';
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.25px;
     font-style: italic;
     background-color: #6495ed;
 }
@@ -119,9 +121,9 @@
     background-color: #6495ed;
     color: white;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: .25px;
     margin-left: 10px;
-    border-color: #6495ed;
+    border-color: #6e85ad;
 }
 
 .close {
@@ -169,18 +171,18 @@
     margin-top: 30px;
     width: 50%;
     height: 30%;
-    font-size: 17px;
+    font-size: 15px;
+    font-style: italic;
     border-radius: 10px;
-    border-color: #0d6efd;
 }
 
 .removefriend-content button{
     background-color: #6495ed;
     color: white;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.25px;
     margin-left: 10px;
-    border-color: #6495ed;
+    border-color: #6e85ad;
 }
 
 .close1 {

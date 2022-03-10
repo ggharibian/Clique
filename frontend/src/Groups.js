@@ -234,7 +234,7 @@ function addGroupCard(group) {
             <h4>Clique ID: ${group.gid}</h4>
             <p>there are ${group.people.length} people in this friend group and ${group.Events.length} upcoming events with them</p>
             <a href="../calendar" class="btn btn-outline-primary btn-sm">
-            see events for ${group.name}
+            See events for ${group.name}
             </a>
             </div>
         </div>
