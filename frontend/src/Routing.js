@@ -105,8 +105,8 @@ class Routing extends React.Component {
     }
 
     async getDistancesToAll(from, toAll){
-        console.log(new Array(toAll.length).fill(from))
-        console.log(toAll)
+        // console.log(new Array(toAll.length).fill(from))
+        // console.log(toAll)
         return new Promise((resolve, reject) => {
             this.state.distanceMatrix.getDistanceMatrix({
                 origins: new Array(toAll.length).fill(from),
@@ -116,7 +116,9 @@ class Routing extends React.Component {
                 // console.log('Distance Matrix Response: ', response.rows[0].elements)
                 // console.log('Distance Matrix Status: ', status)
                 console.log('results:', response.rows.map((item) => {return item.elements[0].duration}))
-                resolve(response.rows.map((item) => {return item.elements[0].duration}))
+                resolve(response.rows.map((item) => {return item.elements[0].duration})/*.sorted((first, second) => {
+                return first.value - second.value
+                })*/)
             })
         })
     }
@@ -148,6 +150,9 @@ class Routing extends React.Component {
 
             for (var i = 0; i < drivers.length; i++){
                 const e = i
+                console.log('index: ', e)
+                console.log('drivers: ', drivers[e].address)
+                console.log('nondrivers: ', nondrivers.map((item) => {return item.address}))
                 ordermatrixpromises[e] = this.getDistancesToAll(drivers[e].address, nondrivers.map((item) => {return item.address}))
             }
 
@@ -155,6 +160,14 @@ class Routing extends React.Component {
                 resolve(values)
             })
         })
+    }
+
+    getOrderedPickUpSequence(orderingmatrix){
+        // const sorted_matrix = new Array(orderingmatrix.length).fill([])
+        // for (var i = 0; i < orderingmatrix.length; i++){
+        //     sorted_matrix[i] = orderingmatrix[i].sort((first, second) => { return first.value - second.value })
+        // }
+
     }
 
     async updateEventIndex(index){
@@ -165,9 +178,15 @@ class Routing extends React.Component {
                     // this.getDistancesToAll('10001 Lanark St. Sun Valley', ['330 De Neve Dr.', '8447 Yarrow St. Rosemead'])
             const drivers = this.getAllDrivers(index)
             const nondrivers = this.state.events[index][0].filter( (item) => {return (!drivers.includes(item))} )
+            console.log('drivers:', drivers)
+            console.log('nondrivers:', nondrivers)
             this.getOrderingMatrix(drivers, nondrivers).then((result) => {
                 var matrix = result
-                console.log('Matrix: ', matrix)
+
+                console.log('matrix:', matrix)
+
+                this.getOrderedPickUpSequence(matrix)
+
                 this.updateMap(index)
             })
         }
@@ -209,6 +228,8 @@ class Routing extends React.Component {
                     .catch((e) => {
                     console.log("Geocode was not successful for the following reason: " + e);
                     });
+
+
                 }
 
                 
@@ -234,15 +255,12 @@ class Routing extends React.Component {
         const gids = userinfo.groups
         var events = []
 
-        console.log('gids: ', gids)
-
         for (var i = 0; i < gids.length; i++){
             const gQuery = query(collection(db, "groups"), where("gid", "==", gids[i]))
             const getGroupDoc = await getDocs(gQuery)
             if (getGroupDoc.docs.length){
                 var pids = getGroupDoc.docs[0].data().people
                 var people = []
-                console.log('pids: ', pids)
 
                 for (var e = 0; e < pids.length; e++){
                     const pQuery = query(collection(db, "users"), where("uid", "==", pids[e]))
@@ -252,9 +270,7 @@ class Routing extends React.Component {
                     }
                 }
 
-
                 var eids = getGroupDoc.docs[0].data().Events
-                console.log('eids: ', eids)
                 for (e = 0; e < eids.length; e++){
                     const eQuery = query(collection(db, "events"), where("eid", "==", eids[e]))
                     const getEventDoc = await getDocs(eQuery)
@@ -292,10 +308,10 @@ class Routing extends React.Component {
                     <Card style={{width: "40%", height: /*"41.75%"*/ "85%", position: 'absolute', top: '100px', left: '55%'}}>
                         <Card.Body style={{overflow: "scroll"}}>
                             <div className="cal_regtext">Events</div>
-                            <Accordion defaultActiveKey="3">
+                            <Accordion>
                                 {/* <Modal> */}
                                 { this.state.events.map((item, index) => {
-                                    return <Accordion.Item>
+                                    return <Accordion.Item eventKey={index}>
                                         <Accordion.Header className={"Item " + String(index)}>
                                             {item[1].EventName}
                                         </Accordion.Header>
@@ -326,7 +342,7 @@ class Routing extends React.Component {
                                                         </ul>
                                                     </li>
                                                 </l> */}
-                                            <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={async () => { await this.updateEventIndex(index).then(()=>{console.log('yay we did it')}, () => {console.log('oh no')}) }}>
+                                            <Button style={{width: "100%", paddingTop: "10px"}} variant="primary" size="lg" onClick={async () => { await this.updateEventIndex(index).then(()=>{}, () => {console.log('oh no')}) }}>
                                                 View Your Pickup Route.
                                             </Button>
 
