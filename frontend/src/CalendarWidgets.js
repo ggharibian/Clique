@@ -126,6 +126,7 @@ function addNewCalendarEvent(group, startTime, endTime, title, descrip, address)
 
         console.log("Added to Event List!")
         // Create new Event and add information! 
+        
         await addDoc(collection(db, "events"), {
           EndTime: endUTF,
           EventDescription: descrip,
