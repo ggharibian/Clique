@@ -20,6 +20,26 @@ import pickUp from "./components/pickUp";
 //         onSnapshot(collection(this.state.db, 'users'), () => {});
 //     });
 // }
+function displayRoute(origin, destination, service, display) {
+    service
+      .route({
+        origin: origin,
+        destination: destination,
+        waypoints: [
+          { location: "Adelaide, SA" },
+          { location: "Broken Hill, NSW" },
+        ],
+        travelMode: window.google.maps.TravelMode.DRIVING,
+        avoidTolls: true,
+      })
+      .then((result) => {
+        display.setDirections(result);
+      })
+      .catch((e) => {
+        alert("Could not display directions due to: " + e);
+      });
+  }
+
 class Routing extends React.Component {
 
     constructor(props){
@@ -27,6 +47,7 @@ class Routing extends React.Component {
         this.onScriptLoad = this.onScriptLoad.bind(this)
 
         this.state = {
+            directionsRenderer: null,
             map: <MyMap id="myMap" options={{ zoom: 12 }}
             onMapLoad = {map => {
                 this.getAllMarkers(map)
@@ -43,8 +64,14 @@ class Routing extends React.Component {
                       () => {
                       }
                     );
-                  }
+                }
+                this.state.directionsRenderer = new window.google.maps.DirectionsRenderer({
+                    draggable: true,
+                    map,
+                    panel: document.getElementById("myMap"),
+                })
             }}/>,
+            directionsService: new window.google.maps.DirectionsService(),
             geocoder: new window.google.maps.Geocoder(),
             distanceMatrix: new window.google.maps.DistanceMatrixService(),
             events: [],
@@ -282,6 +309,15 @@ class Routing extends React.Component {
             this.setState({
                 currentEventIndex: index
             })
+          
+            this.markNewPeople(index)
+            this.routeChange(index)
+            displayRoute(
+                "Perth, WA",
+                "Sydney, NSW",
+                this.state.directionsService,
+                this.state.directionsRenderer
+            );
 
             function getRowOfItem(matrix, currentUserUID){
                 for (var i = 0; i < matrix.length; i++){
