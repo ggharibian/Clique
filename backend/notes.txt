@@ -1,5 +1,0 @@
-Still deciding among multiple backend options! 
-
-- TigerGraph's GSQL 
-- PostgreSQL
-- Firebase
