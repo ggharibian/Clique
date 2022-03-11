@@ -79,7 +79,9 @@ function createEventAccordion(event, i) {
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const date = new Date(event.StartTime); 
-  const header = months[date.getMonth()] + " " + date.getDay() + ", " + date.getFullYear() + " - " + event.EventName; 
+  var day = date.getUTCDate() - 1; 
+
+  const header = months[date.getMonth()] + " " + day + ", " + date.getFullYear() + " - " + event.EventName; 
   return(
     <Accordion.Item eventKey={i} className="past">
       <Accordion.Header>{header}</Accordion.Header>
