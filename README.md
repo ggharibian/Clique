@@ -13,15 +13,21 @@ especially in terms of planning where and when to meet.
 
 ## Features + Functions
 
-> TODO: INSERT SCREENSHOTS HERE
-> (1) SIGN-IN
-> (2) REGISTRATION
-> (3) ADD FRIENDS, VIEW FRIENDS
-> (4) CREATE A CLIQUE & JOIN A CLIQUE
-> (5) CALENDAR - CREATE EVENT
-> (6) ROUTING - PINS, PICKUP
+Login and Registration Page: 
 
-![HomePage](./auxmedia/login-demo.gif)
+![Login](./auxmedia/reg-demo.gif)
+
+Friends and Cliques Page: 
+
+![Join](./auxmedia/join-demo.gif)
+
+Calendar and Scheduling Page: 
+
+![Cal](./auxmedia/cal-demo.gif)
+
+Maps and Routing Page: 
+
+![Map](./auxmedia/map-demo.gif)
 
 &nbsp;&nbsp;
 
