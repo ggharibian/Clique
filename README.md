@@ -40,6 +40,8 @@ First, clone this repository with the following command:
 
 `git clone https://github.com/ggharibian/Clique`
 
+'cd Clique` where Clique is the folder git cloned into
+
 From here, we can run:
 
 `npm install`
