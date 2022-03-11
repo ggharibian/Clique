@@ -1,4 +1,4 @@
-# Clique - CS 35L Winter '22
+# Clique
 
 Clique is an application meant to enhance the experience of social circles.
 Its current implementation contains the following features:
