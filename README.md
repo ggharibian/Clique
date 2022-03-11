@@ -14,12 +14,12 @@ especially in terms of planning where and when to meet.
 ## Features + Functions
 
 > TODO: INSERT SCREENSHOTS HERE
-> SIGN-IN
-> REGISTRATION
-> ADD FRIENDS, VIEW FRIENDS
-> CREATE A CLIQUE & JOIN A CLIQUE
-> CALENDAR - CREATE EVENT
-> ROUTING - PINS, PICKUP
+> (1) SIGN-IN
+> (2) REGISTRATION
+> (3) ADD FRIENDS, VIEW FRIENDS
+> (4) CREATE A CLIQUE & JOIN A CLIQUE
+> (5) CALENDAR - CREATE EVENT
+> (6) ROUTING - PINS, PICKUP
 
 ![HomePage](./auxmedia/login-demo.gif)
 
