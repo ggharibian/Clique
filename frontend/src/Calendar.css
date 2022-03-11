@@ -21,6 +21,12 @@
   color: #6495ed;
 }
 
+.jumbo_centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .sched_but Button{
   font-weight: 600;
   font-family: 'Nunito Sans', sans-serif;

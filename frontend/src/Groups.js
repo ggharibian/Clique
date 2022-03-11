@@ -226,6 +226,7 @@ function callLeaveGroup() {
 // Create card for each group user is in
 function addGroupCard(group) {
     var flexbox = document.getElementById("flexbox");
+    var url = "../calendar/" + group.gid;
     flexbox.innerHTML += `
     <div class="col-lg-4 mb-3">
         <div class="groupTextContainer">
@@ -233,7 +234,7 @@ function addGroupCard(group) {
             <h3>Clique Name: ${group.name}</h3>
             <h4>Clique ID: ${group.gid}</h4>
             <p>there are ${group.people.length} people in this friend group and ${group.Events.length} upcoming events with them</p>
-            <a href="../calendar" class="btn btn-outline-primary btn-sm">
+            <a href=${url} class="btn btn-outline-primary btn-sm">
             See events for ${group.name}
             </a>
             </div>

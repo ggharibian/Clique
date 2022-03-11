@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Navbar from "./components/navbar";
+import Button from 'react-bootstrap/Button'; 
 
 import {miscStatistics,ChooseMeetingTImes,getScheduledMeetings} from "./CalendarWidgets";
 import calendarGoogle from "./CalendarGoogle";
@@ -37,7 +38,7 @@ import checkPage from "./CheckPage";
 
 // Returns: [group, name, user, avg, total, events, members, calendarIDs]
 
-function GetIDs() {
+function GetIDs(id) {
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const [group, setGroup] = useState("");
@@ -94,7 +95,7 @@ function GetIDs() {
       setName(data.name);
       setGroup(data.groups); 
 
-      const currGroup = String(data.groups[0]);
+      const currGroup = String(id);
 
       try {
         const q = query(collection(db, "groups"), where("gid", "==", currGroup));
@@ -137,7 +138,7 @@ function GetIDs() {
 
         } catch (err) {
           console.error(err);
-          alert("CALENDAR: An error occured while fetching calendar data");
+          //alert("CALENDAR: An error occured while fetching calendar data");
         }
 
         try {
@@ -151,18 +152,18 @@ function GetIDs() {
           }
         } catch (err) {
           console.error(err);
-          alert("EVENTS: An error occured while fetching event data");
+          //alert("EVENTS: An error occured while fetching event data");
         }
 
         
 
       } catch (err) {
         console.error(err);
-        alert("GROUP: An error occured while fetching group data");
+        //alert("GROUP: An error occured while fetching group data");
       }
     } catch (err) {
       console.error(err);
-      alert("USER: An error occured while fetching user data");
+      //alert("USER: An error occured while fetching user data");
     }
   };
 
@@ -176,54 +177,40 @@ function GetIDs() {
   return [group, name, user, avg, total, events, members, memberNames, calendarIDs, eventDescs]; 
 }
 
-// Test function that outputs given information: 
-
-function HTMLdiv(group, name, user, members, events, avg, total, calendarIDs) {
-
-  //console.log(calendarIDs); 
-
-  return(
-    <div>
-      <Row> 
-        <Col><p> Hello {group} {name} {user?.id} {members} {events} {avg} {total} Blop {calendarIDs} Pops </p></Col>
-      </Row>
-    </div>
-  );
-}
-
-
-function getNextEvents() {
-  return;
-}
-
-function getPastEvents() {
-  return;
-}
-
-function getStatistics() {
-  return;
-}
-
-function createDivNextEvents() {
-  return;
-}
-
-function createDivPastEvents() {
-  return;
-}
-
-function createDivStatistics() {
-
-}
-
 
 function Calendar() {
 
-  var [group, name, user, avg, total, events, members, memberNames, calendarIDs, eventDescs] = GetIDs(); 
+  var path = window.location.pathname; 
+  console.log(path); 
+
+  var id = path.substring(10); 
+  console.log(id); 
+
+  if (id == "-1")
+  {
+    return (
+      <div>
+        <Navbar/>
+        <div class="jumbotron jumbo_centered calendar">
+          <br /> 
+          <br /> 
+          <h1 class="display-4">This page is directly inaccessible.</h1>
+          <p class="lead">Sorry! You need to join or create a Clique in order to view and schedule events.</p>
+          <p class="lead">Once you've done so, click on "View Events" to be redirected to your Clique's events.</p>
+          <hr class="my-4"/>  
+          <p>Kindly return to the "Profile" or "Cliques" page in order to view your Cliques.</p>
+        </div>
+        </div>
+    );
+  }
+
+  var [group, name, user, avg, total, events, members, memberNames, calendarIDs, eventDescs] = GetIDs(id); 
   var colorsList = ["#0198E1", "#3F9E4D", "#4B0082", "#55141C", "#8B0000", "#8B6508", "#8FD8D8", "#A2627A", "#C2C2C2", "#CD7F32"];
   var colorCalMapping = {}; 
   var colorMemMapping = {}; 
   var memberNameMapping = {}; 
+
+  console.log("Made it to retrieve info");
 
   for (var i = 0; i < members.length; i++)
   {
@@ -253,7 +240,7 @@ function Calendar() {
 
             <Col>
               <Card border="info" className="cal_scheduleCard">
-                  {ChooseMeetingTImes(group)}
+                  {ChooseMeetingTImes(id, group)}
               </Card>
 
               <Card border="info" className="cal_meetingCard scroll">

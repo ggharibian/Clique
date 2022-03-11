@@ -56,7 +56,7 @@ function App() {
          <Route exact path="/dashboard" element={<Dashboard />} />
          <Route exact path="/profile" element={<Profile />} />
          <Route exact path="/mycliques" element={<Groups />} />
-         <Route exact path="/calendar" element={<Calendar />} />
+         <Route path="/calendar/:id" element={<Calendar/>} />
          <Route exact path="/routing" element={<Routing />} />
          <Route exact path="/friends" element={<Friends />} />
          <Route exact path="/registration" element={<Registration />} />

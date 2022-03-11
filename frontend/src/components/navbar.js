@@ -23,7 +23,7 @@ function Navbar() {
            </div>
            <li class="navlink"><a href="../profile">Profile</a></li>
            <li class="navlink"><a href="../mycliques">Cliques</a></li>
-           <li class="navlink"><a href="../calendar">Calendar</a></li>
+           <li class="navlink"><a href="../calendar/-1">Calendar</a></li>
            <li class="navlink"><a href="../routing">Routing</a></li>
        </nav>
    );

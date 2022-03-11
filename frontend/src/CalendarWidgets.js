@@ -26,7 +26,7 @@ import { query, collection, getDocs, where, doc, updateDoc, arrayUnion, arrayRem
 
 function getScheduledMeetings(eventDescs) {
 
-  //console.log(eventDescs); 
+  console.log(eventDescs); 
 
   if (!eventDescs)
   {
@@ -55,8 +55,10 @@ function getScheduledMeetings(eventDescs) {
     if (eventDate > today) { nextEvents.push(accordion); }
     else { pastEvents.push(accordion); }
 
-    //console.log(i); 
+    console.log(i); 
   }
+
+  console.log("Creating new events"); 
 
     return (
       <div>
@@ -90,7 +92,7 @@ function createEventAccordion(event, i) {
   ); 
 }
 
-function addNewCalendarEvent(group, startTime, endTime, title, descrip, address) {
+function addNewCalendarEvent(groupID, group, startTime, endTime, title, descrip, address) {
   const id = String(Math.floor(Math.random() * 1000000));
   console.log(id); 
   console.log(title); 
@@ -105,15 +107,8 @@ function addNewCalendarEvent(group, startTime, endTime, title, descrip, address)
   const createGroupEvent = async() => {
     try {
         // Add Event id to Group's Event List 
-        const currGroup = String(group[0]);
+        const currGroup = String(groupID);
         console.log(currGroup); 
-
-        // const q = query(collection(db, "groups"), where("gid", "==", currGroup));
-        // const docRead = await getDocs(q);
-        // console.log("Read Doc")
-        // var userDoc = docRead.docs[0]; 
-        // console.log("Found document")
-        //const userDoc = doc(db, "groups"), where("gid", "==", currGroup));
 
         const currentUserQuery = query(collection(db, "groups"), where("gid", "==", currGroup));
         const getUserDoc = await getDocs(currentUserQuery);
@@ -138,14 +133,14 @@ function addNewCalendarEvent(group, startTime, endTime, title, descrip, address)
         });
 
     } catch (err) {
-        alert("CREATE EVENT: Error writing new event to Firebase")
+        //alert("CREATE EVENT: Error writing new event to Firebase")
         console.error(err);
     }
   };
   createGroupEvent();
 }
 
-function ChooseMeetingTImes(group) {
+function ChooseMeetingTImes(groupID, group) {
   const [startTime, changeStart] = useState(new Date());
   const [endTime, changeEnd] = useState(new Date());
   const [descrip, setDescrip] = useState("");
@@ -197,7 +192,7 @@ function ChooseMeetingTImes(group) {
     else 
     {
       // Means we can log the data / create a new Firebase event! 
-      addNewCalendarEvent(group, startTime, endTime, title, descrip, address); 
+      addNewCalendarEvent(groupID, group, startTime, endTime, title, descrip, address); 
       changeStart(new Date()); 
       changeEnd(new Date()); 
       setTitle("")
@@ -333,33 +328,6 @@ function miscStatistics(avg, total, events, members, colorMemMapping, memberName
       </Row>
     );
 }
-
-  function miscStatistics_expanded () {
-    return (
-      <Row className="cal_row" class="h-20" >
-        <Col sm={2}>
-          <div className="cal_bottomtext"> Memories & Metrics: </div>
-        </Col>
-        <Col sm={4}>
-        <ListGroup>
-          <ListGroup.Item>Total Hours Spent: 243</ListGroup.Item>
-          <ListGroup.Item>Average Hrs/Week: 2.64</ListGroup.Item>
-          <ListGroup.Item>Clique Ranking: 1205th</ListGroup.Item>
-        </ListGroup>
-        </Col>
-        <Col sm={2}>
-          <div className="cal_bottomtext"> Surprising Statistics: </div>
-        </Col>
-        <Col sm={4}>
-        <ListGroup>
-          <ListGroup.Item>Always Busy: Garni</ListGroup.Item>
-          <ListGroup.Item>Always Free: Stephanie</ListGroup.Item>
-          <ListGroup.Item>Most Hyped: Selina</ListGroup.Item>
-        </ListGroup>
-        </Col>
-      </Row>
-    );
-  }
 
   export {
     miscStatistics,
