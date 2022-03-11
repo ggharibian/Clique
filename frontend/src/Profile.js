@@ -13,12 +13,28 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import checkPage from "./CheckPage";
 
+function profileCollapsible() {
+    var content = document.getElementById("profileContent");
+    if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+    } else {
+    content.style.maxHeight = content.scrollHeight + "px";
+    }
+}
+
 function Profile() {
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [license, setLicense] = useState("");
+    const [car, setCar] = useState("");
+    const [food, setFood] = useState("");
+    const [place, setPlace] = useState("");
+    const [song, setSong] = useState("");
+    const [movie, setMovie] = useState("");
+    const [book, setBook] = useState("");
     const navigate = useNavigate();
   
     const fetchUserName = async () => {
@@ -31,6 +47,14 @@ function Profile() {
         setEmail(data.email);
         setAddress(data.address);
         setPhone(data.phone);
+        setLicense(data.license);
+        setCar(data.car);
+        setFood(data.food);
+        setPlace(data.place);
+        setSong(data.song);
+        setMovie(data.movie);
+        setBook(data.book);
+
       } catch (err) {
         console.error(err);
         // FIX: This alert message shows up regardless of successful fetch.
@@ -65,6 +89,18 @@ function Profile() {
                         <span className="user-info-subtitle">My phone is:</span> {phone} <br />
                         <span className="user-info-subtitle">My address is:</span> {address}<br />
                     </text>
+                </div>
+                
+                <button class="collapsible" onClick={profileCollapsible}> My Profile </button>
+                <div class="collapseContent" id="profileContent">
+                    License: {license}<br />
+                    Car: {car}<br />
+                    My favorites:<br />
+                    Food: {food}<br />
+                    Place: {place}<br />
+                    Song: {song}<br />
+                    Movie: {movie}<br />
+                    Book: {book}<br />
                 </div>
 
                 <br />
