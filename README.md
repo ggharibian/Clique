@@ -1,6 +1,7 @@
 # Clique
 
 Clique is an application meant to enhance the experience of social circles.
+
 Its current implementation contains the following features:
 
 * Profile - Create a profile and add/modify address, driving preferences, and availability
