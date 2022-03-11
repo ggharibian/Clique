@@ -438,7 +438,9 @@ class Routing extends React.Component {
                 for (e = 0; e < eids.length; e++){
                     const eQuery = query(collection(db, "events"), where("eid", "==", eids[e]))
                     const getEventDoc = await getDocs(eQuery)
-                    events.push([people, getEventDoc.docs[0].data()])
+                    if (getEventDoc.docs.length) {
+                        events.push([people, getEventDoc.docs[0].data()])
+                    }
                 }
             }
         }
