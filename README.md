@@ -44,9 +44,9 @@ Now, open [http://localhost:3000](http://localhost:3000), or whichever local hos
 
 ## Further Resources
 
-Project Proposal: https://docs.google.com/document/d/1K-f6SdqdyJ3yzxbiAFyreZ2cZy3pWdi0vsIUpSTLwv8/edit?usp=sharing
+[Project Proposal](https://docs.google.com/document/d/1K-f6SdqdyJ3yzxbiAFyreZ2cZy3pWdi0vsIUpSTLwv8/edit?usp=sharing)
 
-Project Slides: https://docs.google.com/presentation/d/1ZA4glt8DjXkK76I6f4x71AkWuDspXHnTVAT1rjyctOA/edit?usp=sharing
+[Project Slides](https://docs.google.com/presentation/d/1ZA4glt8DjXkK76I6f4x71AkWuDspXHnTVAT1rjyctOA/edit?usp=sharing)
 
 &nbsp;&nbsp;
 
