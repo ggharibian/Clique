@@ -4,7 +4,7 @@ Clique is an application meant to enhance the experience of social circles.
 Its current implementation contains the following features:
 
 * Profile - Create a profile and add/modify address, driving preferences, and availability
-* Friends & Cliques - Add friends and create/join a Clique (friend group)
+* Friends & Cliques - Add/remove friends and create/join/leave a Clique (friend group)
 * Routing - Multiple addresses, driving/time constraints, indicate who a user will pick up or be picked up by, etc.
 * Calendar - Automatic import from Google Calendar, priority lists, etc.
 
@@ -14,6 +14,12 @@ especially in terms of planning where and when to meet.
 ## Features + Functions
 
 > TODO: INSERT SCREENSHOTS HERE
+> SIGN-IN
+> REGISTRATION
+> ADD FRIENDS, VIEW FRIENDS
+> CREATE A CLIQUE & JOIN A CLIQUE
+> CALENDAR - CREATE EVENT
+> ROUTING - PINS, PICKUP
 
 ![HomePage](./auxmedia/login-demo.gif)
 
@@ -26,10 +32,6 @@ Please ensure that location services are turned on and that you allow the local 
 First, clone this repository with the following command:
 
 `git clone https://github.com/ggharibian/Clique`
-
-Then, `cd` into the frontend in order to start it up:
-
-`cd frontend`
 
 From here, we can run:
 
@@ -75,7 +77,5 @@ Raj, Shanjai. “Build a Contact Form Using React and Firebase - YouTube.” You
 Raj, Shanjai. “React-Contact-Form/Contact.js at Master · Shanjairaj7/React-Contact-Form.” GitHub, 3 Aug. 2020, https://github.com/shanjairaj7/React-contact-form/blob/master/src/components/Contact.js. 
 
 Thornton, Jacob, and Mark Otto. “Forms.” Bootstrap, https://getbootstrap.com/docs/4.0/components/forms/#readonly-plain-text. 
-
-> TODO: ADD ANY OTHER RESOURCES
 
 &nbsp;&nbsp;
