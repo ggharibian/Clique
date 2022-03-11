@@ -90,17 +90,23 @@ function Profile() {
                         <span className="user-info-subtitle">My address is:</span> {address}<br />
                     </text>
                 </div>
+
+                <br />
                 
-                <button class="collapsible" onClick={profileCollapsible}> My Profile </button>
+                <button class="collapsible" onClick={profileCollapsible}> My Facts (click to show) </button>
                 <div class="collapseContent" id="profileContent">
+                    <br />
+                    <h5>Driving</h5>
                     License: {license}<br />
                     Car: {car}<br />
-                    My favorites:<br />
+                    <br />
+                    <h5>My favorites</h5>
                     Food: {food}<br />
                     Place: {place}<br />
                     Song: {song}<br />
                     Movie: {movie}<br />
                     Book: {book}<br />
+                    <br />
                 </div>
 
                 <br />
