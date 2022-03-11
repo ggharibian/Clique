@@ -320,13 +320,17 @@ class Routing extends React.Component {
                     })
                 } else {
                     const peopletobepickedup = pickupSequences[getDriverNumber(drivers, this.state.user.uid)]
-                    console.log(peopletobepickedup)
-                    console.log(peopletobepickedup[peopletobepickedup.length - 1].person.name)
-                    this.setState({
-                        message: 'You will need to pick up the following members of the event in the following order (to optimize your route!): ' + peopletobepickedup.slice(0, peopletobepickedup.length - 1).map((value) => {
-                            return value.person.name + ', '
-                        }) + peopletobepickedup[peopletobepickedup.length - 1].person.name
-                    })
+                    if (!peopletobepickedup.length){
+                        this.setState({
+                            message: 'Looks like nobody needs to be picked up. Go to the destination!'
+                        })
+                    } else {
+                        this.setState({
+                            message: 'You will need to pick up the following members of the event in the following order (to optimize your route!): ' + peopletobepickedup.slice(0, peopletobepickedup.length - 1).map((value) => {
+                                return value.person.name + ', '
+                            }) + peopletobepickedup[peopletobepickedup.length - 1].person.name
+                        })
+                    }
                 }
 
                 this.updateMap(index, drivers, nondrivers, pickupSequences)
