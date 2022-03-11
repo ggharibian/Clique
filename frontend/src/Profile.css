@@ -94,36 +94,43 @@
 }
 
 .collapsible {
-    background-color: #eee;
-    color: #444;
+    background-color: #558aec;
     cursor: pointer;
     padding: 18px;
-    width: 100%;
+    width: 525px;
     border: none;
-    text-align: left;
+    text-align: center;
     outline: none;
     font-size: 15px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    border-radius: 8px;
+    color: white;
+    letter-spacing: 0.50px;
 }
 
 .active, .collapsible:hover {
-    background-color: #ccc;
+    background-color: rgb(164, 219, 178);
   }
 
   /* Style the collapsible content. Note: hidden by default */
 .collapseContent {
-    padding: 0 18px;
+    padding: 0px;
     background-color: white;
     max-height: 0;
-    overflow: hidden;
+    width: 510px;
+    /* overflow: hidden; */
     transition: max-height 0.2s ease-out;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.25px;
+    overflow: auto;
+    text-align: center;
   }
 
-/* 
-@media screen and (min-height:400px) and (min-width:1000px){
-    .myProfile {
-        height: 100vh;
-    }
-} */
+.collapseContent h5{
+    font-weight: 600;
+}
 
 @media screen and (min-height:840px) {
     .myProfile {
@@ -136,25 +143,6 @@
         padding-top: 33vh;
     }
 }
-
-/*
-@media screen and (min-height:840px) and (max-width:915px) {
-    .myProfile {
-        height: 100%;
-    }
-} */
-
-/* @media screen and (max-height:600px) and (min-width:300px){
-    .myProfile {
-        height: 100%;
-    }
-} */
-/* 
-@media screen and (min-height:300px) and (min-width:300px) and (max-height:400px){
-    .myProfile {
-        height: 100%;
-    }
-} */
 
 .burger {
     display: none;
