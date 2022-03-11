@@ -1,11 +1,11 @@
 # Clique - CS 35L Winter '22
 
 Clique is an application meant to enhance the experience of social circles.
-It's current implementation contains the following features:
+Its current implementation contains the following features:
 
 * Profile - Create a profile and add/modify address, driving preferences, and availability
 * Friends & Cliques - Add friends and create/join a Clique (friend group)
-* Routing - Multiple addresses, driving/time constraints, etc.
+* Routing - Multiple addresses, driving/time constraints, indicate who a user will pick up or be picked up by, etc.
 * Calendar - Automatic import from Google Calendar, priority lists, etc.
 
 Clique leverages technology to resolve the issues that many groups face,
@@ -35,30 +35,18 @@ From here, we can run:
 
 `npm install`
 
-`npm install firebase react-router-dom react-firebase-hooks`
-
-`npm install react-time-range`
-
-`npm install --save react react-dom @emotion/react`
-
-`npm install --save --legacy-peer-deps @ericz1803/react-google-calendar`
-
-`npm install react-places-autocomplete`
-
-`npm install react-datetime-picker`
-
 `npm start`
 
 Runs the app in the development mode.\
 Now, open [http://localhost:3000](http://localhost:3000), or whichever local host `npm start` directs you to, to view it in your browser.
 
-> TODO: FIGURE OUT HOW BACKEND WILL LOOK LIKE!
-
 &nbsp;&nbsp;
 
 ## Further Resources
 
-> TODO: ADD LINKS TO GOOGLE DOCS, PRES SLIDES, ETC.
+Project Proposal: https://docs.google.com/document/d/1K-f6SdqdyJ3yzxbiAFyreZ2cZy3pWdi0vsIUpSTLwv8/edit?usp=sharing
+
+Project Slides: https://docs.google.com/presentation/d/1ZA4glt8DjXkK76I6f4x71AkWuDspXHnTVAT1rjyctOA/edit?usp=sharing
 
 &nbsp;&nbsp;
 
@@ -66,15 +54,19 @@ Now, open [http://localhost:3000](http://localhost:3000), or whichever local hos
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-> TODO: ADD OTHER TECH STACKS WE'RE GONNA USE
-
 &nbsp;&nbsp;
 
 ## Bibliography
 
 “Alerts.” React-Bootstrap, https://react-bootstrap.github.io/components/alerts/#dismissing.
 
+Aliustaoglu, Cuneyt. “Using Google Maps in React without Custom Libraries.” Full Stack Developer &amp; Amateur Musician, Full Stack Developer &amp; Amateur Musician, 27 Oct. 2018, https://cuneyt.aliustaoglu.biz/en/using-google-maps-in-react-without-custom-libraries/. 
+
+“Calendar API &nbsp;|&nbsp; Google Developers.” Google, Google, https://developers.google.com/calendar/api. 
+
 Ed. “Responsive Navigation Bar Tutorial | HTML CSS JAVASCRIPT.” Youtube, 29 Aug. 2018, https://www.youtube.com/watch?v=gXkqy0b4M5g. 
+
+“Google Maps API.” Google Maps Platform &nbsp;|&nbsp; Google Developers, Google, https://developers.google.com/maps. 
 
 “How To Create a Sticky Navbar.” W3Schools, https://www.w3schools.com/howto/howto_js_navbar_sticky.asp. 
 
