@@ -99,7 +99,8 @@ function Registration () {
                 song: song,
                 movie: movie,
                 book: book,
-                address: address
+                address: address,
+                calendarID: email
             })
             .then(() => {
                 window.location = '/profile';
