@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDjrDmZt1EOMiZB14bjCwhKqjaQOJV-nl0",
+  apiKey: "keykeykeykeykeykeykey",
   authDomain: "clique-928d2.firebaseapp.com",
   projectId: "clique-928d2",
   storageBucket: "clique-928d2.appspot.com",
