@@ -37,7 +37,7 @@ function randomColor() {
 // en-gb.usa#holiday@group.v.calendar.google.com
 function calendarGoogle (calendarIDs, members, colorCalMapping){
   //listEvents();
-  const API_KEY = "AIzaSyBBXjmKJ2eYpb5W-haymBNm9N0Sfkx1wDM";
+  const API_KEY = "keykeykeykeykey";
 
   const calendars2 = [
     {calendarId: "advit.deepak@gmail.com"},
